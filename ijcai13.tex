@@ -1,0 +1,204 @@
+%%%% ijcai11.tex
+
+\typeout{IJCAI-13 Instructions for Authors}
+
+% These are the instructions for authors for IJCAI-13.
+% They are the same as the ones for IJCAI-11 with superficical wording
+%   changes only.
+
+\documentclass{article}
+% The file ijcai13.sty is the style file for IJCAI-13 (same as ijcai07.sty).
+\usepackage{ijcai13}
+
+% Use the postscript times font!
+\usepackage{times}
+
+% the following package is optional:
+%\usepackage{latexsym} 
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+
+% Following comment is from ijcai97-submit.tex:
+% The preparation of these files was supported by Schlumberger Palo Alto
+% Research, AT\&T Bell Laboratories, and Morgan Kaufmann Publishers.
+% Shirley Jowell, of Morgan Kaufmann Publishers, and Peter F.
+% Patel-Schneider, of AT\&T Bell Laboratories collaborated on their
+% preparation.
+
+% These instructions can be modified and used in other conferences as long
+% as credit to the authors and supporting agencies is retained, this notice
+% is not changed, and further modification or reuse is not restricted.
+% Neither Shirley Jowell nor Peter F. Patel-Schneider can be listed as
+% contacts for providing assistance without their prior permission.
+
+% To use for other conferences, change references to files and the
+% conference appropriate and use other authors, contacts, publishers, and
+% organizations.
+% Also change the deadline and address for returning papers and the length and
+% page charge instructions.
+% Put where the files are available in the appropriate places.
+
+\title{IJCAI--13 Formatting Instructions\thanks{These match the formatting instructions of IJCAI-07. The support of IJCAI, Inc. is acknowledged.}}
+\author{Francesca Rossi \\
+University of Padova\\
+Italy \\
+pcchair13@ijcai.org}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  The {\it IJCAI--13 Proceedings} will be printed from electronic
+  manuscripts submitted by the authors. The electronic manuscript will
+  also be included in the online version of the proceedings. This paper
+  provides the style instructions.
+\end{abstract}
+
+\section{Introduction}
+
+\section{General Test Game}
+
+A \emph{test game} $G = (A, \mathbb B, m, t, p)$ consists of a set of potential
+problems $A = \{a_1, a_2, \ldots, a_n\}$ to test and $k$ types of test takers
+$\mathbb B = \{B_1, B_2, \ldots, B_k\}$ that may participate the test. The
+$l$-th type test takers has an unsolvable problem set $B_l \subseteq A$. The
+memorize capacity function $m: \mathbb B \rightarrow \mathbb N$ denotes how
+many problems a particular test taker can memorize. During the test, $t$ out of
+$n$ problems will be tested and a particular test taker will pass the test if
+each of those tested problems is either not in the unsolvable problem set or
+memorized. 
+
+The \emph{test game} is a 2-player Bayes game between the tester and
+the test taker where the test taker's type is uncertain. Let $p_l$ be the
+probability that type-$l$ test taker occurs. The game has only two outcomes,
+pass or fail.
+
+TO BE CONTINUED
+
+\subsection{Hardness on Test Size}
+
+\subsection{Hardness on Memorize Capacity}
+
+\begin{theorem}
+Even if test size is $2$, \textsc{Optimal Test Strategy} is coNP-hard when
+memorize capacity is non-constant.
+\end{theorem}
+
+\begin{proof}
+We reduce \textsc{Independent Set} instances to test games with test size $2$
+and ask the complementary question: is $u$ the highest utility that the tester
+can get. That question has a yes answer if and only if the dual minimax LP
+[reference] has a feasible solution with objective at most $u$. For a graph $G
+= (V, E)$, let $V$ be our test problem set. Add $|E|+|V|+2$ types of test
+takers as follows:
+
+\begin{itemize}
+
+\item For each edge $e = (v_i, v_j) \in E$, add one type of test takers $l_e$
+with tester utility equals $1$ if they fail and $0$ if they pass. This type of
+test takers cannot solve only two problems, $v_i, v_j$. The number of problems
+they can memorize is 0.
+
+\item For each vertex $v$, we add one type of test takers $l_v$ with tester utility
+equals $d_G-d(v)$ if they fail and 0 if they pass. Here $d_G$ is the maximum
+vertex degree in $G$ and $d(v)$ is the degree of vertex $v$. This type of test
+takers cannot solve only one problem $v$ and the number of problems they can
+memorize is 0.
+
+\item Add one auxiliary type of test takers $l_A$ with tester utility equals
+$a \cdot \varepsilon$ if they fail and $0$ if they pass where $a =
+\binom{|V|}{2}-|E|-\binom{k}{2}$. This type of test takers cannot solve any
+problems but they can memorize $2$.
+
+\item Finally, add one type of test takers $l_K$ with tester utility equals
+$u^{l_K} = \varepsilon$ if they fail and $0$ if they pass. This type of test
+takers cannot solve any problems but they can memorize $k$ of them.
+
+\end{itemize}
+
+Then we show that deciding whether $u = (2 d_G + a\cdot \varepsilon)/L$ is an
+upper-bound for the tester's utility, or equivalently whether we can find a
+dual solution with objective as low as $u = (2 d_G + a\cdot \varepsilon)/L$ in
+our dual minimax LP, is equivalent to finding a size-$k$ independent set in
+$G$. Recall that a dual solution is a strategy for test takers to memorize
+problems. If no one memorizes, the tester's utility $U_r$ to test a problem set
+$r$ is $U_r = (2d_G+a\cdot\varepsilon + \varepsilon) /L$ if $r \notin E$ and
+$U_r = (2d_G-1+a\cdot\varepsilon + \varepsilon)/L$ if $r \in E$. To lower
+the objective, test takers $l_A, l_K$ should memorize problem sets that bring the
+maximum of $U_r$ down.  No matter what the strategy is (as long as they only
+memorize unsolvable problems), $\sum_r U_r$ is a constant. And because $U_r$
+for $r \notin E$ is much larger than $U_r$ for $r \in E$ in terms of
+$\varepsilon$, it's better to only decrease $U_r$ for $r \notin E$. The only
+way to do that is to let $l_A$ test takers only memorize pairs of problems
+that are not edges and let $l_K$ test takers only memorize size-$k$ indepedent
+sets of problems.  If there's a size-$k$ independent set, let $l_K$ test takers
+memorize one size-$k$ independent set all the time and let $l_A$ test takers
+memorize all pairs of problems that are not covered by that independent set with
+uniform probability. That will make $U_r = (2d_G+a\cdot\varepsilon)/L$ for $r
+\notin E$ and $U_r = (2d_G-1+a\cdot\varepsilon+\varepsilon)/L$ for $r \in E$.
+This is the best they can achieve and this can only be achieved when a size-$k$
+independent set exists in $G$.
+
+\end{proof}
+
+\section{One-Problem Test Game}
+
+\section{Experiment}
+
+\section{Conclusion}
+
+\section*{Acknowledgments}
+
+The preparation of these instructions and the \LaTeX{} and Bib\TeX{}
+files that implement them was supported by Schlumberger Palo Alto
+Research, AT\&T Bell Laboratories, and Morgan Kaufmann Publishers.
+Preparation of the Microsoft Word file was supported by IJCAI.  An
+early version of this document was created by Shirley Jowell and Peter
+F. Patel-Schneider.  It was subsequently modified by Jennifer
+Ballentine and Thomas Dean, Bernhard Nebel, and Daniel Pagenstecher.
+These instructions are the same as the ones for IJCAI--05, prepared by
+Kurt Steinkraus, Massachusetts Institute of Technology, Computer
+Science and Artificial Intelligence Lab.
+
+\appendix
+
+\section{\LaTeX{} and Word Style Files}\label{stylefiles}
+
+The \LaTeX{} and Word style files are available on the IJCAI--13
+website, {\tt http://www.ijcai-13.org/}.
+These style files implement the formatting instructions in this
+document.
+
+The \LaTeX{} files are {\tt ijcai13.sty} and {\tt ijcai13.tex}, and
+the Bib\TeX{} files are {\tt named.bst} and {\tt ijcai13.bib}. The
+\LaTeX{} style file is for version 2e of \LaTeX{}, and the Bib\TeX{}
+style file is for version 0.99c of Bib\TeX{} ({\em not} version
+0.98i). The {\tt ijcai13.sty} file is the same as the {\tt
+ijcai07.sty} file used for IJCAI--07.
+
+The Microsoft Word style file consists of a single file, {\tt
+ijcai13.doc}. This template is the same as the one used for
+IJCAI--07.
+
+These Microsoft Word and \LaTeX{} files contain the source of the
+present document and may serve as a formatting sample.  
+
+Further information on using these styles for the preparation of
+papers for IJCAI--13 can be obtained by contacting {\tt
+pcchair13@ijcai.org}.
+
+%% The file named.bst is a bibliography style file for BibTeX 0.99c
+\bibliographystyle{named}
+\bibliography{ijcai13}
+
+\end{document}
+
