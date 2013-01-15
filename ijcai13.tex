@@ -67,26 +67,59 @@ pcchair13@ijcai.org}
 
 \section{General Test Game}
 
-A \emph{test game} $G = (A, \mathbb B, m, t, p)$ consists of a set of potential
-problems $A = \{a_1, a_2, \ldots, a_n\}$ to test and $k$ types of test takers
-$\mathbb B = \{B_1, B_2, \ldots, B_k\}$ that may participate the test. The
-$l$-th type test takers has an unsolvable problem set $B_l \subseteq A$. The
-memorize capacity function $m: \mathbb B \rightarrow \mathbb N$ denotes how
-many problems a particular test taker can memorize. During the test, $t$ out of
-$n$ problems will be tested and a particular test taker will pass the test if
-each of those tested problems is either not in the unsolvable problem set or
-memorized. 
+A \emph{test game} $G = (A, \mathbb B, p, v, m, t)$ is a 2-player Bayes game
+between the tester and the test taker. The tester has a set of potential
+problems $A = \{a_1, a_2, \ldots, a_n\}$ to test and the test taker has an
+uncertain type (thus Bayes). The possible types are characterized by $\mathbb B
+= \{B_1, B_2, \ldots, B_k\}$ and functions $p, v, m$. Set $B_l \subseteq A$ is
+the unsolvable problem set of the $l$-th type test taker.  Function $p: \mathbb
+B \rightarrow [0,1]$ characterizes the probability that a particular type test
+taker occurs.  The memorize capacity function $m: \mathbb B \rightarrow \mathbb
+N$ denotes how many problems a particular test taker can memorize and the value
+function $v: \mathbb B \rightarrow \mathbb R^+$ denotes how much utility the
+tester gets if that test taker failed the test (recall that the tester cannot
+fail test takers who can solve all problems and he want to fail all others).
+For simplicity, we write $p(B_l), m(B_l), v(B_l)$ as $p_l, m_l, v_l$ when the
+context is clear.  During the test, $t$ out of $n$ problems will be tested and
+a particular test taker will pass the test if each of those tested problems is
+either not in the unsolvable problem set or memorized.  
 
-The \emph{test game} is a 2-player Bayes game between the tester and
-the test taker where the test taker's type is uncertain. Let $p_l$ be the
-probability that type-$l$ test taker occurs. The game has only two outcomes,
-pass or fail.
+The game only has two outcomes, pass or fail. The tester gets $0$ utility if a
+test taker passes and he gets $v_l$ utility if a type-$l$ test taker fails. On
+the type-$l$ test taker's side, he gets $0$ utility if he passes and $-v_l$ if
+he fails. From the test taker's perspective, any utility function that has a
+higher pass utility than fail utility will give him the same incentive to pass
+the test at his best. We define them as $0, -v_l$ specifically for the zero-sum
+property of the game.
 
-TO BE CONTINUED
+We want to find the optimal strategy for the tester to maximize his utility
+under Stackelberg settings. That is, the tester firstly reveals his strategy
+about how $t$ problems are picked to test, then the test taker chooses the best
+memorizing strategy. This corresponds to our confidential-free assumption where
+test takers know what problems might be tested, their answers, and how likely
+they are tested. The only constraint for test takers is that they cannot
+memorize too many (greater than $m_l$) problem answers. 
+
+In summary, 
+
+\subsection{General LP Formulation}
+
+Though general
 
 \subsection{Hardness on Test Size}
 
+In order to formally characterize \emph{test game}'s hardness, define
+
+\begin{definition}[\textsc{Optimal Test Strategy} Problem]
+Given a test game $G$ and a value $u$, the \textsc{Optimal Test Strategy}
+problem is to decide whether the tester has a Stackelberg strategy with at
+least $u$ utility.
+\end{definition}
+
+TO BE CONTINUED WITH Vertex Cover
+
 \subsection{Hardness on Memorize Capacity}
+
 
 \begin{theorem}
 Even if test size is $2$, \textsc{Optimal Test Strategy} is coNP-hard when
