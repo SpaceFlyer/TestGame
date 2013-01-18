@@ -1,0 +1,9 @@
+\begin{algorithmic}
+	\While{$Q$ is not empty}
+		\State $B_l \gets $ pop an element from $Q$
+		\State ...
+		\ForAll {$B_{l'} \ni a \wedge f_{B_{l'},a}>0 \wedge B_{l'} $ has not been pushed in $Q$}
+			\State Push $B_{l'}$ into $Q$
+		\End
+	\EndWhile
+\end{algorithmic}
