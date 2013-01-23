@@ -21,6 +21,7 @@
 \usepackage{amsfonts}
 \usepackage{algpseudocode}
 \usepackage{algorithm}
+\usepackage{graphicx}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
@@ -340,13 +341,15 @@ objective error $\epsilon$ (for binary search)}
 			\State $U_{lower} \gets U$
 		\EndIf
 	\EndWhile
-	\State $T \gets \{a ~|~ U^0_a > U\}$
+	\State $T \gets \{a ~|~ U^0_a \geq U\}$
 	\State $Q \gets $ all $B_l$ such that $(s, B_l)$ is not saturated in $f$
+	\State $G(B_l) \gets c_{(s, B_l)}-f_{(s, B_l)}$ \Comment{Potential flow} \label{line:first-potential}
 	\While{$Q$ has an unmarked element}
 		\State $B_l \gets $ get and mark an unmarked element from $Q$
 		\ForAll{$a \in B_l$ and $(B_l, a)$ is not saturated in $f$}
-			\State $T \gets T \backslash \{a\}$
+			\State $T \gets T \backslash \{a\}$\label{line:delete-a}
 			\ForAll {$B_{l'} \ni a $ and $ f_{(B_{l'},a)}>0$}
+				\State $G(B_{l'}) \gets \min(f_{(B_{l'},a)}, \frac{G(B_l)}{|B_l|L})$\label{line:second-potential}
 				\State Push $B_{l'}$ into $Q$
 			\EndFor
 		\EndFor
@@ -360,41 +363,164 @@ The algorithm consists of two parts. It firstly uses binary search and max flow
 to determine the optimal tester's utility $U$.  This part corresponds to the following
 LP formulation (let $U^0_a$ be the utility of testing $a$ without memorizing as we defined
 in Algorithm~\ref{alg:one-problem}):
-\begin{align}
+\begin{align}\label{eqn:one-problem}
 	\min~ &U\\
 	s.t.~ &(\forall a \in A)~ U \geq U^0_a - \sum_{B_l \ni a} v_l z_{l, a}\nonumber\\
-	&(\forall l)~ \sum_{a \in A} z_{l, a} = m_l p_l\nonumber\\
+	&(\forall l)~ \sum_{a \in B_l} z_{l, a} \leq m_l p_l\nonumber\\
 	&(\forall l, a)~ 0 \leq z_{l, a} \leq p_l\nonumber
 \end{align}
-This LP is similar to LP~(\ref{eqn:dual-original}) except that it sets the
-marginal probability for type-$l$ test taker to memorize one problem $a$ as the
-variable $z_{l, a}$.
-%which substitute $y_{l, c_l}$, the joint probability that
-%type-$l$ test takers to memorize a problem set $c_l$, to $z_{l, a}$, the marginal
-%probability that type-$l$ test takers memorize one problem $a$.
-We can do this simplification because: 1) the test strategy space $R$ now is
-simply $A$ (one-problem test) so we only care the marginal probability; 2) we
-can always restore the joint probability $y_{l, c_l}$ from $z_{l, a}$ as long
-as $z_{l, a} = m_l p_l$ and $0 \leq z_{l, a} \leq p_l$ [reference]. With a
-given $U$, we use max flow to check its feasibility. Intuitively, a $U$ is
-feasible if and only if there is a strategy $z_{l, a}$ such that for every $a$
-where $U^0_a > U$, that strategy $z_{l, a}$ decrease it down to $U$. This is achievable
-if and only if the max flow can saturate all edges from $A$ to $t$. The max flow
-$f$ can also compute that strategy by setting $z_{l, a} = f_{(B_l, a)}/v_l$.
+This LP modifies LP~(\ref{eqn:dual-original}) by:
+\begin{enumerate}
+	\item Change joint probability $y_{l, c_l}$ to marginal probability
+	$z_{l, a}$ of memorizing one problem $a$.  We did this modification
+	because marginal probability is more meaningful for one-problem test
+	and we can always restore a joint probability from a marginal
+	probability[reference].
+	\item Relax equality $\sum_{a \in A} z_{l, a} = m_l p_l$ to inequality $\sum_{a \in A} \leq m_l p_l$. 
+	We can do this because $v_l \geq 0$ (thus $u^l, V_l \geq 0$) and this modification
+	is essentially adding $V_l \geq 0$ to the primal LP~(\ref{eqn:maximin}).
+\end{enumerate}
+With a given $U$, we use max flow to check its feasibility. Intuitively, a $U$
+is feasible if and only if there is a strategy $z_{l, a}$ such that for every
+$a$ where $U^0_a > U$, that strategy $z_{l, a}$ decrease it down to $U$. This
+is achievable if and only if the max flow can saturate all edges from $A$ to
+$t$. The max flow $f$ can also compute that strategy by setting $z_{l, a} =
+f_{(B_l, a)}/v_l$.
 
 The second part of the algorithm is to compute the test strategy (the optimal
 primal solution) from the memorize strategy (the optimal dual solution) we
 computed in the first part by max flow. We prove that our test strategy is
 optimal by complementrary slackness theorem, which in our context is
-essentially: 1) the test taker only memorize problem set (non-zero dual
-variables) that gives him best utility (tight primal constraints); 2) the
-tester only test problem set (non-zero primal variables) that gives him best
-utility (tight dual constraints).\footnote{This is essentially saying that in a
+essentially: 1) the tester only tests problems (non-zero primal variables)
+that gives him best utility (tight dual constraints); 2) the test taker only
+memorizes problems (non-zero dual variables) that gives him best utility
+(tight primal constraints).\footnote{This is essentially saying that in a
 zero-sum game, a minimax, or maximin state is reached, if and only if the Nash
-equilibrium is reached.}
+equilibrium is reached.} We will need two more lemmas as follows to use the
+complementary slackness theorem.
+
+\begin{lemma}\label{lemma:best-response}
+Let $z_{l,a} = f_{(B_l, a)}/v_l$ be the dual solution computed by max flow and
+$T$ be the final subset that Algorithm~\ref{alg:one-problem} returns. Then for
+each type of test takers $B_l$, either $\sum_{a \in B_l} z_{l,a} = m_l p_l$
+(they memorize a subset of $T$ all the time) or $\forall a \in B_l \cap T,
+z_{l, a} = p_l$ (they memorize unsolvable problems in $T$ all the time so they
+will pass the test for sure).
+\end{lemma}
+\begin{proof}
+If there is a $B_l$ such that $\sum_{a \in B_l} z_{l,a} < m_l p_l$, either 
+$f_{s, B_l}$ is not saturated or there is an $a \in B_l$ with $f_{(B_l, a)} >
+0$ that is deleted from $T$ later on line~\ref{line:delete-a} of
+Algorithm~\ref{alg:one-problem}. In any case, $B_l$ will be pushed into $Q$ and
+all problems in $B_l$ that does not satisfy $z_{l,a} = p_l$ will be deleted
+from $T$. Hence $\forall a \in B_l \cap T, z_{l, a} = p_l$ must hold.
+\end{proof}
+
+\begin{lemma}\label{lemma:non-empty}
+$T$ returned by Algorithm~\ref{alg:one-problem} is non-empty.
+\end{lemma}
+\begin{proof}
+$T$ is non-empty before we delete problems from $T$ on
+line~\ref{line:delete-a} of Algorithm~\ref{alg:one-problem}.  Denote that
+initial $T$ as $T_0$.  If all problems in $T_0$ are deleted, then for every $a$
+in $T_0$ there is a $B_l$ that is in $Q$ and $f_{(B_l, a)}$ is not saturated.
+Note that for every $B_l$ in $Q$, it has a positive potential flow $G(B_l)$
+that can additionally flow out of vertex $B_l$, either because $(s, B_l)$ is
+not saturated (on line \ref{line:first-potential}) or because there is a
+positive flow $(B_l, a)$ that can be reduced (on line
+\ref{line:second-potential}). This means that we can bring $U$ down by sending
+these potential flow to every vertex in $T_0$, a contradiction to that
+$U$ is minimized.
+\end{proof}
+
+\begin{theorem}
+Uniformly testing $T$ returned by Algorithm~\ref{alg:one-problem} is optimal.
+\end{theorem}
+\begin{proof}
+First of all, $T$ is non-empty by Lemma~\ref{lemma:non-empty} so we can test
+$T$ uniformly. Then since the max flow makes $U_a$ (the utility to test a
+problem $a$) decrease to $U$ if $U^0_a > U$ and we only pick $T$ from problems
+that $U^0_a > U$, every problem that we might test gives the tester best
+utility. That is the first condition for the complementary slackness theorem.
+Finally, Lemma~\ref{lemma:best-response} show that one type of test takers
+either pass the test for sure or memorize a subset in $T$ all the time which is
+optimal for uniform test, the second condition of complementary slackness
+theorem holds.
+\end{proof}
 
 
 \section{Experiment}
+
+In this section, we conduct experiments to see how different algorithms scale
+on test games. 
+
+EXPERIMENTS FOR MULTI-PROBLEM TEST?
+
+For one-problem test, our original LP~(\ref{eqn:maximin}) is exponential to the
+memorize capacity so we only compare modified LP~(\ref{eqn:one-problem}) and
+max flow based Algorithm~\ref{alg:one-problem}.  During each experiment, we
+specify four parameters $n, L, m_{max}, b_{max}$, the number of problems, the
+number of test taker types, the maximum memorize capacity and the maximum size
+of $B_l$. Given those parameters, a test game instance is generated as follows:
+for each $1 \leq l \leq L$, generate $m_l$ uniformly from $1$ to $m_{max}$,
+generate $|B_l|$ uniformly from $m_l$ to $b_{max}$, generate $B_l$ by selecting
+$|B_l|$ elements from $A$ uniformly and generate $w_l = v_l p_l$ (weight of
+type-$l$) from $[0,1]$ uniformly. Here we only generate $w_l$ because $v_l$ and
+$p_l$ always appear together as $v_l p_l$.
+
+For each parameter setting, we generate $5$ test game instances and compute
+the average running time for each algorithm. During each run, we set timeout to
+be 5 seconds. For the LP, we ran it on glpk and cplex.  For the max flow, we
+tried both Edmonds-Karp and Push-Relabel implementation in C++ boost library.
+
+\begin{figure}
+	\caption{Average running time for different one-problem test algorithms
+	over the number of problems $n$. For each $n$, we set the other three
+	parameters $L = n, m_{max} = \lfloor \sqrt{n} \rfloor$ and $b_{max} =
+	2m_{max}$ (see Table~\ref{tab:settings}).}
+	\label{fig:benchmark}
+	\includegraphics[trim=5mm 0 15mm 0, clip, width=\linewidth]{benchmark}
+\end{figure}
+
+In our benchmark, we increase $n$ and set the remaining three parameters $L,
+m_{max}, b_{max}$ as following: $L = n, m_{max} = \lfloor \sqrt{n} \rfloor$ and
+$b_{max} = 2m_{max}$. Note that our $L, b_{max}$ are quite small (they can be
+as large as $b_{max} = n/2, L = \binom{n}{b_{max}})$. That's becuase for large $L,
+b_{max}$, our uniform random input will almost always make the trivial strategy
+to uniformly test among all $n$ problems optimal. So we make them small to
+avoid such trivial solutions. The realized parameter settings are shown in
+Table~\ref{tab:settings} (we show them in the step of 50 for the sake of
+space). The benchmark is shown in Figure~\ref{fig:benchmark}.
+
+\begin{table}
+	\caption{Parameter settings for the benchmark}\label{tab:settings}
+	\begin{center}
+	\begin{tabular}{ r r r r }
+		$n$&$L$&$m_{max}$&$b_{max}$\\
+		\hline\\
+		100&100&10&20\\
+%		150&150&12&24\\
+		200&200&14&28\\ 
+%		250&250&15&30\\
+		300&300&17&34\\
+%		350&350&18&36\\
+		400&400&20&40\\
+%		450&450&21&42\\
+		500&500&22&44\\
+%		550&550&23&46\\
+		600&600&24&48\\
+%		650&650&25&50\\
+		700&700&26&52\\
+%		750&750&27&54\\
+		800&800&28&56\\
+%		850&850&29&58\\
+		900&900&30&60\\
+%		950&950&30&60\\
+		1000&1000&31&62
+	\end{tabular}
+	\end{center}
+\end{table}
+
 
 \section{Conclusion}
 
