@@ -60,10 +60,18 @@ pcchair13@ijcai.org}
 \maketitle
 
 \begin{abstract}
-  The {\it IJCAI--13 Proceedings} will be printed from electronic
-  manuscripts submitted by the authors. The electronic manuscript will
-  also be included in the online version of the proceedings. This paper
-  provides the style instructions.
+Conventionally, tests are assumed to be confidential where problems, answers
+and other test related information are kept unkown from test takers.  That
+confidentiality, however, becomes very hard to achieve because of the Internet.
+For example, we can easily find TOEFL iBT and driver's license tests' problems
+that are anonymously posted online by previous test takers. In this paper, we
+take the loss of confidentiality as a fact and study the optimal
+confidential-free test.  We model it as a Stackelberg game with the tester as a
+leader who reveals his test strategy, problems and answers to test takers. The
+only limit of a test taker is memorize capacity which means he can only
+memorize some of the problems' answers. We model and characterize hardness of
+such test games in general. We also give efficient algorithms for cases when
+test games are not hard.
 \end{abstract}
 
 \section{Introduction}
@@ -531,6 +539,8 @@ space). The benchmark is shown in Figure~\ref{fig:benchmark}. The Edmonds-Karp
 variety takes longest time and it times out when $n \geq 200$. CPLEX is faster
 than GLPK but they are both much slower than Push-Relabel variety. Using
 Push-Relabel implementation, we can solve $n=L=1000$ case in less than 1 second.
+
+[Machine, GLPK and GPLEX spec]
 
 \begin{table}
 	\caption{Parameter settings for the benchmark}\label{tab:settings}
