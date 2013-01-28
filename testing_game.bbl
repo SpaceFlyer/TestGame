@@ -1,5 +1,34 @@
 \begin{thebibliography}{}
 
+\bibitem[\protect\citeauthoryear{Conitzer and
+  Sandholm}{2006}]{Conitzer06:Computing}
+Vincent Conitzer and Tuomas Sandholm.
+\newblock Computing the optimal strategy to commit to.
+\newblock In {\em Proceedings of the ACM Conference on Electronic Commerce
+  (EC)}, pages 82--90, Ann Arbor, MI, USA, 2006.
+
+\bibitem[\protect\citeauthoryear{Khachiyan}{1979}]{Khachiyan79}
+Leonid Khachiyan.
+\newblock A polynomial algorithm in linear programming.
+\newblock {\em Soviet Math. Doklady}, 20:191--194, 1979.
+
+\bibitem[\protect\citeauthoryear{Letchford \bgroup \em et al.\egroup
+  }{2009}]{Letchford09:Learning}
+Joshua Letchford, Vincent Conitzer, and Kamesh Munagala.
+\newblock Learning and approximating the optimal strategy to commit to.
+\newblock In {\em Proceedings of the Second Symposium on Algorithmic Game
+  Theory (SAGT-09)}, pages 250--262, Paphos, Cyprus, 2009.
+
+\bibitem[\protect\citeauthoryear{Paruchuri \bgroup \em et al.\egroup
+  }{2008}]{Paruchuri08:Playing}
+Praveen Paruchuri, Jonathan~P. Pearce, Janusz Marecki, Milind Tambe, Fernando
+  Ord{\'o}{\~n}ez, and Sarit Kraus.
+\newblock Playing games for security: {A}n efficient exact algorithm for
+  solving {B}ayesian {S}tackelberg games.
+\newblock In {\em Proceedings of the Seventh International Joint Conference on
+  Autonomous Agents and Multi-Agent Systems (AAMAS)}, pages 895--902, Estoril,
+  Portugal, 2008.
+
 \bibitem[\protect\citeauthoryear{{von Neumann}}{1928}]{Neumann28:Zur}
 John {von Neumann}.
 \newblock Zur {T}heorie der {G}esellschaftsspiele.
