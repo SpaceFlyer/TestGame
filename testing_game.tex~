@@ -1,0 +1,640 @@
+%%%% ijcai11.tex
+
+\typeout{IJCAI-13 Instructions for Authors}
+
+% These are the instructions for authors for IJCAI-13.
+% They are the same as the ones for IJCAI-11 with superficical wording
+%   changes only.
+
+\documentclass{article}
+% The file ijcai13.sty is the style file for IJCAI-13 (same as ijcai07.sty).
+\usepackage{ijcai13}
+
+% Use the postscript times font!
+\usepackage{times}
+
+% the following package is optional:
+%\usepackage{latexsym} 
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{graphicx}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+
+% Following comment is from ijcai97-submit.tex:
+% The preparation of these files was supported by Schlumberger Palo Alto
+% Research, AT\&T Bell Laboratories, and Morgan Kaufmann Publishers.
+% Shirley Jowell, of Morgan Kaufmann Publishers, and Peter F.
+% Patel-Schneider, of AT\&T Bell Laboratories collaborated on their
+% preparation.
+
+% These instructions can be modified and used in other conferences as long
+% as credit to the authors and supporting agencies is retained, this notice
+% is not changed, and further modification or reuse is not restricted.
+% Neither Shirley Jowell nor Peter F. Patel-Schneider can be listed as
+% contacts for providing assistance without their prior permission.
+
+% To use for other conferences, change references to files and the
+% conference appropriate and use other authors, contacts, publishers, and
+% organizations.
+% Also change the deadline and address for returning papers and the length and
+% page charge instructions.
+% Put where the files are available in the appropriate places.
+
+\title{Game-Theoretic Problem Selection for Tests}
+%\author{Francesca Rossi \\
+%University of Padova\\
+%Italy \\
+%pcchair13@ijcai.org}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Conventionally, the problems on a test are assumed to be kept secret
+from test takers until the test.  However, for tests that are taken on
+a large scale, particularly asynchronously, this is very hard to
+achieve.  For example, example TOEFL iBT and driver's license test
+problems are easily found online.  This also appears likely to become
+an issue for Massive Open Online Courses (MOOCs).
+
+In this paper, we take the loss of confidentiality as a fact.  Even
+so, not all hope is lost as the test taker can memorize only a limited
+set of problems, and the tester can randomize which problems appear on
+the test.  We model this as a Stackelberg game, where the tester
+commits to a mixed strategy and the follower responds.  We provide an
+exponential-size linear program formulation, prove several NP-hardness
+results, and give efficient algorithms for special cases.
+\end{abstract}
+
+\section{Introduction}
+
+\section{General Test Game}
+
+A \emph{test game} $G = (A, \mathbb B, p, v, m, t)$ is a 2-player Bayes game
+between the tester and the test taker. The tester has a set of potential
+problems $A = \{a_1, a_2, \ldots, a_n\}$ to test and the test taker has an
+uncertain type (thus Bayes) characterized by $\mathbb B = \{B_1, B_2, \ldots,
+B_L\}$. Set $B_l \subseteq A$ is the unsolvable problem set of the $l$-th type
+test taker.  Function $p: \mathbb B \rightarrow [0,1]$ characterizes the
+probability that a particular type test taker occurs.  The memorize capacity
+function $m: \mathbb B \rightarrow \mathbb N$ denotes how many problems a
+particular test taker can memorize and the value function $v: \mathbb B
+\rightarrow \mathbb R^+$ denotes how much utility the tester gets if that test
+taker failed the test (recall that the tester can only fail test takers who
+cannot solve all problems and he want to fail as many of them as possible). For
+simplicity, we write $p(B_l), m(B_l), v(B_l)$ as $p_l, m_l, v_l$ when the
+context is clear.  During the test, $t$ out of $n$ problems will be tested and
+a particular test taker will pass the test if all tested problems are either
+not in the unsolvable problem set or memorized.  
+
+The game only has two outcomes, pass or fail. The tester gets $0$ utility if a
+test taker passes and he gets $v_l$ utility if a type-$l$ test taker fails. On
+the type-$l$ test taker's side, he gets $0$ utility if he passes and $-v_l$ if
+he fails. From the test taker's perspective, any utility function that has a
+higher pass utility than fail utility will give him the same incentive to pass
+the test at his best. We define them as $0, -v_l$ specifically for the zero-sum
+property of the game.
+
+Our goal is to find the optimal strategy for the tester to maximize his utility
+under Stackelberg settings. That is, the tester firstly reveals his strategy
+about how $t$ problems are picked to test, then the test taker chooses the best
+memorizing strategy. This corresponds to our confidential-free assumption where
+test takers know what problems might be tested, their answers, and how likely
+they are tested. The only constraint for test takers is that they cannot
+memorize too many (greater than $m_l$) problem answers. 
+
+\subsection{General Linear Program (LP) Formulation}
+
+General 2-player Bayes Stackelberg games are NP-hard in terms of game matrix
+size so previous work used mixed integer LP (e.g. DOBSS [cite]) to solve them.
+We model test games as zero-sum so we can bypass the NP-hardness and use the
+following maximin LP to solve our 2-player zero-sum Bayes Stackelberg games in
+polynomial time with respect to the game matrix size:
+
+\begin{align}\label{eqn:maximin}
+	\max~ &\sum_l p_l V_l \\
+	s.t.~ &(\forall l, \forall c_l \in C_l),\nonumber\\
+	&~~ \sum_r x_r u^l(r, c_l) \geq V_l\nonumber\\
+	&\sum_r x_r = 1\nonumber\\
+	&(\forall r \in R) x_r \geq 0\nonumber
+\end{align}
+
+where 
+\begin{itemize}
+
+ \item $V_l$: utility that the test taker can get from type $l$ test takers
+
+ \item $C_l$: action space of type $l$ test takers, i.e. all combinations of
+ problems that they can memorize.
+
+ \item $R$: action space of the tester, i.e. all combinations of problems that
+ he can test.
+ 
+ \item $x_r$: probability to test problem set $r$
+
+\end{itemize}
+
+The dual of the above LP is:
+
+\begin{align}\label{eqn:dual-original}
+  \min~&U\\
+  s.t. &(\forall r) U \geq \sum_{l, c_l} u^l(r, c_l) y_{l, c_l}\nonumber\\
+  &(\forall l) \sum_{c_l} y_{l, c_l} = p_l\nonumber\\
+  &(\forall l, c_l) y_{l, c_l} \geq 0 \nonumber
+\end{align}
+
+which is equivalent to 
+
+\begin{align}\label{eqn:minimax}
+  \min~&\max_r(U_r)\\
+  s.t. &(\forall r) U_r = \sum_{l, c_l} u^l(r, c_l) y_{l, c_l}\nonumber\\
+  &(\forall l) \sum_{c_l} y_{l, c_l} = p_l\nonumber\\
+  &(\forall l, c_l) y_{l, c_l} \geq 0\nonumber
+\end{align}
+
+The dual LP is as if that all types of test takers share the same goal to lower
+the tester's best testing utility ($\max_r (U_r)$ where $U_r$ is the utility of
+testing $r$) as much as possible by memorizing problems and revealling their
+memorizing strategies $y_{l, c_l}$ to the tester. This also shows that a
+Stackelberg strategy is also a Nash equilibrium if test takers play the dual
+minimax strategy.
+
+However, even if the LPs above are in polynomial size of the game matrix size
+(or the action space size), they are exponential to the input of our test
+games: the tester's action space is exponential to $t$ (the number of problems
+to test) and the type-$l$ test taker's action space is exponential to $m_l$
+(the number of problems he can memorize). So those LPs only give us polynomial
+algorithms when $m_l, t$ are constant. Our next question is whether the test
+game in general can be solved in polynomial time in terms of the input size.
+
+\subsection{Hardness on Test Size}
+
+In order to formally characterize \emph{test game}'s hardness, define
+
+\begin{definition}[\textsc{Optimal Test Strategy} Problem]
+Given a test game $G$ and a value $u$, the \textsc{Optimal Test Strategy}
+problem is to decide whether the tester has a Stackelberg strategy with at
+least $u$ utility.
+\end{definition}
+
+It's easy to show
+
+\begin{theorem}\label{thm:test-hardness}
+Even if test takers cannot memorize any problems ($m_l = 0$), \textsc{Optimal
+Test Strategy} is NP-hard when test size $t$ is non-constant.
+\end{theorem}
+
+\begin{proof}
+	Reduce a \textsc{Vertex Cover} instance to a \textsc{Optimal Test
+	Strategy} instance as follows. Given a graph $G = (V, E)$, construct a
+	test game $G'$ with problem set $A = V$.  For each edge $e = \{i, j\}
+	\in E$, add one type of test takers $l_e$ whose unsolvable problem set
+	$B_{l_e} = e$. Let $p_{l_e} = 1/|E|, v_{l_e} = 1$ and $m_{l_e} = 0$ for
+	all $l_e$.  Graph $G$ has a vertex cover of size $k$ if and only if the
+	tester has a strategy to test $t = k$ problems and gets $u=1$ utility
+	(i.e. all test takers will fail for sure) in test game $G'$.
+\end{proof}
+
+\subsection{Hardness on Memorize Capacity}
+
+
+\begin{theorem}\label{thm:memorize-hardness}
+Even if test size is $2$, \textsc{Optimal Test Strategy} is coNP-hard when
+memorize capacity is non-constant.
+\end{theorem}
+
+\begin{proof}
+We reduce \textsc{Independent Set} instances to test games with test size $t=2$
+and ask the complementary question: is $u$ the highest utility that the tester
+can get. That question has a yes answer if and only if the dual minimax LP
+[reference] has a feasible solution with objective at most $u$. For a graph $G
+= (V, E)$, let $V$ be our test problem set $A$. Add $L = |E|+|V|+2$ types of
+test takers as follows:
+
+\begin{itemize}
+
+\item For each edge $e = (i, j) \in E$, add one type of test takers $l_e$ with
+$v_{l_e} = 1$, $B_{l_e} = \{i, j\}$ and $m_{l_e} = 0$.
+
+\item For each vertex $i$, add one type of test takers $l_i$ with $v_{l_i} =
+d_G-d(i), B_{l_i} = \{i\}$ and $m_{l_i} = 0$. Here $d_G$ is the maximum vertex
+degree in $G$ and $d(i)$ is the degree of vertex $i$. 
+
+\item Add one auxiliary type of test takers $l_\alpha$ with $v_{l_\alpha} =
+\alpha \varepsilon, m_{l_\alpha} = 2$ and $B_{l_\alpha} = V$ where $\alpha =
+\binom{|V|}{2} - |E|-\binom{k}{2}$ and $\varepsilon \ll 1$. 
+
+\item Finally, add one type of test takers $l_k$ with $v_{l_k} =
+\varepsilon, B_{l_k} = V$ and $m_{l_k} = k$.
+
+\end{itemize}
+
+Let all types of test takers occur with uniform probability $p=1/L$.  Then we
+show that deciding whether $u = (2 d_G + a\cdot \varepsilon)/L$ is an
+upper-bound for the tester's utility, or equivalently whether we can find a
+dual solution with objective as low as $u = (2 d_G + a\cdot \varepsilon)/L$ in
+our dual minimax LP, is equivalent to finding a size-$k$ independent set in
+$G$. Recall that a dual solution is a strategy for test takers to memorize
+problems. If no one memorizes, the tester's utility $U_r$ to test a problem set
+$r$ is $U_r = (2d_G+a\cdot\varepsilon + \varepsilon) /L$ if $r \notin E$ and
+$U_r = (2d_G-1+a\cdot\varepsilon + \varepsilon)/L$ if $r \in E$. To lower the
+objective, test takers $l_\alpha, l_k$ should memorize problem sets that bring
+the maximum of $U_r$ down.  No matter what the strategy is (as long as they
+only memorize unsolvable problems), $\sum_r U_r$ is a constant. And because
+$U_r$ for $r \notin E$ is much larger than $U_r$ for $r \in E$ as $\varepsilon
+\ll 1$, it's better to only decrease $U_r$ for $r \notin E$. The only way to do
+that is to let $l_\alpha$ test takers only memorize pairs of problems that are
+not edges and let $l_k$ test takers only memorize size-$k$ indepedent sets of
+problems.  If there's a size-$k$ independent set, let $l_k$ test takers
+memorize one size-$k$ independent set all the time and let $l_\alpha$ test
+takers memorize all pairs of problems that are not covered by that independent
+set with uniform probability. That will make $U_r = (2d_G+a\cdot\varepsilon)/L$
+for $r \notin E$ and $U_r = (2d_G-1+a\cdot\varepsilon+\varepsilon)/L$ for $r
+\in E$.  This is the best they can achieve and this can only be achieved when a
+size-$k$ independent set exists in $G$.
+
+\end{proof}
+
+\subsection{Summary on General Test Games}
+
+\begin{theorem}
+The \textsc{Optimal Test Strategy} for a \emph{test game} can be computed in
+polynomial time when test size and memorize capacity are constant. It's
+NP-complete when test size is non-constant and coNP-complete when memorize
+capacity is non-constant. Hence it's both NP-hard and coNP-hard when both test
+size and memorize capacity are non-constant.
+\end{theorem}
+
+\begin{proof}
+When test size and memorize capacity are both non-constant, \textsc{Optimal
+Test Strategy} is both NP-hard and coNP-hard by Theorem~\ref{thm:test-hardness}
+and \ref{thm:memorize-hardness}.  LP~(\ref{eqn:maximin}) shows that
+\textsc{Optimal Test Strategy} can be computed in polynomial time when test
+size and memorize capacity are constant.  When memorize capacity is constant or
+test size is constant, either the primal LP~(\ref{eqn:maximin}) or the dual
+LP~(\ref{eqn:minimax}) has constant number of constraint. Such LP has a
+polynomial size optimal solution even if the number of variables is
+exponential. That optimal solution's feasibility and objective can be checked
+in polynomial time. Therefore \textsc{Optimal Test Strategy} is in NP when
+memorize capacity is constant and it is in coNP when test size is constant.
+Hence they are NP-complete and coNP-complete respectively by
+Theorem~\ref{thm:test-hardness} and \ref{thm:memorize-hardness}. 
+\end{proof}
+
+[HARDNESS TABLE]
+
+\section{One-Problem Test Game}
+
+We showed the hardness of test games when either one of test size or memorize
+capacity is non-constant. When the test size is non-constant, there is little
+we can improve because it is NP-hard even if the memorize capacity is zero.
+When the memorize capacity is non-constant, our proof for
+Theorem~\ref{thm:memorize-hardness} only showed that NP-hardness for testing 2
+problems. Therefore an efficient algorithm to compute optimal one-problem test
+may exist. A quick evidence for the existence of such polynomial algorithm is
+constraint generation. Though there are exponential many constraints, we can
+find the most violated constraint in polynomial time by: enumerate over all
+types of test takers; for type-$l$ test takers  select top $m_l$ problems $M_l$
+according to $x_a$ that maximize $\sum_{a \in M_l} x_a$; finally see whether
+$V_l - \sum_{a \in B_l \backslash M_l} x_a$ updates the most violated
+constraint.
+
+We also investigated such tests by conducting experiments using
+LP~(\ref{eqn:maximin}). Surprisingly, no matter how input varies, the strategy
+we get always has the following format: among a subset $T$ of problems $A$,
+test any one of them with uniform probability. That is counter-intuitive as
+some problems in $T$ seem to be obviously more superior than others so
+intuitively they should be tested with more probability. For example, when $n$
+problems can be sorted by difficulty, a test taker who can solve a harder
+problem can always solve an easier problem. In that case, it seems that the
+hardest problem should be tested strictly more likely than the second hardest
+problem. But in most cases, the optimal strategy will test one of them with
+equal probability.
+
+[EXAMPLE TABLE]
+
+Inspired by that uniform test property, we present an algorithm to compute
+optimal strategies and use it to prove uniform test property consequently.  Let
+$U^0_a$ be the utility of testing $a$ without memorizing: $U^0_a =
+\sum_{B_l \ni a} v_l p_l$. The algorithm's first part is based on
+the following LP:
+\begin{align}\label{eqn:one-problem}
+	\min~ &U\\
+	s.t.~ &(\forall a \in A)~ U \geq U^0_a - \sum_{B_l \ni a} p_l v_l z_{l, a}\nonumber\\
+	&(\forall l)~ \sum_{a \in B_l} z_{l, a} \leq m_l\nonumber\\
+	&(\forall l, a)~ 0 \leq z_{l, a} \leq 1\nonumber
+\end{align}
+It modifies LP~(\ref{eqn:dual-original}) by:
+\begin{enumerate}
+	\item Change joint probability $y_{l, c_l}$ to marginal probability
+	$z_{l, a}$ of memorizing one problem $a$.  We did this modification
+	because marginal probability is more meaningful for one-problem test
+	and we can always restore a joint probability from a marginal
+	probability[reference].
+	\item Relax equality $\sum_{a \in B_l} z_{l, a} = m_l$ to inequality
+	$\sum_{a \in B_l} z_{l,a} \leq m_l$ (allow using less memorize
+	capacity).  We can do this because $v_l \geq 0$ (thus $u^l, V_l \geq
+	0$) and this modification is essentially adding $V_l \geq 0$ to the
+	primal LP~(\ref{eqn:maximin}). Intuitively, memorizing less problems
+	won't hurt tester's utility.
+\end{enumerate}
+
+Our algorithm is shown in Algorithim~\ref{alg:one-problem}.
+
+\begin{algorithm}
+\caption{Compute the optimal one-problem test strategy}\label{alg:one-problem}
+\begin{algorithmic}[1]
+\Function{OptimalOneProblemTest}{$A, \mathbb B, m, v, p$}
+	\State Solve LP~(\ref{eqn:one-problem}) and let the solution be $U, z_{l,a}$
+	\State $T \gets \{a ~|~ U^0_a \geq U\}$
+	\State $Q \gets $ all $B_l$ such that $\sum_{a \in B_l \cap T} z_{l,a} < m_l$
+	\ForAll {$B_l \in Q$} \Comment{Potential Memorizing Power}
+		\State $G(B_l) \gets m_l-\sum_{a \in B_l \cap T} z_{l,a}$ \label{line:first-potential}
+	\EndFor
+	\While{$Q$ has an unmarked element}
+		\State $B_l \gets $ get and mark an unmarked element from $Q$
+		\ForAll{$a \in B_l \cap T$ and $z_{l,a} < 1$}
+			\State $T \gets T \backslash \{a\}$\label{line:delete-a}
+			\ForAll {$B_{l'} \ni a $ and $z_{l', a}>0$}
+				\State $G(B_{l'}) \gets \min(z_{l',a}, \frac{G(B_l)}{|B_l|L})$\label{line:second-potential}
+				\State Push $B_{l'}$ into $Q$\label{line:second-push}
+			\EndFor
+		\EndFor
+	\EndWhile
+	\State \Return{Strategy that test $T$ uniformly}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+We prove the correctness of Algorithm~\ref{alg:one-problem} by firstly introducing the
+following two lemmas.
+
+\begin{lemma}\label{lemma:non-empty}
+$T$ returned by Algorithm~\ref{alg:one-problem} is non-empty.
+\end{lemma}
+\begin{proof}
+$T$ is non-empty before we delete problems from $T$ on line~\ref{line:delete-a}
+of Algorithm~\ref{alg:one-problem}.  Denote that initial $T$ as $T_0$.  If all
+problems in $T_0$ are deleted, then for every $a$ in $T_0$ there is a $B_l$
+that is in $Q$ and $z_{l,a} < 1$.  Note that for every $B_l$ in $Q$, it has a
+positive potential memorizing power $G(B_l)$ either because $\sum_{a \in B_l}
+z_{l,a} < m_l$ (on line \ref{line:first-potential}) or because there is an
+unnecessary memorizing $z_{l, a} > 0$ that can be freed (on line
+\ref{line:second-potential}). This means that we can bring $U$ down by using
+those potential memorizing powers to memorize every problem in $T_0$ more
+(recall that $z_{l,a} < 1$), a contradiction to that $U$ is minimized.
+\end{proof}
+
+\begin{lemma}\label{lemma:best-response}
+Let $z_{l,a}$ be the solution of LP~(\ref{eqn:one-problem}) and $T$ be the final
+subset that Algorithm~\ref{alg:one-problem} returns. Then for each type of test
+takers $B_l$, either $\sum_{a \in B_l \cap T} z_{l,a} = m_l$ (they memorize a
+subset of $T$ that are unsolvable all the time) or $\forall a \in B_l \cap T,
+z_{l, a} = 1$ (they memorize unsolvable problems in $T$ all the time so they
+will pass the test for sure).
+\end{lemma}
+\begin{proof}
+Let $T_0$ be the initial $T$ before any deletion on line~\ref{line:delete-a} of
+Algorithm~\ref{alg:one-problem}.  Initially, for any $B_l$ such that $\sum_{a
+\in B_l cap T_0} z_{l,a} < m_l$, we push it to $Q$. After that any $a \in B_l$
+where $z_{l,a} < 1$ is deleted from $T$ on line~\ref{line:delete-a}. Therefore
+$\forall a \in B_l \cap T, z_{l,a} = 1$ must hold for that $B_l$. Afterwards,
+more $B_l$ may violate $\sum_{a \in B_l cap T} z_{l,a} < m_l$ because some $a$
+are deleted from $T$.  But for those $B_l$, we must have pushed them into $Q$
+on line~\ref{line:second-push}. So they will satisfy $\forall a \in B_l \cap T,
+z_{l,a} = 1$ afterwards. In the end, every $B_l \in Q$ will satisfy $\forall a
+\in B_l \cap T, z_{l,a} = 1$ and every other $B_l \notin Q$ will satisfy
+$\sum_{a \in B_l \cap T} z_{l,a} = m_l$.
+\end{proof}
+
+Then we show our strategy is optimal by complementary slackness theorem, which
+in our context is essentially: 1) the tester only tests problems (non-zero
+primal variables) that gives him best utility (tight dual constraints); 2) the
+test taker only memorizes problems (non-zero dual variables) that gives him
+best utility (tight primal constraints).\footnote{This is essentially saying
+that in a zero-sum game, a minimax, or maximin state is reached, if and only if
+the Nash equilibrium is reached.} We will need two more lemmas as follows to
+use the complementary slackness theorem.
+
+\begin{theorem}
+Uniformly testing $T$ returned by Algorithm~\ref{alg:one-problem} is optimal.
+\end{theorem}
+\begin{proof}
+First of all, $T$ is non-empty by Lemma~\ref{lemma:non-empty} so we can test
+$T$ uniformly. Then since memorizing strategy $z_{l,a}$ makes $U_a$ (the
+utility to test a problem $a$) decrease to $U$ if $U^0_a > U$ and we only pick
+$T$ from problems that $U^0_a > U$, every problem that we might test gives the
+tester best utility. That is the first condition for the complementary
+slackness theorem.  Finally, Lemma~\ref{lemma:best-response} shows that one
+type of test takers either pass the test for sure or memorize a subset in $T$
+all the time which is optimal for uniform test, the second condition of
+complementary slackness theorem holds.
+\end{proof}
+
+Finally, instead of using general LP algorithm like simplex [cite] to solve
+LP~(\ref{eqn:one-problem}), we can alternatively use binary search plus max
+flow to solve it as shown in Algorithm~\ref{alg:max-flow}.  With a given $U$,
+we use max flow to check its feasibility. Intuitively, a $U$ is feasible if and
+only if there is a strategy $z_{l, a}$ such that for every $a$ where $U^0_a >
+U$, that strategy decreases it down to $U$. This is achievable if and only if
+the max flow can saturate all edges from $A$ to $t$. Given a max flow $f$, we
+can restore the strategy by setting $z_{l, a} = f_{(B_l, a)}/c_{(B_l, a)}$
+which is the flow of an edge divded by the capacity of an edge. If we use
+Push-Relabel algorithm [cite] to solve the max flow in $O((n+L)^3)$ time, the
+whole Algorithm~\ref{alg:one-problem} runs in $O((n+L)^3 + \sum_l |B_l|)$ time
+as the remaining part can run in linear time with repsect to the input size
+(assuming we only binary search for constant times to achieve a constant
+accuracy).
+
+\begin{algorithm}
+\caption{Use binary search and max flow to solve LP~(\ref{eqn:one-problem})}
+\label{alg:max-flow}
+\begin{algorithmic}[1]
+	\State $U_{lower} \gets 0, ~U_{upper} \gets \max_{a \in A} U^0_a$
+	\While{$U_{upper}-U_{lower} > \epsilon$}\Comment{Binary search}
+		\State $U \gets (U_{upper}+U_{lower})/2$ \Comment{Objective utility}
+		\State $V \gets \{s\} \cup \mathbb B \cup A \cup \{t\}$ \Comment{Vertex set}
+		\State $E \gets \emptyset$ \Comment{Initialize edge set}
+		\ForAll{$a \in A$}
+			\If{$U^0_a > U$}
+				\State $E \gets E \cup \{(a, t)\}$
+				\State $c_{(a, t)} \gets U^0_a-U$ \Comment{Edge capacity}
+			\EndIf
+		\EndFor
+		\ForAll{$B_l \in \mathbb B$} 
+			\State $E \gets E \cup \{B_l\} \times B_l$ %\Comment{Edges between $\mathbb B$ and $A$}
+			\State $c_{\{B_l\} \times B_l} \gets p_l v_l$ 
+			\State $E \gets E \cup \{(s, B_l)\}$ %\Comment{Edges between $\{s\}$ and $\mathbb B$}
+			\State $c_{(s, B_l)} \gets p_l m_l v_l$
+		\EndFor
+		\State $f \gets \Call{MaxFlow}{G = (V, E), c}$
+		\If{$f$ saturates all edges in $A \times \{t\}$}
+			\State $U_{upper} \gets U$
+		\Else
+			\State $U_{lower} \gets U$
+		\EndIf
+	\EndWhile
+	\State $(\forall l, a), z_{l,a} \gets f_{(B_l,a)} / c_{(B_l, a)}$
+	\State \Return{$U, z_{l,a}$}
+\end{algorithmic}
+\end{algorithm}
+
+\section{Experiment}
+
+In this section, we conduct experiments to see how different approaches scale
+on one-problem test games. The first approach is using CPLEX to solve our
+general LP~(\ref{eqn:maximin}) which is exponential to the memorize capacity.
+The second one is using CPLEX to directly solve the marginal version
+LP~(\ref{eqn:one-problem}).  The third and fourth use
+Algorithm~\ref{alg:max-flow} to solve LP~(\ref{eqn:one-problem}). They are
+using Edmonds-Karp [cite] and Psh-Relabel\footnote{We modified its is\_flow
+function for floating number issues.} [cite] max flow algorithm in C++ boost
+library respectively.
+
+%Therefore
+%we focused on comparing different varieties of
+%Algorithm~\ref{alg:one-problem}. In high level, there are two different
+%ways to implement: one is solving LP~(\ref{eqn:one-problem}) using general LP
+%algorithm and the other is solving it using max flow as shown in
+%Algorithm~\ref{alg:max-flow}. In low level, we compared glpk and cplex for
+%general LP solving methods and compared Edmonds-Karp [cite] and
+%Push-Relabel\footnote{We modified its is\_flow function for floating number
+%issues.} [cite] using C++ boost library [cite] for max flow methods.  In
+%summary, we have four varieties in our comparisons.
+
+For each test case, we specify four parameters $n, L, m_{max}, b_{max}$,
+the number of problems, the number of test taker types, the maximum memorize
+capacity and the maximum size of $B_l$. Given those parameters, a test game
+instance is generated as follows: for each $1 \leq l \leq L$, generate $m_l$
+uniformly from $1$ to $m_{max}$, generate $|B_l|$ uniformly from $m_l$ to
+$b_{max}$, generate $B_l$ by selecting $|B_l|$ elements from $A$ uniformly and
+generate $w_l = v_l p_l$ (weight of type-$l$) from $[0,1]$ uniformly. Here we
+only generate $w_l$ because $v_l$ and $p_l$ always appear together as $v_l
+p_l$. For each parameter setting, we generate $5$ test game instances and
+compute the average running time for each algorithm. During each run, we set
+timeout to 5 seconds. 
+
+\begin{figure}
+	\caption{Average running time (timeout after 5 seconds) for different
+	one-problem test algorithms over the number of problems $n$. For each
+	$n$, we set the other three parameters $L = n, m_{max} = \lfloor
+	\sqrt{n} \rfloor$ and $b_{max} = 2m_{max}$ (see
+	Table~\ref{tab:settings}).}
+	\label{fig:benchmark}
+	\includegraphics[trim=0 10mm 0 -5mm, clip, width=\linewidth]{benchmark_all}
+\end{figure}
+
+In our benchmark, we increase $n$ and set the remaining three parameters $L,
+m_{max}, b_{max}$ as following: $L = n, m_{max} = \lfloor \sqrt{n} \rfloor$ and
+$b_{max} = 2m_{max}$. Note that our $L, b_{max}$ are quite small (they can be
+as large as $b_{max} = n/2, L = \binom{n}{b_{max}})$. That's becuase for large
+$L, b_{max}$, our uniform random input will almost always make the trivial
+strategy to uniformly test among all $n$ problems optimal. So we make them
+small to avoid such trivial solutions. The realized parameter settings are
+shown in Table~\ref{tab:settings}. The benchmark is shown in
+Figure~\ref{fig:benchmark}.  As expected, the general LP is exponential so it
+times out before $n$ reaches $100$.  Unexpectedly, using CPLEX to directly
+solve LP~(\ref{eqn:one-problem}) is much faster than Edmonds-Karp
+implementation. Finally, Push-Relabel version outperforms all others
+significantly. It solves $n=1000$ case in about $0.5$ second while the second
+best CPLEX version uses almost 5 seconds.
+
+[Machine, GLPK and GPLEX spec]
+
+\begin{table}
+	\caption{Parameter settings for the benchmark}\label{tab:settings}
+	\begin{center}
+	\begin{tabular}{ r r r r }
+		$n$&$L$&$m_{max}$&$b_{max}$\\
+		\hline\\
+		10&	10&	3&	6 \\ 
+%		20&	20&	4&	8 \\
+%		30&	30&	5&	10\\
+%		40&	40&	6&	12\\
+		50&	50&	7&	14\\
+%		60&	60&	7&	14\\
+%		70&	70&	8&	16\\
+%		80&	80&	8&	16\\
+%		90&	90&	9&	18\\
+		100&100&10&20\\
+%		150&150&12&24\\
+%		200&200&14&28\\ 
+%		250&250&15&30\\
+		300&300&17&34\\
+%		350&350&18&36\\
+%		400&400&20&40\\
+%		450&450&21&42\\
+		500&500&22&44\\
+%		550&550&23&46\\
+%		600&600&24&48\\
+%		650&650&25&50\\
+		700&700&26&52\\
+%		750&750&27&54\\
+%		800&800&28&56\\
+%		850&850&29&58\\
+%		900&900&30&60\\
+%		950&950&30&60\\
+		1000&1000&31&62
+	\end{tabular}
+	\end{center}
+\end{table}
+
+
+\section{Conclusion}
+
+\section*{Acknowledgments}
+
+The preparation of these instructions and the \LaTeX{} and Bib\TeX{}
+files that implement them was supported by Schlumberger Palo Alto
+Research, AT\&T Bell Laboratories, and Morgan Kaufmann Publishers.
+Preparation of the Microsoft Word file was supported by IJCAI.  An
+early version of this document was created by Shirley Jowell and Peter
+F. Patel-Schneider.  It was subsequently modified by Jennifer
+Ballentine and Thomas Dean, Bernhard Nebel, and Daniel Pagenstecher.
+These instructions are the same as the ones for IJCAI--05, prepared by
+Kurt Steinkraus, Massachusetts Institute of Technology, Computer
+Science and Artificial Intelligence Lab.
+
+\appendix
+
+\section{\LaTeX{} and Word Style Files}\label{stylefiles}
+
+The \LaTeX{} and Word style files are available on the IJCAI--13
+website, {\tt http://www.ijcai-13.org/}.
+These style files implement the formatting instructions in this
+document.
+
+The \LaTeX{} files are {\tt ijcai13.sty} and {\tt ijcai13.tex}, and
+the Bib\TeX{} files are {\tt named.bst} and {\tt ijcai13.bib}. The
+\LaTeX{} style file is for version 2e of \LaTeX{}, and the Bib\TeX{}
+style file is for version 0.99c of Bib\TeX{} ({\em not} version
+0.98i). The {\tt ijcai13.sty} file is the same as the {\tt
+ijcai07.sty} file used for IJCAI--07.
+
+The Microsoft Word style file consists of a single file, {\tt
+ijcai13.doc}. This template is the same as the one used for
+IJCAI--07.
+
+These Microsoft Word and \LaTeX{} files contain the source of the
+present document and may serve as a formatting sample.  
+
+Further information on using these styles for the preparation of
+papers for IJCAI--13 can be obtained by contacting {\tt
+pcchair13@ijcai.org}.
+
+%% The file named.bst is a bibliography style file for BibTeX 0.99c
+\bibliographystyle{named}
+\bibliography{testing_game}
+
+\end{document}
+

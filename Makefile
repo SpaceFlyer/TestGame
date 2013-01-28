@@ -1,4 +1,4 @@
 main:
-		latex ijcai13
+		latex testing_game
 all:
-		latex ijcai13;	latex ijcai13; bibtex ijcai13; latex ijcai13; latex ijcai13; dvipdf ijcai13
+		latex testing_game;	latex testing_game; bibtex testing_game; latex testing_game; latex testing_game; dvipdf testing_game

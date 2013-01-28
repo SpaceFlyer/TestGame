@@ -49,7 +49,7 @@
 % page charge instructions.
 % Put where the files are available in the appropriate places.
 
-\title{Game-Theoretic Problem Selection for Tests}
+\title{Game-Theoretic Question Selection for Tests}
 %\author{Francesca Rossi \\
 %University of Padova\\
 %Italy \\
@@ -60,16 +60,16 @@
 \maketitle
 
 \begin{abstract}
-Conventionally, the problems on a test are assumed to be kept secret
+Conventionally, the questions on a test are assumed to be kept secret
 from test takers until the test.  However, for tests that are taken on
 a large scale, particularly asynchronously, this is very hard to
 achieve.  For example, example TOEFL iBT and driver's license test
-problems are easily found online.  This also appears likely to become
+questions are easily found online.  This also appears likely to become
 an issue for Massive Open Online Courses (MOOCs).
 
 In this paper, we take the loss of confidentiality as a fact.  Even
 so, not all hope is lost as the test taker can memorize only a limited
-set of problems, and the tester can randomize which problems appear on
+set of questions, and the tester can randomize which questions appear on
 the test.  We model this as a Stackelberg game, where the tester
 commits to a mixed strategy and the follower responds.  We provide an
 exponential-size linear program formulation, prove several NP-hardness
@@ -78,42 +78,154 @@ results, and give efficient algorithms for special cases.
 
 \section{Introduction}
 
-\section{General Test Game}
+\section{Definitions and Notation}
 
-A \emph{test game} $G = (A, \mathbb B, p, v, m, t)$ is a 2-player Bayes game
-between the tester and the test taker. The tester has a set of potential
-problems $A = \{a_1, a_2, \ldots, a_n\}$ to test and the test taker has an
-uncertain type (thus Bayes) characterized by $\mathbb B = \{B_1, B_2, \ldots,
-B_L\}$. Set $B_l \subseteq A$ is the unsolvable problem set of the $l$-th type
-test taker.  Function $p: \mathbb B \rightarrow [0,1]$ characterizes the
-probability that a particular type test taker occurs.  The memorize capacity
-function $m: \mathbb B \rightarrow \mathbb N$ denotes how many problems a
-particular test taker can memorize and the value function $v: \mathbb B
-\rightarrow \mathbb R^+$ denotes how much utility the tester gets if that test
-taker failed the test (recall that the tester can only fail test takers who
-cannot solve all problems and he want to fail as many of them as possible). For
-simplicity, we write $p(B_l), m(B_l), v(B_l)$ as $p_l, m_l, v_l$ when the
-context is clear.  During the test, $t$ out of $n$ problems will be tested and
-a particular test taker will pass the test if all tested problems are either
-not in the unsolvable problem set or memorized.  
+%vc: change \mathbb B to \Theta 
 
-The game only has two outcomes, pass or fail. The tester gets $0$ utility if a
-test taker passes and he gets $v_l$ utility if a type-$l$ test taker fails. On
-the type-$l$ test taker's side, he gets $0$ utility if he passes and $-v_l$ if
-he fails. From the test taker's perspective, any utility function that has a
-higher pass utility than fail utility will give him the same incentive to pass
-the test at his best. We define them as $0, -v_l$ specifically for the zero-sum
-property of the game.
+A \emph{test game} $G = (Q, \Theta, p, t, u_1, u_2)$ is a 2-player
+Bayesian game
+between the tester (player 1) and the test taker (player 2). 
+The tester has a set of potential test
+questions $Q = \{q_1, q_2, \ldots, q_n\}$.\footnote{In common parlance,
+  ``problem'' may be a better word, but this runs the risk of confusion
+  with the computational problems studied in the paper.}
+  The test taker has a type
+$\theta \in \Theta$ ($|\Theta| = L$) that characterizes which questions
+are hard for the test taker
+ (i.e., which questions he would
+not be able to answer without memorizing them), and how many questions the test
+taker can memorize.  That is, $\theta = (H_\theta, m_\theta)$, where
+$H_\theta \subseteq Q$ is the set of questions that are hard for $\theta$,
+and $m_\theta \in \mathbb N$ is the number of questions for which $\theta$
+would be able to memorize the answer, so that a test taker of type $\theta$
+has $|H_\theta| \choose m_\theta$ pure courses of action.
+%and the test taker has an
+%uncertain type (thus Bayes) characterized by $\mathbb B = \{B_1, B_2, \ldots,
+%B_L\}$. Set $B_l \subseteq A$ is the unsolvable problem set of the $l$-th type
+%test taker.  
+$p: \Theta \rightarrow [0,1]$ is the
+probability distribution over types.
+% The memorize capacity
+%function $m: \mathbb B \rightarrow \mathbb N$ denotes how many problems a
+%particular test taker can memorize and the value function $v: \mathbb B
+%\rightarrow \mathbb R^+$ denotes how much utility the tester gets if that test
+%taker failed the test (recall that the tester can only fail test takers who
+%cannot solve all problems and he want to fail as many of them as
+%possible). 
+%For
+%simplicity, we write $p(B_l), m(B_l), v(B_l)$ as $p_l, m_l, v_l$ when the
+%context is clear.  
+The tester can put $t$ questions on the test, and thus has $n \choose t$
+pure strategies.  We use $T$ to denote such a pure strategy, and $M_\theta$
+to denote the subset of questions that $\theta$ memorizes.  $u_1(\theta, T,
+M_\theta)$ denotes the tester's utility for type $\theta$, and $u_2(\theta,
+T, M_\theta)$ denotes the utility of a test taker of type $\theta$.
 
-Our goal is to find the optimal strategy for the tester to maximize his utility
-under Stackelberg settings. That is, the tester firstly reveals his strategy
-about how $t$ problems are picked to test, then the test taker chooses the best
-memorizing strategy. This corresponds to our confidential-free assumption where
-test takers know what problems might be tested, their answers, and how likely
-they are tested. The only constraint for test takers is that they cannot
-memorize too many (greater than $m_l$) problem answers. 
+In general, the utility functions could be very rich, depending in a
+complicated way on the true type and the number (or even precise set) of
+questions answered correctly.  To avoid getting too deeply into the
+modeling aspects of this, we study only a special case that should be a
+special case of most reasonable models.  This strengthens the hardness
+results that we obtain later in the paper (since these hardness results
+automatically also apply to the richer models of which our model is a
+special case), though it weakens our positive results.  Specifically, we
+assume that the only two outcomes of the test are to pass or fail the test
+taker.  Moreover, we assume that the tester does not want to pass any test
+taker that cannot answer all the questions (without memorizing any).  Thus,
+the tester will pass exactly the agents that answer all the questions on
+the test correctly.  Agents that can answer all the questions without
+memorizing any have no strategic decisions to make and will always pass;
+therefore, we do not model them explicitly as a type in the game.  (They
+can be thought of as adding a constant to the tester's utility function
+that is sufficiently large that the tester indeed wants to pass agents that
+answer all questions correctly.)  
 
-\subsection{General Linear Program (LP) Formulation}
+Thus, for the explicitly modeled types
+$\theta$ (which the tester wants to fail), we assume that $u_1(\theta, T,
+M_\theta) = 0$ if $T \cap (H_\theta \setminus M_\theta) \neq \emptyset$
+(i.e., a question is tested that the agent cannot answer, so the 
+the agent fails) and $u_1(\theta, T, M_\theta) = -v_\theta$ otherwise
+(the cost of passing an agent of type $\theta$).  For the test takers,
+$u_2(\theta, T,
+M_\theta) = 0$ if $T \cap (H_\theta \setminus M_\theta) \neq \emptyset$,
+and $u_2(\theta, T, M_\theta) = \omega_\theta$ otherwise.  Naturally, we require
+$v_\theta >0$ and $\omega_\theta>0$.
+
+%During the test, $t$ out of $n$ problems will be tested and
+%a particular test taker will pass the test if all tested problems are either
+%not in the unsolvable problem set or memorized.  
+
+%The game only has two outcomes, pass or fail. The tester gets $0$ utility if a
+%test taker passes and he gets $v_l$ utility if a type-$l$ test taker fails. On
+%the type-$l$ test taker's side, he gets $0$ utility if he passes and $-v_l$ if
+%he fails. From the test taker's perspective, any utility function that has a
+%higher pass utility than fail utility will give him the same incentive to pass
+%the test at his best. We define them as $0, -v_l$ specifically for the zero-sum
+%property of the game.
+
+%Our goal is to find the optimal strategy for the tester to maximize his utility
+%under Stackelberg settings. 
+
+
+We believe that a Stackelberg model is most natural for our setting, where
+the tester first commits to a mixed strategy, and the test takers observe
+this mixed strategy and best-respond.  This is because the test takers can
+observe and learn the tester's strategy over time.  Arguably, however, if
+the test takers are not able to do such learning, a Nash equilibrium model
+(i.e., no Stackelberg leadership) also makes sense.  In the next section,
+we show that in fact, both of these models are equivalent to the same
+zero-sum game.
+
+
+
+%That is, the tester firstly reveals his strategy
+%about how $t$ problems are picked to test, then the test taker chooses the best
+%memorizing strategy. This corresponds to our confidential-free assumption where
+%test takers know what problems might be tested, their answers, and how likely
+%they are tested. The only constraint for test takers is that they cannot
+%memorize too many (greater than $m_l$) problem answers. 
+
+
+\section{Equivalence to a Zero-Sum Game}
+
+For any test game $G$ as defined above, we can modify it into a zero-sum
+game $G'$ by substituting the following utility function for the test
+taker: $u_2'(\theta, T, M_\theta) = 0$ if $T \cap (H_\theta \setminus
+M_\theta) \neq \emptyset$, and $u_2'(\theta, T, M_\theta) = v_\theta$
+otherwise.
+
+\begin{proposition}
+  The set of Stackelberg mixed strategies for the tester in $G$ is equal to
+  the set of maximin strategies for the tester in $G'$.  These sets are
+  also equal to the set of Nash equilibrium strategies for the tester in
+  $G$.
+\label{prop:equivalence}
+\end{proposition}
+\begin{proof}
+First, we argue that the sets of Stackelberg mixed strategies for the
+tester in $G$ and $G'$ are the same.  This follows from the fact that every
+test taker type simply acts to maximize his probability of passing, whether
+the utility function is $u_2$ or $u_2'$.  Second, it is well known that in
+a 2-player zero-sum game, the set of Stackelberg mixed strategies is equal
+to the set of maximin strategies for the leader.
+
+Similarly, the sets of Nash equilibrium strategies for the
+tester in $G$ and $G'$ are the same.  This again follows from the fact that every
+test taker type simply acts to maximize his probability of passing, whether
+the utility function is $u_2$ or $u_2'$.  Finally, it is well known that in
+a 2-player zero-sum game, the set of Nash equilibrium strategies is equal
+to the set of maximin strategies for the leader (by the minimax theorem~\cite{Neumann28:Zur}).
+\end{proof}
+
+We note that the equivalence to this zero-sum game is not complete, in the
+sense that it would {\em not} hold if the {\em test taker} is a Stackelberg
+leader who can commit to a strategy (before learning his type).  An example
+is provided in Appendix~\ref{se:counterexample}.  However, since this
+reversed Stackelberg model is not of primary interest to
+us, we proceed with the zero-sum formulation from here on.
+
+
+\section{General Linear Program (LP) Formulation}
 
 General 2-player Bayes Stackelberg games are NP-hard in terms of game matrix
 size so previous work used mixed integer LP (e.g. DOBSS [cite]) to solve them.
@@ -592,49 +704,52 @@ best CPLEX version uses almost 5 seconds.
 
 \section{Conclusion}
 
-\section*{Acknowledgments}
+%\section*{Acknowledgments}
 
-The preparation of these instructions and the \LaTeX{} and Bib\TeX{}
-files that implement them was supported by Schlumberger Palo Alto
-Research, AT\&T Bell Laboratories, and Morgan Kaufmann Publishers.
-Preparation of the Microsoft Word file was supported by IJCAI.  An
-early version of this document was created by Shirley Jowell and Peter
-F. Patel-Schneider.  It was subsequently modified by Jennifer
-Ballentine and Thomas Dean, Bernhard Nebel, and Daniel Pagenstecher.
-These instructions are the same as the ones for IJCAI--05, prepared by
-Kurt Steinkraus, Massachusetts Institute of Technology, Computer
-Science and Artificial Intelligence Lab.
 
 \appendix
 
-\section{\LaTeX{} and Word Style Files}\label{stylefiles}
+\section{Counterexample to Zero-Sum Equivalence When the Test Taker Is the
+  Stackelberg Leader}
+\label{se:counterexample}
 
-The \LaTeX{} and Word style files are available on the IJCAI--13
-website, {\tt http://www.ijcai-13.org/}.
-These style files implement the formatting instructions in this
-document.
+Let $Q=\{q_1,q_2\}$, $\Theta=\{\theta_1,\theta_2\}$,
+$H_{\theta_1}=H_{\theta_2}=Q$, $m_{\theta_1}=m_{\theta_2}=1$,
+$p(\theta_1)=p(\theta_2)=1/2$, $t=1$, $v_{\theta_1} = 100$, $v_{\theta_2} =
+1$, $\omega_{\theta_1} = 1$, and $\omega_{\theta_2} = 100$.  If the tester
+is the leader, then it is optimal for her place probability $1/2$ on each
+question (and so, by Proposition~\ref{prop:equivalence}, this is also
+optimal in the zero-sum version of the game).  This results in an expected
+utility of $0.5$ for a test taker of type $\theta_1$, and one of $50$ for a
+test taker of type $\theta_2$---so an expected utility of $25.25$ for the
+test taker {\em ex ante}.
 
-The \LaTeX{} files are {\tt ijcai13.sty} and {\tt ijcai13.tex}, and
-the Bib\TeX{} files are {\tt named.bst} and {\tt ijcai13.bib}. The
-\LaTeX{} style file is for version 2e of \LaTeX{}, and the Bib\TeX{}
-style file is for version 0.99c of Bib\TeX{} ({\em not} version
-0.98i). The {\tt ijcai13.sty} file is the same as the {\tt
-ijcai07.sty} file used for IJCAI--07.
+However, if the test taker can commit to a strategy in the Bayesian game
+{\em ex ante} (before learning his type), then he can commit to
+memorize conditionally on the type as follows: $M_{\theta_1} =\{q_1\}$ and 
+$M_{\theta_2} =\{q_2\}$.  Because the tester cares more about failing
+$\theta_1$, she will test $q_2$.  This results in an {\em ex ante} expected
+utility of $(1/2) \cdot 100 = 50$ for the test taker, which is more than
+the $25.25$ from the strategy in the regular version.
 
-The Microsoft Word style file consists of a single file, {\tt
-ijcai13.doc}. This template is the same as the one used for
-IJCAI--07.
 
-These Microsoft Word and \LaTeX{} files contain the source of the
-present document and may serve as a formatting sample.  
 
-Further information on using these styles for the preparation of
-papers for IJCAI--13 can be obtained by contacting {\tt
-pcchair13@ijcai.org}.
+
+
+
+
+
+
+
+
+
+
+\section{Dual of the linear program and interpretation}
+
 
 %% The file named.bst is a bibliography style file for BibTeX 0.99c
 \bibliographystyle{named}
-\bibliography{ijcai13}
+\bibliography{/usr/project/conitzer/vccollab/references.bib}
 
 \end{document}
 
