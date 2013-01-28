@@ -49,29 +49,31 @@
 % page charge instructions.
 % Put where the files are available in the appropriate places.
 
-\title{IJCAI--13 Formatting Instructions\thanks{These match the formatting instructions of IJCAI-07. The support of IJCAI, Inc. is acknowledged.}}
-\author{Francesca Rossi \\
-University of Padova\\
-Italy \\
-pcchair13@ijcai.org}
+\title{Game-Theoretic Problem Selection for Tests}
+%\author{Francesca Rossi \\
+%University of Padova\\
+%Italy \\
+%pcchair13@ijcai.org}
 
 \begin{document}
 
 \maketitle
 
 \begin{abstract}
-Conventionally, tests are assumed to be confidential where problems, answers
-and other test related information are kept unkown from test takers.  That
-confidentiality, however, becomes very hard to achieve because of the Internet.
-For example, we can easily find TOEFL iBT and driver's license tests' problems
-that are anonymously posted online by previous test takers. In this paper, we
-take the loss of confidentiality as a fact and study the optimal
-confidential-free test.  We model it as a Stackelberg game with the tester as a
-leader who reveals his test strategy, problems and answers to test takers. The
-only limit of a test taker is memorize capacity which means he can only
-memorize some of the problems' answers. We model and characterize hardness of
-such test games in general. We also give efficient algorithms for cases when
-test games are not hard.
+Conventionally, the problems on a test are assumed to be kept secret
+from test takers until the test.  However, for tests that are taken on
+a large scale, particularly asynchronously, this is very hard to
+achieve.  For example, example TOEFL iBT and driver's license test
+problems are easily found online.  This also appears likely to become
+an issue for Massive Open Online Courses (MOOCs).
+
+In this paper, we take the loss of confidentiality as a fact.  Even
+so, not all hope is lost as the test taker can memorize only a limited
+set of problems, and the tester can randomize which problems appear on
+the test.  We model this as a Stackelberg game, where the tester
+commits to a mixed strategy and the follower responds.  We provide an
+exponential-size linear program formulation, prove several NP-hardness
+results, and give efficient algorithms for special cases.
 \end{abstract}
 
 \section{Introduction}
@@ -489,23 +491,28 @@ accuracy).
 
 \section{Experiment}
 
-In this section, we conduct experiments to see how different algorithms scale
-on test games. 
+In this section, we conduct experiments to see how different approaches scale
+on one-problem test games. The first approach is using CPLEX to solve our
+general LP~(\ref{eqn:maximin}) which is exponential to the memorize capacity.
+The second one is using CPLEX to directly solve the marginal version
+LP~(\ref{eqn:one-problem}).  The third and fourth use
+Algorithm~\ref{alg:max-flow} to solve LP~(\ref{eqn:one-problem}). They are
+using Edmonds-Karp [cite] and Psh-Relabel\footnote{We modified its is\_flow
+function for floating number issues.} [cite] max flow algorithm in C++ boost
+library respectively.
 
-EXPERIMENTS FOR MULTI-PROBLEM TEST?
+%Therefore
+%we focused on comparing different varieties of
+%Algorithm~\ref{alg:one-problem}. In high level, there are two different
+%ways to implement: one is solving LP~(\ref{eqn:one-problem}) using general LP
+%algorithm and the other is solving it using max flow as shown in
+%Algorithm~\ref{alg:max-flow}. In low level, we compared glpk and cplex for
+%general LP solving methods and compared Edmonds-Karp [cite] and
+%Push-Relabel\footnote{We modified its is\_flow function for floating number
+%issues.} [cite] using C++ boost library [cite] for max flow methods.  In
+%summary, we have four varieties in our comparisons.
 
-For one-problem test, our original LP~(\ref{eqn:maximin}) is exponential to the
-memorize capacity. Therefore we focused on comparing different varieties of
-Algorithm~\ref{alg:one-problem}. In high level, there are two different
-ways to implement: one is solving LP~(\ref{eqn:one-problem}) using general LP
-algorithm and the other is solving it using max flow as shown in
-Algorithm~\ref{alg:max-flow}. In low level, we compared glpk and cplex for
-general LP solving methods and compared Edmonds-Karp [cite] and
-Push-Relabel\footnote{We modified its is\_flow function for floating number
-issues.} [cite] using C++ boost library [cite] for max flow methods.  In
-summary, we have four varieties in our comparisons.
-
-During each comparison, we specify four parameters $n, L, m_{max}, b_{max}$,
+For each test case, we specify four parameters $n, L, m_{max}, b_{max}$,
 the number of problems, the number of test taker types, the maximum memorize
 capacity and the maximum size of $B_l$. Given those parameters, a test game
 instance is generated as follows: for each $1 \leq l \leq L$, generate $m_l$
@@ -515,7 +522,7 @@ generate $w_l = v_l p_l$ (weight of type-$l$) from $[0,1]$ uniformly. Here we
 only generate $w_l$ because $v_l$ and $p_l$ always appear together as $v_l
 p_l$. For each parameter setting, we generate $5$ test game instances and
 compute the average running time for each algorithm. During each run, we set
-timeout to be 5 seconds. 
+timeout to 5 seconds. 
 
 \begin{figure}
 	\caption{Average running time (timeout after 5 seconds) for different
@@ -524,21 +531,23 @@ timeout to be 5 seconds.
 	\sqrt{n} \rfloor$ and $b_{max} = 2m_{max}$ (see
 	Table~\ref{tab:settings}).}
 	\label{fig:benchmark}
-	\includegraphics[trim=5mm 0 15mm 0, clip, width=\linewidth]{benchmark}
+	\includegraphics[trim=0 10mm 0 -5mm, clip, width=\linewidth]{benchmark_all}
 \end{figure}
 
 In our benchmark, we increase $n$ and set the remaining three parameters $L,
 m_{max}, b_{max}$ as following: $L = n, m_{max} = \lfloor \sqrt{n} \rfloor$ and
 $b_{max} = 2m_{max}$. Note that our $L, b_{max}$ are quite small (they can be
-as large as $b_{max} = n/2, L = \binom{n}{b_{max}})$. That's becuase for large $L,
-b_{max}$, our uniform random input will almost always make the trivial strategy
-to uniformly test among all $n$ problems optimal. So we make them small to
-avoid such trivial solutions. The realized parameter settings are shown in
-Table~\ref{tab:settings} (we show them in the step of 100 for the sake of
-space). The benchmark is shown in Figure~\ref{fig:benchmark}. The Edmonds-Karp
-variety takes longest time and it times out when $n \geq 200$. CPLEX is faster
-than GLPK but they are both much slower than Push-Relabel variety. Using
-Push-Relabel implementation, we can solve $n=L=1000$ case in less than 1 second.
+as large as $b_{max} = n/2, L = \binom{n}{b_{max}})$. That's becuase for large
+$L, b_{max}$, our uniform random input will almost always make the trivial
+strategy to uniformly test among all $n$ problems optimal. So we make them
+small to avoid such trivial solutions. The realized parameter settings are
+shown in Table~\ref{tab:settings}. The benchmark is shown in
+Figure~\ref{fig:benchmark}.  As expected, the general LP is exponential so it
+times out before $n$ reaches $100$.  Unexpectedly, using CPLEX to directly
+solve LP~(\ref{eqn:one-problem}) is much faster than Edmonds-Karp
+implementation. Finally, Push-Relabel version outperforms all others
+significantly. It solves $n=1000$ case in about $0.5$ second while the second
+best CPLEX version uses almost 5 seconds.
 
 [Machine, GLPK and GPLEX spec]
 
@@ -548,23 +557,32 @@ Push-Relabel implementation, we can solve $n=L=1000$ case in less than 1 second.
 	\begin{tabular}{ r r r r }
 		$n$&$L$&$m_{max}$&$b_{max}$\\
 		\hline\\
+		10&	10&	3&	6 \\ 
+%		20&	20&	4&	8 \\
+%		30&	30&	5&	10\\
+%		40&	40&	6&	12\\
+		50&	50&	7&	14\\
+%		60&	60&	7&	14\\
+%		70&	70&	8&	16\\
+%		80&	80&	8&	16\\
+%		90&	90&	9&	18\\
 		100&100&10&20\\
 %		150&150&12&24\\
-		200&200&14&28\\ 
+%		200&200&14&28\\ 
 %		250&250&15&30\\
 		300&300&17&34\\
 %		350&350&18&36\\
-		400&400&20&40\\
+%		400&400&20&40\\
 %		450&450&21&42\\
 		500&500&22&44\\
 %		550&550&23&46\\
-		600&600&24&48\\
+%		600&600&24&48\\
 %		650&650&25&50\\
 		700&700&26&52\\
 %		750&750&27&54\\
-		800&800&28&56\\
+%		800&800&28&56\\
 %		850&850&29&58\\
-		900&900&30&60\\
+%		900&900&30&60\\
 %		950&950&30&60\\
 		1000&1000&31&62
 	\end{tabular}
