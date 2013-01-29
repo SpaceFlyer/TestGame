@@ -525,15 +525,24 @@ the tester mixed strategy that chooses a pair of questions $i,j$ with
 $(i,j) \notin E$ uniformly at random (there are ${|V| \choose 2} - |E|$
 such pairs).  We will show that this strategy guarantees the tester an
 expected utility of at least $u$.  Again, we will reason in terms of the
-savings to the tester relative to passing everyone.  The probability that a
-type $\theta_e$ with $e = (i,j) \in E$ fails is $\frac{2n-2-d(i)-d(j)}{{|V|
-    \choose 2} - |E|}$, so the total savings corresponding to these types
-is $\sum_{(i,j) \in E} \frac{2n-2-d(i)-d(j)}{{|V| \choose 2} - |E|} = \frac
-{(2n-2)|E| - \sum_i d(i)^2}{{|V| \choose 2} - |E|}$.  The probability that
-a type $\theta_i$ with $i \in v$ fails is $\frac{n-1 - d(i)}{{|V| \choose
-    2} - |E|}$, so the total savings corresponding to these types
-is  $\sum_{i \in V} (d_{\text{max}}-d(i)) \frac{n-1 - d(i)}{{|V| \choose
-    2} - |E|}$. 
+savings to the tester relative to passing everyone.  We first consider the
+savings from types $\theta_e$ with $e \in E$ and $\theta_i$ with $i \in V$.
+For these types (which do not have a choice to make), it is easier to
+reason about the savings resulting from testing a specific pair of
+questions $i,j$ with $(i,j) \notin E$ with probability $\frac{1}{{|V|
+    \choose 2} - |E|}$.  This savings is $\frac{d(i)+d(j)+2d_{\text{max}} -
+  d(i) - d(j)}{{|V| \choose 2} - |E|} = \frac{2d_{\text{max}}}{{|V| \choose
+    2} - |E|}$.  Because there are ${|V| \choose 2} - |E|$
+such pairs, we have a total savings of $2d_{\text{max}}$.
+%The probability that a
+%type $\theta_e$ with $e = (i,j) \in E$ fails is $\frac{2n-2-d(i)-d(j)}{{|V|
+%    \choose 2} - |E|}$, so the total savings corresponding to these types
+%is $\sum_{(i,j) \in E} \frac{2n-2-d(i)-d(j)}{{|V| \choose 2} - |E|} = \frac
+%{(2n-2)|E| - \sum_i d(i)^2}{{|V| \choose 2} - |E|}$.  The probability that
+%a type $\theta_i$ with $i \in v$ fails is $\frac{n-1 - d(i)}{{|V| \choose
+%    2} - |E|}$, so the total savings corresponding to these types
+%is  $\sum_{i \in V} (d_{\text{max}}-d(i)) \frac{n-1 - d(i)}{{|V| \choose
+%    2} - |E|}$. 
 The best response for type $\theta^*$ is to memorize any pair $\{i,j\}$
 where $(i,j) \notin E$, 
 %vc: maybe say $\{i,j\} \notin E$.
@@ -541,36 +550,49 @@ resulting in a probability of $\frac{{|V| \choose 2} - |E| - 1}
 {{|V| \choose 2} - |E|}$ that this type fails, so the total savings
 corresponding to this type is $\alpha \varepsilon 
 \frac{{|V| \choose 2} - |E| - 1}
-{{|V| \choose 2} - |E|}$.
+{{|V| \choose 2} - |E|} = \alpha \varepsilon (1-\frac{1}{{|V| \choose 2} - |E|})$
+%$(\binom{|V|}{2} - |E|-\binom{k}{2})
+%$\varepsilon 
+%\frac{{|V| \choose 2} - |E| - 1}
+%{{|V| \choose 2} - |E|}$.
 Finally, because by assumption, no independent set of size $k$ exists, no
-matter which set of $k$ problems $\theta^{**}$ memorizes,
-the probability that 
- $\theta^{**}$ fails is at least $\frac{{|V| \choose 2} - |E| - {k \choose 2} +1}{
-{|V| \choose 2} - |E|}$, so the total savings
-corresponding to this type is at least $\varepsilon \frac{{|V| \choose 2} - |E| - {k \choose 2} +1}{
-{|V| \choose 2} - |E|}$.
-
-
-
-Recall that a dual solution is a strategy for test takers to memorize
-problems. If no one memorizes, the tester's utility $U_r$ to test a problem set
-$r$ is $U_r = (2d_G+a\cdot\varepsilon + \varepsilon) /L$ if $r \notin E$ and
-$U_r = (2d_G-1+a\cdot\varepsilon + \varepsilon)/L$ if $r \in E$. To lower the
-objective, test takers $l_\alpha, l_k$ should memorize problem sets that bring
-the maximum of $U_r$ down.  No matter what the strategy is (as long as they
-only memorize unsolvable problems), $\sum_r U_r$ is a constant. And because
-$U_r$ for $r \notin E$ is much larger than $U_r$ for $r \in E$ as $\varepsilon
-\ll 1$, it's better to only decrease $U_r$ for $r \notin E$. The only way to do
-that is to let $l_\alpha$ test takers only memorize pairs of problems that are
-not edges and let $l_k$ test takers only memorize size-$k$ indepedent sets of
-problems.  If there's a size-$k$ independent set, let $l_k$ test takers
-memorize one size-$k$ independent set all the time and let $l_\alpha$ test
-takers memorize all pairs of problems that are not covered by that independent
-set with uniform probability. That will make $U_r = (2d_G+a\cdot\varepsilon)/L$
-for $r \notin E$ and $U_r = (2d_G-1+a\cdot\varepsilon+\varepsilon)/L$ for $r
-\in E$.  This is the best they can achieve and this can only be achieved when a
-size-$k$ independent set exists in $G$.
-
+matter which set of $k$ problems $\theta^{**}$ memorizes, the probability
+that $\theta^{**}$ fails is at least $\frac{{|V| \choose 2} - |E| - {k
+    \choose 2} +1}{{|V| \choose 2} - |E|} = \frac{\alpha+1}{{|V| \choose 2}
+  - |E|}$, so the total savings corresponding to this type is at least
+$\varepsilon \frac{\alpha+1}{{|V| \choose 2} - |E|}$.  Summing the savings
+for $\theta^*$ and $\theta^{**}$, we get $\alpha \varepsilon +
+\frac{\varepsilon}{{|V| \choose 2} - |E|}$.
+Adding all these savings to the utility to the tester of passing everyone,
+which is  $-|E| -
+|V|d_{\text{max}} + 2|E| - \alpha \varepsilon - \varepsilon$, 
+we get that the tester's utility is $(2-|V|)d_{\text{max}} + |E| 
++ \frac{\varepsilon}{{|V| \choose 2} - |E|} -\varepsilon =
+(2-|V|)d_{\text{max}} + |E| - \frac{{V  \choose 2}-|E|-1}{{V \choose
+    2}-|E|}\varepsilon
+= u$.
+ So the
+answer to the \textsc{Optimal Test Strategy} instance is ``yes.''
+%
+%Recall that a dual solution is a strategy for test takers to memorize
+%problems. If no one memorizes, the tester's utility $U_r$ to test a problem set
+%$r$ is $U_r = (2d_G+a\cdot\varepsilon + \varepsilon) /L$ if $r \notin E$ and
+%$U_r = (2d_G-1+a\cdot\varepsilon + \varepsilon)/L$ if $r \in E$. To lower the
+%objective, test takers $l_\alpha, l_k$ should memorize problem sets that bring
+%the maximum of $U_r$ down.  No matter what the strategy is (as long as they
+%only memorize unsolvable problems), $\sum_r U_r$ is a constant. And because
+%$U_r$ for $r \notin E$ is much larger than $U_r$ for $r \in E$ as $\varepsilon
+%\ll 1$, it's better to only decrease $U_r$ for $r \notin E$. The only way to do
+%that is to let $l_\alpha$ test takers only memorize pairs of problems that are
+%not edges and let $l_k$ test takers only memorize size-$k$ indepedent sets of
+%problems.  If there's a size-$k$ independent set, let $l_k$ test takers
+%memorize one size-$k$ independent set all the time and let $l_\alpha$ test
+%takers memorize all pairs of problems that are not covered by that independent
+%set with uniform probability. That will make $U_r = (2d_G+a\cdot\varepsilon)/L$
+%for $r \notin E$ and $U_r = (2d_G-1+a\cdot\varepsilon+\varepsilon)/L$ for $r
+%\in E$.  This is the best they can achieve and this can only be achieved when a
+%size-$k$ independent set exists in $G$.
+%
 \end{proof}
 
 
@@ -602,63 +624,134 @@ size-$k$ independent set exists in $G$.
 
 
 
-[COMPLEXITY TABLE AT END OF PAPER]
+%[COMPLEXITY TABLE AT END OF PAPER]
 
-\section{One-Problem Test Game}
+\section{Tests of Size One}
 
-We showed the hardness of test games when either one of test size or memorize
-capacity is non-constant. When the test size is non-constant, there is little
-we can improve because it is NP-hard even if the memorize capacity is zero.
-When the memorize capacity is non-constant, our proof for
-Theorem~\ref{thm:memorize-hardness} only showed that NP-hardness for testing 2
-problems. Therefore an efficient algorithm to compute optimal one-problem test
-may exist. A quick evidence for the existence of such polynomial algorithm is
-constraint generation. Though there are exponential many constraints, we can
-find the most violated constraint in polynomial time by: enumerate over all
-types of test takers; for type-$l$ test takers  select top $m_l$ problems $M_l$
-according to $x_a$ that maximize $\sum_{a \in M_l} x_a$; finally see whether
-$V_l - \sum_{a \in B_l \backslash M_l} x_a$ updates the most violated
-constraint.
+%We showed the hardness of test games when either one of test size or memorize
+%capacity is non-constant. 
+Theorem~\ref{thm:test-hardness} shows that when we do not bound the test
+size, our problem is hard even if test takers cannot memorize anything.
+%the test size is non-constant, there is little
+%we can improve because it is NP-hard even if the memorize capacity is zero.
+But, if we do not bound the memory size,
+Theorem~\ref{thm:memorize-hardness} only shows that our problem is hard if
+the tester can test two questions simultaneously.  
+%When the memorize capacity is non-constant, our proof for
+%Theorem~\ref{thm:memorize-hardness} only showed that NP-hardness for testing 2
+%problems. 
+This still leaves open whether an efficient algorithm exists when the test
+size is restricted to $1$.  In this section, we show that this is in fact
+the case.  Our interest in this special case derives not only from it being
+left open by our hardness results, but also from potentially important
+applications.  For one, an interviewer often only has time to ask an
+applicant a single question.  Moving away from interpreting questions
+literally, a (for example) nuclear inspections team may be able only to
+inspect a single site (within a particular time frame).
 
-We also investigated such tests by conducting experiments using
-LP~(\ref{eqn:maximin}). Surprisingly, no matter how input varies, the strategy
-we get always has the following format: among a subset $T$ of problems $A$,
-test any one of them with uniform probability. That is counter-intuitive as
-some problems in $T$ seem to be obviously more superior than others so
-intuitively they should be tested with more probability. For example, when $n$
-problems can be sorted by difficulty, a test taker who can solve a harder
-problem can always solve an easier problem. In that case, it seems that the
-hardest problem should be tested strictly more likely than the second hardest
-problem. But in most cases, the optimal strategy will test one of them with
-equal probability.
+In this special case, LP~(\ref{eqn:maximin}) has polynomially many
+variables, but an exponential number of constraints.  A quick proof of the
+polynomial-time solvability of this case is given by establishing that
+there is a polynomial-time separation oracle for finding a violated constraint.
+This separation oracle is straightforward: simply select, for every type
+$\theta$, the $m_\theta$ problems in $H_\theta$ that get the highest
+probability $x_q$ in the current solution (breaking ties arbitrarily), and
+see whether the corresponding constraint is violated.  However, in this
+section, we develop more direct approaches that do not require generating
+violated constraints and that give more insight into the structure of the solution.
+%A quick evidence for the existence of such polynomial algorithm is
+%constraint generation. Though there are exponential many constraints, we can
+%find the most violated constraint in polynomial time by: enumerate over all
+%types of test takers; for type-$l$ test takers  select top $m_l$ problems $M_l$
+%according to $x_a$ that maximize $\sum_{a \in M_l} x_a$; finally see whether
+%$V_l - \sum_{a \in B_l \backslash M_l} x_a$ updates the most violated
+%constraint.
 
-[EXAMPLE TABLE]
+%We also investigated such tests by conducting experiments using
+%LP~(\ref{eqn:maximin}). Surprisingly, no matter how input varies, the strategy
+%we get always has the following format: among a subset $T$ of problems $A$,
+%test any one of them with uniform probability. That is counter-intuitive as
+%some problems in $T$ seem to be obviously more superior than others so
+%intuitively they should be tested with more probability. For example, when $n$
+%problems can be sorted by difficulty, a test taker who can solve a harder
+%problem can always solve an easier problem. In that case, it seems that the
+%hardest problem should be tested strictly more likely than the second hardest
+%problem. But in most cases, the optimal strategy will test one of them with
+%equal probability.
 
-Inspired by that uniform test property, we present an algorithm to compute
-optimal strategies and use it to prove uniform test property consequently.  Let
-$U^0_a$ be the utility of testing $a$ without memorizing: $U^0_a =
-\sum_{B_l \ni a} v_l p_l$. The algorithm's first part is based on
-the following LP:
+%[EXAMPLE TABLE]
+
+%Inspired by that uniform test property, we present an algorithm to compute
+%optimal strategies and use it to prove uniform test property
+%consequently. 
+
+\subsection{Linear Program}
+
+We first present a  linear program that can be thought of as a
+polynomial-size version of LP~\ref{eqn:dual-original}.  Instead of 
+variables $y_{\theta,M_\theta}$, this linear program has a variable
+$z_{\theta,q}$ for every individual $q \in H_\theta$.  These variables
+correspond to the {\em marginal} probability that $\theta$ memorizes $q$
+(in this case, conditional on $\theta$ being the type).
+In the case where the tester tests one question, these marginal
+probabilities are all that matter.  (This is not true when the tester tests
+more than one question, because in that case, for example, if the tester
+always tests two questions together, a test taker may be best off
+memorizing the answers either to both questions or to neither question.)
+ Let
+$U^0_q$ be the utility that the tester obtains when she tests $q$ and nobody
+memorizes $q$, i.e., $U^0_a =
+\sum_{\theta: q \notin H_\theta} p(\theta)(-v_\theta)$. 
+%The algorithm's first part is based on
+%the following LP:
 \begin{align}\label{eqn:one-problem}
 	\min~ &U\\
-	s.t.~ &(\forall a \in A)~ U \geq U^0_a - \sum_{B_l \ni a} p_l v_l z_{l, a}\nonumber\\
-	&(\forall l)~ \sum_{a \in B_l} z_{l, a} \leq m_l\nonumber\\
-	&(\forall l, a)~ 0 \leq z_{l, a} \leq 1\nonumber
+	s.t.~ &(\forall q \in Q)~ U \geq U^0_q - \sum_{\theta : q \in
+          H_\theta} p(\theta)v_\theta z_{\theta,q}\nonumber\\
+	&(\forall \theta \in \Theta)~ \sum_{q \in H_\theta} z_{\theta,q} \leq m_\theta\nonumber\\
+	&(\forall \theta \in \Theta, q \in H_\theta)~ 0 \leq z_{\theta, q} \leq 1\nonumber
 \end{align}
-It modifies LP~(\ref{eqn:dual-original}) by:
-\begin{enumerate}
-	\item Change joint probability $y_{l, c_l}$ to marginal probability
-	$z_{l, a}$ of memorizing one problem $a$.  We did this modification
-	because marginal probability is more meaningful for one-problem test
-	and we can always restore a joint probability from a marginal
-	probability[reference].
-	\item Relax equality $\sum_{a \in B_l} z_{l, a} = m_l$ to inequality
-	$\sum_{a \in B_l} z_{l,a} \leq m_l$ (allow using less memorize
-	capacity).  We can do this because $v_l \geq 0$ (thus $u^l, V_l \geq
-	0$) and this modification is essentially adding $V_l \geq 0$ to the
-	primal LP~(\ref{eqn:maximin}). Intuitively, memorizing less problems
-	won't hurt tester's utility.
-\end{enumerate}
+%It modifies LP~(\ref{eqn:dual-original}) by:
+%\begin{enumerate}
+%	\item Change joint probability $y_{l, c_l}$ to marginal probability
+%	$z_{l, a}$ of memorizing one problem $a$.  We did this modification
+%	because marginal probability is more meaningful for one-problem test
+%	and we can always restore a joint probability from a marginal
+%	probability[reference].
+%	\item Relax equality $\sum_{a \in B_l} z_{l, a} = m_l$ to inequality
+%	$\sum_{a \in B_l} z_{l,a} \leq m_l$ (allow using less memorize
+%	capacity).  We can do this because $v_l \geq 0$ (thus $u^l, V_l \geq
+%	0$) and this modification is essentially adding $V_l \geq 0$ to the
+%	primal LP~(\ref{eqn:maximin}). Intuitively, memorizing less problems
+%	won't hurt tester's utility.
+%\end{enumerate}
+
+%(The second-to-last constraint can equivalently be replaced with $\sum_{q
+%  \in H_\theta} z_{\theta,q} = m_\theta$, but the inequality form will help
+%us later on.)
+
+Solving LP~(\ref{eqn:one-problem}) 
+%vc: add parentheses elsewhere too
+gives us an equilibrium test taker strategy.\footnote{To be precise, we have to
+find a test taker strategy that has these marginal probabilities.
+This is quite straightforward in this context: for example, one can, for
+each question in sequence, flip a coin with the appropriate probability to
+determine whether to memorize it, and subsequently renormalize the remaining
+questions' probabilities to ensure that the (expected) number of memorized
+questions stays the same.  This strategy, however, has an
+exponential-size support and so the support cannot be listed explicitly.
+Alternatively, we can find the mixed strategy
+explicitly using the Dulmage-Halperin
+algorithm~\cite{Dulmage55:Frobenius,Chang01:Birkhoff} for finding the
+Birkhoff-von Neumann decomposition~\cite{Birkhoff46:Tres}; similar
+techniques are used in the context of security
+games~\cite{Korzhyk10:Complexity}.}
+An equilibrium tester strategy can be read off from the corresponding
+solution to the dual of this linear program. ?????APPENDIX???????
+
+
+\subsection{A Network Flow Approach}
+
 
 Our algorithm is shown in Algorithim~\ref{alg:one-problem}.
 
@@ -800,7 +893,7 @@ accuracy).
 \end{algorithmic}
 \end{algorithm}
 
-\section{Experiment}
+\subsection{Experiments}
 
 In this section, we conduct experiments to see how different approaches scale
 on one-problem test games. The first approach is using CPLEX to solve our

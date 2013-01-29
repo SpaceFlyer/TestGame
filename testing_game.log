@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.10.22)  28 JAN 2013 16:40
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.10.22)  29 JAN 2013 11:47
 entering extended mode
  %&-line parsing enabled.
 **testing_game
@@ -249,24 +249,21 @@ File: omsptm.fd
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 453.
  [3]
-Underfull \hbox (badness 4013) in paragraph at lines 655--661
-[]\OT1/ptm/m/n/10 Relax equal-ity $[][] \OML/cmm/m/it/10 z[] \OT1/cmr/m/n/10 = 
-\OML/cmm/m/it/10 m[]$ \OT1/ptm/m/n/10 to in-equal-ity
- []
-
-
-Underfull \hbox (badness 1565) in paragraph at lines 718--729
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 688.
+ [4]
+Underfull \hbox (badness 1565) in paragraph at lines 811--822
 []\OT1/ptm/m/n/10 Let $\OML/cmm/m/it/10 T[]$ \OT1/ptm/m/n/10 be the ini-tial $\
 OML/cmm/m/it/10 T$ \OT1/ptm/m/n/10 be-fore any dele-tion on
  []
 
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 826--837
+
+Underfull \hbox (badness 10000) in paragraph at lines 919--930
 []\OT1/ptm/m/n/10 For each test case, we spec-ify four pa-ram-e-ters
  []
 
 
-Underfull \hbox (badness 1173) in paragraph at lines 826--837
+Underfull \hbox (badness 1173) in paragraph at lines 919--930
 \OT1/ptm/m/n/10 gen-er-ate $\OML/cmm/m/it/10 m[]$ \OT1/ptm/m/n/10 uni-formly fr
 om $\OT1/cmr/m/n/10 1$ \OT1/ptm/m/n/10 to $\OML/cmm/m/it/10 m[]$\OT1/ptm/m/n/10
  , gen-er-ate $\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 B[]\OMS/cmsy/m/n/10 j$
@@ -275,35 +272,37 @@ om $\OT1/cmr/m/n/10 1$ \OT1/ptm/m/n/10 to $\OML/cmm/m/it/10 m[]$\OT1/ptm/m/n/10
 [5]
 File: benchmark_all.eps Graphic file (type eps)
  <benchmark_all.eps> (./testing_game.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 24--31
+Underfull \hbox (badness 10000) in paragraph at lines 51--58
 []\OT1/ptm/m/n/10 Praveen Paruchuri, Jonathan P.
  []
 
 
-Underfull \hbox (badness 5924) in paragraph at lines 24--31
+Underfull \hbox (badness 5924) in paragraph at lines 51--58
 \OT1/ptm/m/n/10 Pearce, Janusz Marecki, Milind Tambe, Fer-nando
  []
 
 
-Underfull \hbox (badness 1005) in paragraph at lines 24--31
+Underfull \hbox (badness 1005) in paragraph at lines 51--58
 \OT1/ptm/m/n/10 games.  In \OT1/ptm/m/it/10 Pro-ceed-ings of the Sev-enth In-te
 r-na-tional
  []
 
 
-Underfull \hbox (badness 1762) in paragraph at lines 24--31
+Underfull \hbox (badness 1762) in paragraph at lines 51--58
 \OT1/ptm/m/it/10 Sys-tems (AA-MAS)\OT1/ptm/m/n/10 , pages 895--902, Es-to-ril, 
 Por-tu-gal,
  []
 
-) [6] (./testing_game.aux) ) 
+[6]) [7
+
+] (./testing_game.aux) ) 
 Here is how much of TeX's memory you used:
- 2097 strings out of 493849
- 26361 string characters out of 1152845
- 97288 words of memory out of 3000000
- 5351 multiletter control sequences out of 15000+50000
- 19121 words of font info for 60 fonts, out of 3000000 for 9000
+ 2105 strings out of 493849
+ 26505 string characters out of 1152845
+ 95288 words of memory out of 3000000
+ 5359 multiletter control sequences out of 15000+50000
+ 20695 words of font info for 63 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
  27i,10n,22p,417b,291s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on testing_game.dvi (6 pages, 54572 bytes).
+Output written on testing_game.dvi (7 pages, 55884 bytes).
