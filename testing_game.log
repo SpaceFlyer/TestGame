@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.11.10)  29 JAN 2013 21:38
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.11.10)  29 JAN 2013 22:54
 entering extended mode
  %&-line parsing enabled.
 **testing_game
@@ -283,13 +283,18 @@ LaTeX Warning: Citation `Birkhoff46:Tres' on page 4 undefined on input line 748
 LaTeX Warning: Citation `Korzhyk10:Complexity' on page 4 undefined on input lin
 e 748.
 
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 933--944
+File: network.eps Graphic file (type eps)
+<network.eps> [4]
+
+LaTeX Warning: Reference `alg:max-flow' on page 5 undefined on input line 952.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 968--979
 []\OT1/ptm/m/n/10 For each test case, we spec-ify four pa-ram-e-ters
  []
 
 
-Underfull \hbox (badness 1173) in paragraph at lines 933--944
+Underfull \hbox (badness 1173) in paragraph at lines 968--979
 \OT1/ptm/m/n/10 gen-er-ate $\OML/cmm/m/it/10 m[]$ \OT1/ptm/m/n/10 uni-formly fr
 om $\OT1/cmr/m/n/10 1$ \OT1/ptm/m/n/10 to $\OML/cmm/m/it/10 m[]$\OT1/ptm/m/n/10
  , gen-er-ate $\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 B[]\OMS/cmsy/m/n/10 j$
@@ -300,14 +305,18 @@ File: benchmark_all.eps Graphic file (type eps)
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) [6] (./testing_game.aux) ) 
-Here is how much of TeX's memory you used:
- 2100 strings out of 493849
- 26429 string characters out of 1152845
- 95288 words of memory out of 3000000
- 5354 multiletter control sequences out of 15000+50000
- 20666 words of font info for 63 fonts, out of 3000000 for 9000
- 714 hyphenation exceptions out of 8191
- 27i,10n,25p,417b,291s stack positions out of 5000i,500n,10000p,200000b,50000s
+) [6] (./testing_game.aux)
 
-Output written on testing_game.dvi (6 pages, 52268 bytes).
+LaTeX Warning: There were undefined references.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 2092 strings out of 493849
+ 26312 string characters out of 1152845
+ 95288 words of memory out of 3000000
+ 5345 multiletter control sequences out of 15000+50000
+ 19374 words of font info for 61 fonts, out of 3000000 for 9000
+ 714 hyphenation exceptions out of 8191
+ 27i,10n,25p,417b,269s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on testing_game.dvi (6 pages, 51984 bytes).

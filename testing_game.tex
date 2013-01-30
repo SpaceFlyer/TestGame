@@ -749,16 +749,56 @@ games~\cite{Korzhyk10:Complexity}.}
 An equilibrium tester strategy can be read off from the corresponding
 solution to the dual of this linear program. ?????APPENDIX???????
 
-We can also explicitly construct the tester's optimal strategy from the dual
-solution using Algorithm~\ref{alg:one-problem}, which always return a strategy
-that tests a subset of questions uniformly.
+\subsection{A Network Flow Approach}
+
+We can also use network flow algorithm to solve LP~(\ref{eqn:one-problem}).
+Given an objective utility $U$, we can check its feasibility and compute
+a solution if feasible by constructing a network with graph $(V, E)$ and
+capacity $c$ as follows (see also Figure~\ref{fig:network}).  Let $V = \{s\}
+\cup \mathbb B \cup A \cup \{t\}$, $E = \{s\} \times \Theta \cup \Theta \times
+Q \cup Q \times \{t\}$.  For each edge $(s, \theta)$, let its capacity $c_{(s,
+\theta)} = p(\theta) v_\theta m_\theta$. For each edge $(\theta, q)$, let its
+capacity $c_{(\theta, q)} = p(\theta) v_\theta$ if $q \in H_\theta$ and $0$
+otherwise. For each edge $(q, t)$, let its capacity $c_{(q, t)} = \max(0,
+U_q^0-U)$.
+
+\begin{figure}
+\caption{The network that is used to solve LP~(\ref{eqn:one-problem}).}
+\label{fig:network}
+\includegraphics[width=\linewidth]{network}
+\end{figure}
+
+If that network's max flow $f$ saturates all edges in $Q \times \{t\}$, then
+our $U$ is feasible and we found a solution $z_{\theta, q} = f_{(\theta, q)} /
+c_{(\theta, q)}$. To minimize our $U$, we can either do binary search for a
+finite precision, or use minimax network algorithm (see e.g.,
+\cite{}).\footnote{Our problem to minimize $U$ can be reduced to minimax
+network flow \cite{} which computes the max flow $f$ that minimizes $\max_{e
+\in E'} f_e$ in a predefined subset $E' \subseteq E$, by: firstly use binary
+search to find out the interval $[U_{q_i}^0, U_{q_{i+1}}^0]$ that includes our
+minimum $U$ (W.l.o.g, assuming that $U_{q_1} \leq U_{q_2} \leq \ldots$); then
+find a max flow by setting $c_{(q, t)} = \max(0, U_q^0-U_{q_{i+1}}^0)$ (and we
+shall saturate them); in the residual graph, reset residual capacity $c_{(q,
+t)}$ from $0$ to $U_{q_{i+1}}^0-U_{q_i}^0$ if $U_q^0 \geq U_{q_i}^0$; finally
+find out the max flow that minimizes $\max_q f_{(q, t)}$.} 
+
+The network flow only computes the strategy for test takers. Since we are more
+interested in tester's strategy, we construct them by the following
+Algorithm~\ref{alg:one-problem}.
+
+%We can also explicitly construct the tester's optimal strategy from the dual
+%solution using Algorithm~\ref{alg:one-problem}, which always return a strategy
+%that tests a subset of questions uniformly.
 
 \begin{algorithm}
-\caption{Compute the optimal one-problem test strategy}\label{alg:one-problem}
+\caption{Compute the optimal test strategy with size one, given the optimal
+utility $U$ and test takers strategy $z$, which is either computed by
+LP~(\ref{eqn:one-problem}) or the network flow algorithm we described
+above.}\label{alg:one-problem}
 \begin{algorithmic}[1]
-\Function{OptimalOneProblemTest}{$Q, \Theta, p$}
-	\State Solve LP~(\ref{eqn:one-problem}) and let the solution be $U,
-	z_{\theta,q}$
+\Function{OptimalOneProblemTest}{$Q, \Theta, p, U, z$}
+%	\State Solve LP~(\ref{eqn:one-problem}) and let the solution be $U,
+%	z_{\theta,q}$
 	\State $T \gets \{q ~|~ U^0_q \geq U\}$
 	\State $S \gets \{\theta : \sum_{q \in H_\theta \cap T} z_{\theta,q} < m_\theta\}$
 	%\ForAll {$B_l \in Q$} \Comment{Potential Memorizing Power}
@@ -853,59 +893,54 @@ subset in $H_\theta \cap T$ all the time which is optimal for uniform test, the
 second condition of complementary slackness theorem holds.
 \end{proof}
 
-\subsection{A Network Flow Approach}
 
-
-Our algorithm is shown in Algorithim~\ref{alg:one-problem}.
-
-
-Finally, instead of using general LP algorithm like simplex [cite] to solve
-LP~(\ref{eqn:one-problem}), we can alternatively use binary search plus max
-flow to solve it as shown in Algorithm~\ref{alg:max-flow}.  With a given $U$,
-we use max flow to check its feasibility. Intuitively, a $U$ is feasible if and
-only if there is a strategy $z_{l, a}$ such that for every $a$ where $U^0_a >
-U$, that strategy decreases it down to $U$. This is achievable if and only if
-the max flow can saturate all edges from $A$ to $t$. Given a max flow $f$, we
-can restore the strategy by setting $z_{l, a} = f_{(B_l, a)}/c_{(B_l, a)}$
-which is the flow of an edge divded by the capacity of an edge. If we use
-Push-Relabel algorithm [cite] to solve the max flow in $O((n+L)^3)$ time, the
-whole Algorithm~\ref{alg:one-problem} runs in $O((n+L)^3 + \sum_l |B_l|)$ time
-as the remaining part can run in linear time with repsect to the input size
-(assuming we only binary search for constant times to achieve a constant
-accuracy).
-
-\begin{algorithm}
-\caption{Use binary search and max flow to solve LP~(\ref{eqn:one-problem})}
-\label{alg:max-flow}
-\begin{algorithmic}[1]
-	\State $U_{lower} \gets 0, ~U_{upper} \gets \max_{a \in A} U^0_a$
-	\While{$U_{upper}-U_{lower} > \epsilon$}\Comment{Binary search}
-		\State $U \gets (U_{upper}+U_{lower})/2$ \Comment{Objective utility}
-		\State $V \gets \{s\} \cup \mathbb B \cup A \cup \{t\}$ \Comment{Vertex set}
-		\State $E \gets \emptyset$ \Comment{Initialize edge set}
-		\ForAll{$a \in A$}
-			\If{$U^0_a > U$}
-				\State $E \gets E \cup \{(a, t)\}$
-				\State $c_{(a, t)} \gets U^0_a-U$ \Comment{Edge capacity}
-			\EndIf
-		\EndFor
-		\ForAll{$B_l \in \mathbb B$} 
-			\State $E \gets E \cup \{B_l\} \times B_l$ %\Comment{Edges between $\mathbb B$ and $A$}
-			\State $c_{\{B_l\} \times B_l} \gets p_l v_l$ 
-			\State $E \gets E \cup \{(s, B_l)\}$ %\Comment{Edges between $\{s\}$ and $\mathbb B$}
-			\State $c_{(s, B_l)} \gets p_l m_l v_l$
-		\EndFor
-		\State $f \gets \Call{MaxFlow}{G = (V, E), c}$
-		\If{$f$ saturates all edges in $A \times \{t\}$}
-			\State $U_{upper} \gets U$
-		\Else
-			\State $U_{lower} \gets U$
-		\EndIf
-	\EndWhile
-	\State $(\forall l, a), z_{l,a} \gets f_{(B_l,a)} / c_{(B_l, a)}$
-	\State \Return{$U, z_{l,a}$}
-\end{algorithmic}
-\end{algorithm}
+%Finally, instead of using general LP algorithm like simplex [cite] to solve
+%LP~(\ref{eqn:one-problem}), we can alternatively use binary search plus max
+%flow to solve it as shown in Algorithm~\ref{alg:max-flow}.  With a given $U$,
+%we use max flow to check its feasibility. Intuitively, a $U$ is feasible if and
+%only if there is a strategy $z_{l, a}$ such that for every $a$ where $U^0_a >
+%U$, that strategy decreases it down to $U$. This is achievable if and only if
+%the max flow can saturate all edges from $A$ to $t$. Given a max flow $f$, we
+%can restore the strategy by setting $z_{l, a} = f_{(B_l, a)}/c_{(B_l, a)}$
+%which is the flow of an edge divded by the capacity of an edge. If we use
+%Push-Relabel algorithm [cite] to solve the max flow in $O((n+L)^3)$ time, the
+%whole Algorithm~\ref{alg:one-problem} runs in $O((n+L)^3 + \sum_l |B_l|)$ time
+%as the remaining part can run in linear time with repsect to the input size
+%(assuming we only binary search for constant times to achieve a constant
+%accuracy).
+%
+%\begin{algorithm}
+%\caption{Use binary search and max flow to solve LP~(\ref{eqn:one-problem})}
+%\label{alg:max-flow}
+%\begin{algorithmic}[1]
+%	\State $U_{lower} \gets 0, ~U_{upper} \gets \max_{a \in A} U^0_a$
+%	\While{$U_{upper}-U_{lower} > \epsilon$}\Comment{Binary search}
+%		\State $U \gets (U_{upper}+U_{lower})/2$ \Comment{Objective utility}
+%		\State $V \gets \{s\} \cup \mathbb B \cup A \cup \{t\}$ \Comment{Vertex set}
+%		\State $E \gets \emptyset$ \Comment{Initialize edge set}
+%		\ForAll{$a \in A$}
+%			\If{$U^0_a > U$}
+%				\State $E \gets E \cup \{(a, t)\}$
+%				\State $c_{(a, t)} \gets U^0_a-U$ \Comment{Edge capacity}
+%			\EndIf
+%		\EndFor
+%		\ForAll{$B_l \in \mathbb B$} 
+%			\State $E \gets E \cup \{B_l\} \times B_l$ %\Comment{Edges between $\mathbb B$ and $A$}
+%			\State $c_{\{B_l\} \times B_l} \gets p_l v_l$ 
+%			\State $E \gets E \cup \{(s, B_l)\}$ %\Comment{Edges between $\{s\}$ and $\mathbb B$}
+%			\State $c_{(s, B_l)} \gets p_l m_l v_l$
+%		\EndFor
+%		\State $f \gets \Call{MaxFlow}{G = (V, E), c}$
+%		\If{$f$ saturates all edges in $A \times \{t\}$}
+%			\State $U_{upper} \gets U$
+%		\Else
+%			\State $U_{lower} \gets U$
+%		\EndIf
+%	\EndWhile
+%	\State $(\forall l, a), z_{l,a} \gets f_{(B_l,a)} / c_{(B_l, a)}$
+%	\State \Return{$U, z_{l,a}$}
+%\end{algorithmic}
+%\end{algorithm}
 
 \subsection{Experiments}
 
