@@ -362,7 +362,7 @@ We now prove that the problem is in fact NP-hard, even when the test taker
 cannot memorize any problems!
 
 \begin{theorem}\label{thm:test-hardness}
-Even if the test taker cannot memorize any problems ($m_\theta = 0$) and $|H_\theta| = 2$ for all
+Even if the test taker cannot memorize any questions ($m_\theta = 0$) and $|H_\theta| = 2$ for all
 $\theta \in \Theta$,
 \textsc{Optimal
 Test Strategy} is NP-hard.% when test size $t$ is non-constant.
@@ -556,7 +556,7 @@ corresponding to this type is $\alpha \varepsilon
 %\frac{{|V| \choose 2} - |E| - 1}
 %{{|V| \choose 2} - |E|}$.
 Finally, because by assumption, no independent set of size $k$ exists, no
-matter which set of $k$ problems $\theta^{**}$ memorizes, the probability
+matter which set of $k$ questions $\theta^{**}$ memorizes, the probability
 that $\theta^{**}$ fails is at least $\frac{{|V| \choose 2} - |E| - {k
     \choose 2} +1}{{|V| \choose 2} - |E|} = \frac{\alpha+1}{{|V| \choose 2}
   - |E|}$, so the total savings corresponding to this type is at least
@@ -749,30 +749,33 @@ games~\cite{Korzhyk10:Complexity}.}
 An equilibrium tester strategy can be read off from the corresponding
 solution to the dual of this linear program. ?????APPENDIX???????
 
-
-\subsection{A Network Flow Approach}
-
-
-Our algorithm is shown in Algorithim~\ref{alg:one-problem}.
+We can also explicitly construct the tester's optimal strategy from the dual
+solution using Algorithm~\ref{alg:one-problem}, which always return a strategy
+that tests a subset of questions uniformly.
 
 \begin{algorithm}
 \caption{Compute the optimal one-problem test strategy}\label{alg:one-problem}
 \begin{algorithmic}[1]
-\Function{OptimalOneProblemTest}{$A, \mathbb B, m, v, p$}
-	\State Solve LP~(\ref{eqn:one-problem}) and let the solution be $U, z_{l,a}$
-	\State $T \gets \{a ~|~ U^0_a \geq U\}$
-	\State $Q \gets $ all $B_l$ such that $\sum_{a \in B_l \cap T} z_{l,a} < m_l$
-	\ForAll {$B_l \in Q$} \Comment{Potential Memorizing Power}
-		\State $G(B_l) \gets m_l-\sum_{a \in B_l \cap T} z_{l,a}$ \label{line:first-potential}
-	\EndFor
-	\While{$Q$ has an unmarked element}
-		\State $B_l \gets $ get and mark an unmarked element from $Q$
-		\ForAll{$a \in B_l \cap T$ and $z_{l,a} < 1$}
-			\State $T \gets T \backslash \{a\}$\label{line:delete-a}
-			\ForAll {$B_{l'} \ni a $ and $z_{l', a}>0$}
-				\State $G(B_{l'}) \gets \min(z_{l',a}, \frac{G(B_l)}{|B_l|L})$\label{line:second-potential}
-				\State Push $B_{l'}$ into $Q$\label{line:second-push}
-			\EndFor
+\Function{OptimalOneProblemTest}{$Q, \Theta, p$}
+	\State Solve LP~(\ref{eqn:one-problem}) and let the solution be $U,
+	z_{\theta,q}$
+	\State $T \gets \{q ~|~ U^0_q \geq U\}$
+	\State $S \gets \{\theta : \sum_{q \in H_\theta \cap T} z_{\theta,q} < m_\theta\}$
+	%\ForAll {$B_l \in Q$} \Comment{Potential Memorizing Power}
+	%	\State $G(B_l) \gets m_l-\sum_{a \in B_l \cap T} z_{l,a}$ 
+	\label{line:first-potential}
+	%\EndFor
+	\While{$S$ has an unmarked element}
+		\State $\theta \gets $ get and mark an unmarked element from $S$
+		\ForAll{$q \in H_\theta \cap T$ and $z_{\theta,q} < 1$}
+			\State $T \gets T \setminus \{q\}$\label{line:delete-a}
+			\State $S \gets S \cup \{\theta': q \in H_{\theta'} \wedge z_{\theta', q}>0\}$
+			%\ForAll {$\theta': q \in H_\theta$ and $z_{\theta', q}>0$}
+				%\State $G(B_{l'}) \gets \min(z_{l',a}, \frac{G(B_l)}{|B_l|L})$
+				\label{line:second-potential}
+		%	\State Push $\theta'$ into $Q$
+			\label{line:second-push}
+		%	\EndFor
 		\EndFor
 	\EndWhile
 	\State \Return{Strategy that test $T$ uniformly}
@@ -780,45 +783,51 @@ Our algorithm is shown in Algorithim~\ref{alg:one-problem}.
 \end{algorithmic}
 \end{algorithm}
 
-We prove the correctness of Algorithm~\ref{alg:one-problem} by firstly introducing the
-following two lemmas.
+We prove the correctness of Algorithm~\ref{alg:one-problem} by firstly
+introducing the following two lemmas.
 
 \begin{lemma}\label{lemma:non-empty}
 $T$ returned by Algorithm~\ref{alg:one-problem} is non-empty.
 \end{lemma}
+
 \begin{proof}
 $T$ is non-empty before we delete problems from $T$ on line~\ref{line:delete-a}
 of Algorithm~\ref{alg:one-problem}.  Denote that initial $T$ as $T_0$.  If all
-problems in $T_0$ are deleted, then for every $a$ in $T_0$ there is a $B_l$
-that is in $Q$ and $z_{l,a} < 1$.  Note that for every $B_l$ in $Q$, it has a
-positive potential memorizing power $G(B_l)$ either because $\sum_{a \in B_l}
+problems in $T_0$ are deleted, then for every $q$ in $T_0$ there is a $\theta$
+that is in $S$ and $z_{\theta,q} < 1$.  Note that for every $\theta$ in $Q$, it
+has a potential to memorize more either because $\sum_{q \in H_\theta \cap T_0}
 z_{l,a} < m_l$ (on line \ref{line:first-potential}) or because there is an
-unnecessary memorizing $z_{l, a} > 0$ that can be freed (on line
-\ref{line:second-potential}). This means that we can bring $U$ down by using
-those potential memorizing powers to memorize every problem in $T_0$ more
-(recall that $z_{l,a} < 1$), a contradiction to that $U$ is minimized.
+unnecessary memorizing $z_{\theta, q} > 0$ that can be freed (on line
+\ref{line:second-potential}). So all questions in $T_0$ being deleted means
+that we can bring $U$ down by using those potentials to memorize all questions
+in $T_0$ more (recall $\forall q \in T_0, \exists \theta, z_{\theta,q} <
+1$), a contradiction to that $U$ is minimized.  
 \end{proof}
 
 \begin{lemma}\label{lemma:best-response}
-Let $z_{l,a}$ be the solution of LP~(\ref{eqn:one-problem}) and $T$ be the final
-subset that Algorithm~\ref{alg:one-problem} returns. Then for each type of test
-takers $B_l$, either $\sum_{a \in B_l \cap T} z_{l,a} = m_l$ (they memorize a
-subset of $T$ that are unsolvable all the time) or $\forall a \in B_l \cap T,
-z_{l, a} = 1$ (they memorize unsolvable problems in $T$ all the time so they
-will pass the test for sure).
+Let $z_{\theta,q}$ be the solution of LP~(\ref{eqn:one-problem}) and $T$ be the
+final subset that Algorithm~\ref{alg:one-problem} returns. Then for each type
+$\theta$, either $\sum_{q \in H_\theta \cap T} z_{\theta,q} = m_\theta$ (they
+always memorize the maximal subset of $T\cap H_\theta$) or $\forall q \in
+H_\theta \cap T, z_{\theta, q} = 1$ (they memorize any question in $T\cap
+H_\theta$ with probability $1$ so they will pass the test for sure). Therefore
+all test takers are best responding.
 \end{lemma}
+
 \begin{proof}
 Let $T_0$ be the initial $T$ before any deletion on line~\ref{line:delete-a} of
-Algorithm~\ref{alg:one-problem}.  Initially, for any $B_l$ such that $\sum_{a
-\in B_l cap T_0} z_{l,a} < m_l$, we push it to $Q$. After that any $a \in B_l$
-where $z_{l,a} < 1$ is deleted from $T$ on line~\ref{line:delete-a}. Therefore
-$\forall a \in B_l \cap T, z_{l,a} = 1$ must hold for that $B_l$. Afterwards,
-more $B_l$ may violate $\sum_{a \in B_l cap T} z_{l,a} < m_l$ because some $a$
-are deleted from $T$.  But for those $B_l$, we must have pushed them into $Q$
-on line~\ref{line:second-push}. So they will satisfy $\forall a \in B_l \cap T,
-z_{l,a} = 1$ afterwards. In the end, every $B_l \in Q$ will satisfy $\forall a
-\in B_l \cap T, z_{l,a} = 1$ and every other $B_l \notin Q$ will satisfy
-$\sum_{a \in B_l \cap T} z_{l,a} = m_l$.
+Algorithm~\ref{alg:one-problem}.  Initially, for any $\theta$ such that
+$\sum_{q \in H_\theta cap T_0} z_{\theta,q} < m_\theta$, we push it to $S$.
+After that any $q \in H_\theta$ where $z_{\theta,q} < 1$ is deleted from $T$ on
+line~\ref{line:delete-a}.  Therefore $\forall q \in H_\theta \cap T,
+z_{\theta,q} = 1$ must hold for that $\theta$.  Afterwards, more $\theta$ may
+violate $\sum_{q \in H_\theta cap T} z_{l,a} = m_l$ because some $q$ are
+deleted from $T$.  But for those $H_\theta$, we must have pushed them into $S$
+on line~\ref{line:second-push}. So they will satisfy $\forall q \in H_\theta
+\cap T, z_{\theta,q} = 1$ afterwards. In the end, every $\theta \in S$ will
+satisfy $\forall q \in H_\theta \cap T, z_{\theta,q} = 1$ and every other
+$\theta \notin Q$ will satisfy $\sum_{q \in H_\theta \cap T} z_{\theta,q} =
+m_l$.
 \end{proof}
 
 Then we show our strategy is optimal by complementary slackness theorem, which
@@ -827,23 +836,28 @@ primal variables) that gives him best utility (tight dual constraints); 2) the
 test taker only memorizes problems (non-zero dual variables) that gives him
 best utility (tight primal constraints).\footnote{This is essentially saying
 that in a zero-sum game, a minimax, or maximin state is reached, if and only if
-the Nash equilibrium is reached.} We will need two more lemmas as follows to
-use the complementary slackness theorem.
+the Nash equilibrium is reached.} 
 
 \begin{theorem}
 Uniformly testing $T$ returned by Algorithm~\ref{alg:one-problem} is optimal.
 \end{theorem}
 \begin{proof}
 First of all, $T$ is non-empty by Lemma~\ref{lemma:non-empty} so we can test
-$T$ uniformly. Then since memorizing strategy $z_{l,a}$ makes $U_a$ (the
-utility to test a problem $a$) decrease to $U$ if $U^0_a > U$ and we only pick
-$T$ from problems that $U^0_a > U$, every problem that we might test gives the
+$T$ uniformly. Then since memorizing strategy $z_{\theta,q}$ makes $U_q$ (the
+utility to test a problem $q$) decrease to $U$ if $U^0_q > U$ and we only pick
+$T$ from problems that $U^0_q > U$, every problem that we might test gives the
 tester best utility. That is the first condition for the complementary
 slackness theorem.  Finally, Lemma~\ref{lemma:best-response} shows that one
-type of test takers either pass the test for sure or memorize a subset in $T$
-all the time which is optimal for uniform test, the second condition of
-complementary slackness theorem holds.
+type of test takers either pass the test for sure or memorize the maximal
+subset in $H_\theta \cap T$ all the time which is optimal for uniform test, the
+second condition of complementary slackness theorem holds.
 \end{proof}
+
+\subsection{A Network Flow Approach}
+
+
+Our algorithm is shown in Algorithim~\ref{alg:one-problem}.
+
 
 Finally, instead of using general LP algorithm like simplex [cite] to solve
 LP~(\ref{eqn:one-problem}), we can alternatively use binary search plus max
