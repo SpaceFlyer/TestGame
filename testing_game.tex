@@ -751,36 +751,122 @@ solution to the dual of this linear program. ?????APPENDIX???????
 
 \subsection{A Network Flow Approach}
 
-We can also use network flow algorithm to solve LP~(\ref{eqn:one-problem}).
-Given an objective utility $U$, we can check its feasibility and compute
-a solution if feasible by constructing a network with graph $(V, E)$ and
-capacity $c$ as follows (see also Figure~\ref{fig:network}).  Let $V = \{s\}
-\cup \mathbb B \cup A \cup \{t\}$, $E = \{s\} \times \Theta \cup \Theta \times
-Q \cup Q \times \{t\}$.  For each edge $(s, \theta)$, let its capacity $c_{(s,
-\theta)} = p(\theta) v_\theta m_\theta$. For each edge $(\theta, q)$, let its
-capacity $c_{(\theta, q)} = p(\theta) v_\theta$ if $q \in H_\theta$ and $0$
-otherwise. For each edge $(q, t)$, let its capacity $c_{(q, t)} = \max(0,
-U_q^0-U)$.
+We now show that LP~(\ref{eqn:one-problem}) can also be solved using a
+network flow approach.
+%We can also use network flow algorithm to solve LP~(\ref{eqn:one-problem}).
+Specifically, given a value $U$ for the objective, we can compute a
+feasible solution that attains this objective value (if it exists), as
+follows.  We construct a network consisting of a directed graph $(V, E)$
+and capacities $c_e$ on the edges, as follows (see also
+Figure~\ref{fig:network}). 
 
+\begin{definition}[Test network]
+Given an instance of the  test game and a value $U$, construct a network as follows.
+Let $V = \{s\} \cup \Theta \cup Q \cup \{t\}$
+and 
+$E = \{s\} \times \Theta \cup \bigcup_{\theta \in \Theta} \{\theta\} \times
+H_\theta \cup Q \times \{t\}$.
+For each edge $(s, \theta)$, let its capacity be $c_{(s,
+\theta)} = p(\theta) v_\theta m_\theta$. For each edge $(\theta, q)$ (with
+$q \in H_\theta$), let its
+capacity be $c_{(\theta, q)} = p(\theta) v_\theta$.
+% if $q \in H_\theta$ and $0$ otherwise. 
+Finally, for each edge $(q, t)$, let its capacity be $c_{(q, t)} = \max(0,
+U_q^0-U)$.
+\end{definition}
+
+
+???? UPDATE FIGURE, NO CAPACITY ZERO MIDDLE EDGES
 \begin{figure}
 \caption{The network that is used to solve LP~(\ref{eqn:one-problem}).}
 \label{fig:network}
 \includegraphics[width=\linewidth]{network}
 \end{figure}
 
-If that network's max flow $f$ saturates all edges in $Q \times \{t\}$, then
-our $U$ is feasible and we found a solution $z_{\theta, q} = f_{(\theta, q)} /
-c_{(\theta, q)}$. To minimize our $U$, we can either do binary search for a
-finite precision, or use minimax network algorithm (see e.g.,
-\cite{}).\footnote{Our problem to minimize $U$ can be reduced to minimax
-network flow \cite{} which computes the max flow $f$ that minimizes $\max_{e
-\in E'} f_e$ in a predefined subset $E' \subseteq E$, by: firstly use binary
-search to find out the interval $[U_{q_i}^0, U_{q_{i+1}}^0]$ that includes our
-minimum $U$ (W.l.o.g, assuming that $U_{q_1} \leq U_{q_2} \leq \ldots$); then
-find a max flow by setting $c_{(q, t)} = \max(0, U_q^0-U_{q_{i+1}}^0)$ (and we
-shall saturate them); in the residual graph, reset residual capacity $c_{(q,
-t)}$ from $0$ to $U_{q_{i+1}}^0-U_{q_i}^0$ if $U_q^0 \geq U_{q_i}^0$; finally
-find out the max flow that minimizes $\max_q f_{(q, t)}$.} 
+\begin{proposition}
+The test network has a feasible flow that  saturates all the edges in $Q
+\times \{t\}$ if and only if LP~(\ref{eqn:one-problem}) has a feasible
+solution with value $U$.
+\end{proposition}
+\begin{proof}
+  If the test network has a feasible flow $f$ that saturates all the edges
+  in $Q \times \{t\}$, then consider the solution to
+  LP~(\ref{eqn:one-problem}) where $z_{\theta, q} = f_{(\theta, q)} /
+  c_{(\theta, q)}$, so that clearly $0 \leq z_{\theta, q} \leq 1$.
+ Because the $Q \times \{t\}$ edges are saturated, we
+  have that for each $q \in Q$, $\sum_{\theta:q \in H_\theta}
+  p(\theta)v_\theta z_{\theta,q} = \sum_{\theta:q \in H_\theta} f_{(\theta,
+    q)} = \max(0, U_q^0-U) \geq U_q^0-U$, which implies $U \geq U_q^0 -
+  \sum_{\theta:q \in H_\theta} p(\theta)v_\theta z_{\theta,q}$.  For each
+  $\theta \in \Theta$, because of the capacity constraint on edge $(s,
+  \theta)$, we have $\sum_{q \in H_\theta} z_{\theta,q} = (1/(p(\theta)
+  v_\theta)) \sum_{q \in H_\theta} f_{(\theta, q)} \leq (1/(p(\theta)
+  v_\theta)) f_{s,\theta} \leq (1/(p(\theta) v_\theta)) p(\theta) v_\theta
+  m_\theta = m_\theta$.  Hence, we have a feasible solution to
+  LP~(\ref{eqn:one-problem}) with objective value $U$.
+
+  Conversely, if we have a feasible solution to LP~(\ref{eqn:one-problem})
+  with objective value $U$, then set: (1) $f_{\theta,q} = 0$ if $U_q^0 \leq
+  U$; (2) otherwise, set $f_{\theta,q} = \frac{U_q^0-U}{\sum_{\theta:q \in
+      H_\theta} p(\theta)v_\theta z_{\theta,q}} z_{\theta,q} c_{(\theta,
+    q)}$.  To satisfy the flow constraints, this implies $f_{s,\theta} =
+  \sum_{q \in H_\theta} f_{\theta,q}$ and $f_{q,t} = \sum_{\theta: q \in
+    H_\theta} f_{\theta,q}$.  We now check that the capacity constraints
+  hold. By the first constraint in the LP, we have
+  $\frac{U_q^0-U}{\sum_{\theta:q \in H_\theta} p(\theta)v_\theta z_{\theta,q}}
+\leq 1$ so $f_{\theta,q}
+    \leq z_{\theta,q} c_{(\theta, q)}$, and because $z_{\theta,q} \leq 1$
+    we have that the capacity constraints on the  $\bigcup_{\theta \in \Theta} \{\theta\} \times
+H_\theta$ edges
+ are satisfied.  Then, we have $f_{s,\theta} = \sum_{q \in
+      H_\theta} f_{\theta,q} \leq \sum_{q \in
+      H_\theta} z_{\theta,q} c_{(\theta, q)} = 
+p(\theta) v_\theta \sum_{q \in
+      H_\theta} z_{\theta,q}  \leq p(\theta) v_\theta m_\theta =
+    c_{(s,\theta)}$ by the second constraint of the LP. 
+%vc: check whether parentheses are in the subscripts of the capacities
+  Finally, for any $q \in Q$, there are two cases: (1) if $U_q^0 \leq U$,
+  then we have $f_{q,t} = \sum_{\theta: q \in H_\theta} f_{\theta,q} = 0$;
+  (2) if $U_q^0 > U$, we have $f_{q,t} = \sum_{\theta: q \in H_\theta}
+  f_{\theta,q} = \frac{U_q^0-U}{\sum_{\theta:q \in H_\theta}
+    p(\theta)v_\theta z_{\theta,q}} \sum_{\theta: q \in H_\theta}
+  z_{\theta,q} c_{(\theta, q)} = U_q^0-U$.  So the $Q \times \{t\}$ edges
+  are exactly saturated.
+\end{proof}
+
+%If that network's max flow $f$ saturates all edges in $Q \times \{t\}$, then
+%our $U$ is feasible and we found a solution $z_{\theta, q} = f_{(\theta, q)} /
+%c_{(\theta, q)}$. 
+
+We note that the proof of the proposition is constructive, so we can obtain
+the test taker's strategy corresponding to a particular flow.
+Subsequently, we can do binary search on $U$ to the desired level of
+precision.\footnote{If an exact solution is desired, we can use a similar construction to
+  reduce to the minimax network flow problem~\cite{???}, where the goal is
+  to compute a maximum flow that minimizes $\max_{e \in
+    E'} f_e$ for some distinguished set of edges $E' \subseteq E$.  To do
+  so, first (assuming w.l.o.g.~$U_{q_1}^0 \leq U_{q_2}^0 \leq U_{q_n}^0$)
+  we use our algorithm above to find out in which interval $[U_{q_i}^0,
+  U_{q_{i+1}}^0]$ the optimal $U$ lies.  Then, we modify the network by
+  setting $c_{(q, t)} = \max(0, U_q^0-U_{q_{i+1}}^0)$ and find a flow that
+  saturates these edges.  We consider the residual graph consisting of the
+  remaining capacities, and again adjust the capacities $c_{(q, t)}$ from
+  $0$ to $U_{q_{i+1}}^0-U_{q_i}^0$ whenever $U_q^0 \geq U_{q_i}^0$;
+  finally, we can call a minimax network flow solver on this network with
+  $E' = Q \times \{t\}$.  However, since we are not aware of any such
+  solvers, in our experiments we focus on the approach based on binary search.}
+
+%we can either do binary search for a
+%finite precision, or use minimax network algorithm (see e.g.,
+%\cite{}).\footnote{Our problem to minimize $U$ can be reduced to minimax
+%network flow \cite{} which computes the max flow $f$ that minimizes $\max_{e
+%\in E'} f_e$ in a predefined subset $E' \subseteq E$, by: firstly use binary
+%search to find out the interval $[U_{q_i}^0, U_{q_{i+1}}^0]$ that includes our
+%minimum $U$ (W.l.o.g, assuming that $U_{q_1} \leq U_{q_2} \leq \ldots$); then
+%find a max flow by setting $c_{(q, t)} = \max(0, U_q^0-U_{q_{i+1}}^0)$ (and we
+%shall saturate them); in the residual graph, reset residual capacity $c_{(q,
+%t)}$ from $0$ to $U_{q_{i+1}}^0-U_{q_i}^0$ if $U_q^0 \geq U_{q_i}^0$; finally
+%find out the max flow that minimizes $\max_q f_{(q, t)}$.} 
 
 The network flow only computes the strategy for test takers. Since we are more
 interested in tester's strategy, we construct them by the following
@@ -949,7 +1035,7 @@ on one-problem test games. The first approach is using CPLEX to solve our
 general LP~(\ref{eqn:maximin}) which is exponential to the memorize capacity.
 The second one is using CPLEX to directly solve the marginal version
 LP~(\ref{eqn:one-problem}).  The third and fourth use
-Algorithm~\ref{alg:max-flow} to solve LP~(\ref{eqn:one-problem}). They are
+????Algorithm~\ref{alg:max-flow} to solve LP~(\ref{eqn:one-problem}). They are
 using Edmonds-Karp [cite] and Psh-Relabel\footnote{We modified its is\_flow
 function for floating number issues.} [cite] max flow algorithm in C++ boost
 library respectively.
