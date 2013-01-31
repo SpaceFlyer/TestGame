@@ -1034,7 +1034,11 @@ In this section, we conduct experiments to see how different approaches scale
 on one-problem test games. The first approach is using CPLEX to solve our
 general LP~(\ref{eqn:maximin}) which is exponential to the memorize capacity.
 The second one is using CPLEX to directly solve the marginal version
-LP~(\ref{eqn:one-problem}).  The third and fourth use
+LP~(\ref{eqn:one-problem}). The third and fourth use
+Edmonds-Karp [cite] and Push-Relabel [cite] max flow algorithm respectively
+(with binary search) on the
+network defined in flow algorithm respectively
+to solve LP~(\ref{eqn:one-problem} and then use
 ????Algorithm~\ref{alg:max-flow} to solve LP~(\ref{eqn:one-problem}). They are
 using Edmonds-Karp [cite] and Psh-Relabel\footnote{We modified its is\_flow
 function for floating number issues.} [cite] max flow algorithm in C++ boost
