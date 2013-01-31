@@ -77,6 +77,58 @@ results, and give efficient algorithms for special cases.
 \end{abstract}
 
 \section{Introduction}
+Massive Open Online Courses (MOOCs) have emerged quite spectacularly
+and there is much speculation about how their role in society will
+develop (for a recent discussion, see~\cite{Cooper13:Reflections}).
+In particular, the issue of how the students' accomplishments can be
+efficiently validated and certified is often discussed.  One approach
+that is now used is to allow students to take a proctored exam in a
+testing center.  A potential vulnerability of this approach is that
+the questions used on a test may be leaked, online or otherwise.
+Certainly, this is already the case for other tests that are taken
+asynchronously by many people, such as the TOEFL iBT and driver's
+license tests.  A similar issue occurs for interview questions,
+particularly those with a ``puzzle'' flavor.  A natural approach to
+addressing this is to generate enough questions that a test taker
+would be unable to memorize them all, and then to select from these
+questions randomly on each instantiation of the test.
+
+However, sampling test questions uniformly at random may be suboptimal
+for several reasons.  Some questions may be more effective than others
+at identifying test takers that do not know the material; should these
+be used more often?  Also, it may be not be optimal to consider
+questions in isolation; it is likely better to use two questions that
+test very different parts of the material than ones that are quite
+similar.  At the same time, choosing the test questions
+deterministically is obviously fatally flawed, as this makes it easy
+to memorize the questions.  Instead, a more intelligent form of
+randomization seems desired.  Game theory provides a natural framework
+to determine such a randomized strategy.  We can model the test as a
+game between the tester, who chooses questions for the test, and the
+test taker, who chooses for which questions (on material that he has
+not mastered) to memorize the answers.  This is the approach that we
+take in this paper.
+
+We model the test game as a Bayesian game, in which there is
+uncertainty about the type of the test taker.
+We assume here the availability of detailed statistical data on the
+different types of test takers, specifically concerning their mastery
+of various material that is potentially on the test, and their ability
+to memorize answers.  Our primary focus is on the computational
+problem of, given this data, determining an optimal mixed strategy for
+the tester to determine what is on the test.
+
+While we have used exams and similar tests as motivating examples in
+the above, there are other potential applications in which some entity
+is being examined in a limited way.  For example, a team of (say,
+nuclear) inspectors may be able to visit only a limited number of
+suspect sites (corresponding to being able to place only a limited
+number of questions on an exam).  The entity being investigated may be
+able to cover up illicit activity at a limited number of sites
+(corresponding to memorizing the answers to selected questions), and
+many of the sites may not have any illicit activity in the first place
+(corresponding to questions that the test taker can handle without
+having to memorize the answer).
 
 \section{Definitions and Notation}
 
@@ -1243,6 +1295,20 @@ shown in Figure~\ref{fig:individual_n}, \ref{fig:individual_L}, \ref{fig:individ
 \end{figure}
 
 \section{Conclusion}
+
+\section{Future Research}
+
+Our work is only a small first step in the design of algorithms for
+game-theoretically optimal design of tests.  Future research could
+focus on identifying other tractable cases.  For example, in practice,
+one would expect the $H_\theta$ sets to exhibit structure that may be
+exploited algorithmically.  From a practical perspective, it is also
+important to develop methodology to obtain the statistical information
+about test taker types that is needed as input to our algorithms.
+Perhaps even better than a two-phase approach, in which we first
+estimate this information and then run our algorithm, would be a true
+online-learning approach, where we update our testing strategy as
+additional test takers take our tests.
 
 %\section*{Acknowledgments}
 

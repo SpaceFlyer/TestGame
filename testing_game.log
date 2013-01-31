@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=latex 2012.12.16)  31 JAN 2013 00:46
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=latex 2012.12.16)  31 JAN 2013 00:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -211,129 +211,139 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 
 LaTeX Warning: No \author given.
 
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 82.
+
+LaTeX Warning: Citation `Cooper13:Reflections' on page 1 undefined on input lin
+e 82.
+
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 101.
+(amsmath)                 on input line 153.
 
 [1
 
 
 
 ]
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 199.
 
-
-LaTeX Warning: Citation `Neumann28:Zur' on page 2 undefined on input line 218.
+LaTeX Warning: Citation `Neumann28:Zur' on page 2 undefined on input line 270.
 
 
 LaTeX Warning: Citation `Conitzer06:Computing' on page 2 undefined on input lin
-e 233.
+e 285.
 
 
 LaTeX Warning: Citation `Letchford09:Learning' on page 2 undefined on input lin
-e 234.
+e 286.
 
 
 LaTeX Warning: Citation `Paruchuri08:Playing' on page 2 undefined on input line
- 236.
+ 288.
 
 
-LaTeX Warning: Citation `Khachiyan79' on page 2 undefined on input line 314.
+Underfull \vbox (badness 1609) has occurred while \output is active []
+
+ [2]
+
+LaTeX Warning: Citation `Khachiyan79' on page 3 undefined on input line 366.
 
 
-Underfull \hbox (badness 1194) in paragraph at lines 333--337
+Underfull \hbox (badness 1194) in paragraph at lines 385--389
 \OT1/ptm/m/n/10 In this sec-tion, we study the case where mem-ory size
  []
 
-[2]
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 453.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 505.
 
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 453.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 505.
  [3]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 688.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 740.
+ [4]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 748.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 800.
 
 
-LaTeX Warning: Citation `Dulmage55:Frobenius' on page 4 undefined on input line
- 748.
+LaTeX Warning: Citation `Dulmage55:Frobenius' on page 5 undefined on input line
+ 800.
 
 
-LaTeX Warning: Citation `Chang01:Birkhoff' on page 4 undefined on input line 74
-8.
+LaTeX Warning: Citation `Chang01:Birkhoff' on page 5 undefined on input line 80
+0.
 
 
-LaTeX Warning: Citation `Birkhoff46:Tres' on page 4 undefined on input line 748
+LaTeX Warning: Citation `Birkhoff46:Tres' on page 5 undefined on input line 800
 .
 
 
-LaTeX Warning: Citation `Korzhyk10:Complexity' on page 4 undefined on input lin
-e 748.
+LaTeX Warning: Citation `Korzhyk10:Complexity' on page 5 undefined on input lin
+e 800.
 
 File: network.eps Graphic file (type eps)
 <network.eps>
-Underfull \hbox (badness 2334) in paragraph at lines 793--808
+Underfull \hbox (badness 2334) in paragraph at lines 845--860
 \OT1/cmr/m/n/10 ^^B$\OT1/ptm/m/n/10 , be-cause of the ca-pac-ity con-straint on
  edge $\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 s; ^^R\OT1/cmr/m/n/10 )$\OT1/ptm/m/n/1
 0 ,
  []
 
 
-Underfull \hbox (badness 1466) in paragraph at lines 793--808
+Underfull \hbox (badness 1466) in paragraph at lines 845--860
 \OT1/ptm/m/n/10 we have $[][] \OML/cmm/m/it/10 z[] \OT1/cmr/m/n/10 = (1\OML/cmm
 /m/it/10 =\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 
 ^^R\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 v[]\OT1/cmr/m/n/10 )) [][] \OML/cmm/m/it/1
 0 f[] \OMS/cmsy/m/n/10 ^^T
  []
 
-[4]
-Underfull \hbox (badness 1142) in paragraph at lines 809--836
+
+Underfull \hbox (badness 1142) in paragraph at lines 861--888
 \OT1/ptm/m/n/10 we have $\OML/cmm/m/it/10 f[] \OT1/cmr/m/n/10 = [][] \OML/cmm/m
 /it/10 f[] \OMS/cmsy/m/n/10 ^^T [][] \OML/cmm/m/it/10 z[]c[] \OT1/cmr/m/n/10 =
  []
 
 
-LaTeX Warning: Citation `???' on page 5 undefined on input line 856.
+LaTeX Warning: Citation `???' on page 5 undefined on input line 908.
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 1145--1156
+Underfull \hbox (badness 10000) in paragraph at lines 1197--1208
 []\OT1/ptm/m/n/10 For each test case, we spec-ify four pa-ram-e-ters
  []
 
 
-Underfull \hbox (badness 1173) in paragraph at lines 1145--1156
+Underfull \hbox (badness 1173) in paragraph at lines 1197--1208
 \OT1/ptm/m/n/10 gen-er-ate $\OML/cmm/m/it/10 m[]$ \OT1/ptm/m/n/10 uni-formly fr
 om $\OT1/cmr/m/n/10 1$ \OT1/ptm/m/n/10 to $\OML/cmm/m/it/10 m[]$\OT1/ptm/m/n/10
  , gen-er-ate $\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 B[]\OMS/cmsy/m/n/10 j$
  []
 
+[6]
 File: combined.eps Graphic file (type eps)
-<combined.eps>
+ <combined.eps>
 File: individual_n.eps Graphic file (type eps)
  <individual_n.eps>
 File: individual_L.eps Graphic file (type eps)
  <individual_L.eps>
 File: individual_m.eps Graphic file (type eps)
  <individual_m.eps>
-[6] (./testing_game.bbl
+[7] (./testing_game.bbl
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) [7] (./testing_game.aux) ) 
+) [8
+
+] (./testing_game.aux) ) 
 Here is how much of TeX's memory you used:
- 2096 strings out of 495060
- 26666 string characters out of 3182052
- 93735 words of memory out of 3000000
- 5254 multiletter control sequences out of 15000+200000
+ 2097 strings out of 495060
+ 26688 string characters out of 3182052
+ 91735 words of memory out of 3000000
+ 5255 multiletter control sequences out of 15000+200000
  19374 words of font info for 61 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  27i,10n,25p,439b,263s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on testing_game.dvi (7 pages, 60932 bytes).
+Output written on testing_game.dvi (8 pages, 66212 bytes).
