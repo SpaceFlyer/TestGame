@@ -760,7 +760,7 @@ follows.  We construct a network consisting of a directed graph $(V, E)$
 and capacities $c_e$ on the edges, as follows (see also
 Figure~\ref{fig:network}). 
 
-\begin{definition}[Test network]
+\begin{definition}[Test network]\label{def:network}
 Given an instance of the  test game and a value $U$, construct a network as follows.
 Let $V = \{s\} \cup \Theta \cup Q \cup \{t\}$
 and 
@@ -1116,15 +1116,20 @@ In this section, we conduct experiments to see how different approaches scale
 on one-problem test games. The first approach is using CPLEX to solve our
 general LP~(\ref{eqn:maximin}) which is exponential to the memorize capacity.
 The second one is using CPLEX to directly solve the marginal version
-LP~(\ref{eqn:one-problem}). The third and fourth use
-Edmonds-Karp [cite] and Push-Relabel [cite] max flow algorithm respectively
-(with binary search) on the
-network defined in flow algorithm respectively
-to solve LP~(\ref{eqn:one-problem} and then use
-????Algorithm~\ref{alg:max-flow} to solve LP~(\ref{eqn:one-problem}). They are
-using Edmonds-Karp [cite] and Psh-Relabel\footnote{We modified its is\_flow
-function for floating number issues.} [cite] max flow algorithm in C++ boost
-library respectively.
+LP~(\ref{eqn:one-problem}). The third and fourth use Edmonds-Karp [cite] and
+Push-Relabel [cite] max flow algorithm respectively (with binary search) on the
+network defined in Definition~\ref{def:network} and then use
+Algorithm~\ref{alg:one-problem} to compute the tester's optimal strategy.
+
+In particular, we use CPLEX 10.010 and boost 1.46.1 C++ library
+for Edmonds-Karp and Push-Relabel\footnote{We modified its is\_flow function
+for floating number issues.} max flow implementation. Our machine has an
+Intel(R) Core(TM) i7-2600 CPU @ 3.40GHz and 8GB memory.
+%flow algorithm respectively
+%to solve LP~(\ref{eqn:one-problem} and then use
+%????Algorithm~\ref{alg:max-flow} to solve LP~(\ref{eqn:one-problem}). They are
+%using Edmonds-Karp [cite] and Psh-Relabel [cite] max flow algorithm in C++ boost
+%library respectively.
 
 %Therefore
 %we focused on comparing different varieties of
@@ -1149,17 +1154,19 @@ p_l$. For each parameter setting, we generate $5$ test game instances and
 compute the average running time for each algorithm. During each run, we set
 timeout to 5 seconds. 
 
+\subsection{Test with Correlated Parameters}
+
 \begin{figure}
 	\caption{Average running time (timeout after 5 seconds) for different
-	one-problem test algorithms over the number of problems $n$. For each
-	$n$, we set the other three parameters $L = n, m_{max} = \lfloor
-	\sqrt{n} \rfloor$ and $b_{max} = 2m_{max}$ (see
+	approaches to compute optimal test with size one, over the number of
+	problems $n$. For each $n$, we set the other three parameters $L = n,
+	m_{max} = \lfloor \sqrt{n} \rfloor$ and $b_{max} = 2m_{max}$ (see
 	Table~\ref{tab:settings}).}
 	\label{fig:benchmark}
-	\includegraphics[trim=0 10mm 0 -5mm, clip, width=\linewidth]{benchmark_all}
+	\includegraphics[trim=0 20mm 0 0, clip, width=\linewidth]{combined}
 \end{figure}
 
-In our benchmark, we increase $n$ and set the remaining three parameters $L,
+In this benchmark, we increase $n$ and set the remaining three parameters $L,
 m_{max}, b_{max}$ as following: $L = n, m_{max} = \lfloor \sqrt{n} \rfloor$ and
 $b_{max} = 2m_{max}$. Note that our $L, b_{max}$ are quite small (they can be
 as large as $b_{max} = n/2, L = \binom{n}{b_{max}})$. That's becuase for large
@@ -1173,8 +1180,6 @@ solve LP~(\ref{eqn:one-problem}) is much faster than Edmonds-Karp
 implementation. Finally, Push-Relabel version outperforms all others
 significantly. It solves $n=1000$ case in about $0.5$ second while the second
 best CPLEX version uses almost 5 seconds.
-
-[Machine, GLPK and GPLEX spec]
 
 \begin{table}
 	\caption{Parameter settings for the benchmark}\label{tab:settings}
@@ -1214,6 +1219,28 @@ best CPLEX version uses almost 5 seconds.
 	\end{center}
 \end{table}
 
+\subsection{Test with Individual Parameter}
+
+In this benchmark, we fix the other three parameters and change the other one. The results are
+shown in Figure~\ref{fig:individual_n}, \ref{fig:individual_L}, \ref{fig:individual_m}.
+
+\begin{figure}
+	\caption{The benchmark when we fix $L = 150, m_{max} = 6, b_{max} = 12$
+	and change $n$ one.}\label{fig:individual_n}
+	\includegraphics[trim=0 20mm 0 0, clip, width=\linewidth]{individual_n}
+\end{figure}
+
+\begin{figure}
+	\caption{The benchmark when we fix $n = 150, m_{max} = 6, b_{max} = 12$
+	and change $L$.}\label{fig:individual_L}
+	\includegraphics[trim=0 20mm 0 0, clip, width=\linewidth]{individual_L}
+\end{figure}
+
+\begin{figure}
+	\caption{The benchmark when we fix $n = 150, L = 150, b_{max} = 2m_{max}$
+	and change $m_{max}$.}\label{fig:individual_m}
+	\includegraphics[trim=0 20mm 0 0, clip, width=\linewidth]{individual_m}
+\end{figure}
 
 \section{Conclusion}
 
