@@ -1,47 +1,46 @@
-This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2012/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: testing_game.aux
 The style file: named.bst
-Database file #1: /usr/project/conitzer/vccollab/references.bib.bib
-Warning--I didn't find a database entry for "???"
-You've used 10 entries,
+Database file #1: references.bib.bib
+You've used 13 entries,
             2439 wiz_defined-function locations,
-            1144 strings with 18740 characters,
-and the built_in function-call counts, 4515 in all, are:
-= -- 491
-> -- 147
+            1167 strings with 19182 characters,
+and the built_in function-call counts, 5646 in all, are:
+= -- 613
+> -- 180
 < -- 5
-+ -- 49
-- -- 48
-* -- 345
-:= -- 689
-add.period$ -- 30
-call.type$ -- 10
-change.case$ -- 64
-chr.to.int$ -- 10
-cite$ -- 10
-duplicate$ -- 195
-empty$ -- 346
-format.name$ -- 61
-if$ -- 971
++ -- 61
+- -- 58
+* -- 448
+:= -- 868
+add.period$ -- 39
+call.type$ -- 13
+change.case$ -- 81
+chr.to.int$ -- 13
+cite$ -- 13
+duplicate$ -- 237
+empty$ -- 436
+format.name$ -- 76
+if$ -- 1200
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 10
-newline$ -- 53
-num.names$ -- 30
-pop$ -- 56
+missing$ -- 13
+newline$ -- 68
+num.names$ -- 39
+pop$ -- 64
 preamble$ -- 1
-purify$ -- 74
+purify$ -- 94
 quote$ -- 0
-skip$ -- 166
+skip$ -- 201
 stack$ -- 0
-substring$ -- 314
-swap$ -- 63
+substring$ -- 402
+swap$ -- 69
 text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 80
+type$ -- 104
 warning$ -- 0
-while$ -- 43
-width$ -- 12
-write$ -- 136
-(There was 1 warning)
+while$ -- 54
+width$ -- 15
+write$ -- 175

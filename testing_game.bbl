@@ -32,6 +32,24 @@ L.~Dulmage and I.~Halperin.
   hide and seek.
 \newblock {\em Trans. Roy. Soc. Canada III}, 49:23--29, 1955.
 
+\bibitem[\protect\citeauthoryear{Edmonds and
+  Karp}{1972}]{Edmonds:1972:TIA:321694.321699}
+Jack Edmonds and Richard~M. Karp.
+\newblock Theoretical improvements in algorithmic efficiency for network flow
+  problems.
+\newblock {\em J. ACM}, 19(2):248--264, April 1972.
+
+\bibitem[\protect\citeauthoryear{Goldberg and
+  Tarjan}{1988}]{Goldberg:1988:NAM:48014.61051}
+Andrew~V. Goldberg and Robert~E. Tarjan.
+\newblock A new approach to the maximum-flow problem.
+\newblock {\em J. ACM}, 35(4):921--940, October 1988.
+
+\bibitem[\protect\citeauthoryear{Han}{1997}]{Han199711}
+C.-C. Han.
+\newblock A fast algorithm for the minimax flow problem with 01 weights.
+\newblock {\em Applied Mathematics Letters}, 10(1):11 -- 16, 1997.
+
 \bibitem[\protect\citeauthoryear{Khachiyan}{1979}]{Khachiyan79}
 Leonid Khachiyan.
 \newblock A polynomial algorithm in linear programming.

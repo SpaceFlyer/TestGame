@@ -23,6 +23,7 @@
 \usepackage{algorithm}
 \usepackage{graphicx}
 \usepackage{verbatim}
+\usepackage{subfigure}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
@@ -631,7 +632,7 @@ such pairs, we have a total savings of $2d_{\text{max}}$.
 %    2} - |E|}$. 
 The best response for type $\theta^*$ is to memorize any pair $\{i,j\}$
 where $(i,j) \notin E$, 
-%vc: maybe say $\{i,j\} \notin E$.
+%vcDONE: maybe say $\{i,j\} \notin E$.
 resulting in a probability of $\frac{{|V| \choose 2} - |E| - 1}
 {{|V| \choose 2} - |E|}$ that this type fails, so the total savings
 corresponding to this type is $\alpha \varepsilon 
@@ -928,7 +929,7 @@ p(\theta) v_\theta \sum_{q \in
 
 We can do a binary search for the optimal value of $U$ to the desired level of
 precision.\footnote{If an exact solution is desired, we can use a similar construction to
-  reduce to the minimax network flow problem~\cite{???}, where the goal is
+  reduce to the minimax network flow problem~\cite{Han199711}, where the goal is
   to compute a maximum flow that minimizes $\max_{e \in
     E'} f_e$ for some distinguished set of edges $E' \subseteq E$.  To do
   so, first (assuming w.l.o.g.~$U_{q_1}^0 \leq U_{q_2}^0 \leq U_{q_n}^0$)
@@ -1012,6 +1013,27 @@ fewer types).
 %\EndFunction
 \end{algorithmic}
 \end{algorithm}
+
+\begin{figure*}
+\centering
+	\subfigure[Increasing $n$ with \newline $L = 150$ and $m_{\text{max}} = 6$.]{
+		\includegraphics[trim=0 10mm 15mm 10mm, clip, height=1.3in]{small_n}
+		\label{fig:individual_n}
+	}
+	\subfigure[Increasing $L$ with \newline $n = 150$ and $m_{\text{max}} = 6$.]{
+		\includegraphics[trim=0 10mm 15mm 10mm, clip, height=1.3in]{small_L}
+		\label{fig:individual_L}
+	}
+	\subfigure[Increasing $m_{max}$ with \newline $n = L = 150$.]{
+		\includegraphics[trim=0 10mm 15mm 10mm, clip, height=1.3in]{small_m}
+		\label{fig:individual_m}
+	}
+	\subfigure[Increasing $n$ with $L = n$ \newline and
+			$m_{\text{max}} = \lfloor \sqrt{n} \rfloor$.]{
+		\includegraphics[trim=0 10mm 20mm 10mm, clip, height=1.3in]{small_combined}
+	}
+	\caption{Runtime for solving optimal one-question tests.}
+\end{figure*}
 
 To  prove the correctness of Algorithm~\ref{alg:one-problem}, we first
 introduce the following two lemmas.
@@ -1210,8 +1232,8 @@ We consider four different algorithms.  We use CPLEX (out-of-the-box)
 to solve (1) the general LP~(\ref{eqn:maximin}) and (2) the one-question
 marginal-probabilities LP~(\ref{eqn:one-problem}).  Also, we use the
 network-flow approach from Definition~\ref{def:network} with binary search
-on $U$ to a precision of $10^{-8}$ using (3) Edmonds-Karp [???cite] and (4)
-Push-Relabel [cite??], in each case combined with using
+on $U$ to a precision of $10^{-8}$ using (3) Edmonds-Karp \cite{Edmonds:1972:TIA:321694.321699} and (4)
+Push-Relabel \cite{Goldberg:1988:NAM:48014.61051}, in each case combined with using
 Algorithm~\ref{alg:one-problem} to compute the tester's optimal strategy.
 % The first approach is using CPLEX to solve our
 %general LP~(\ref{eqn:maximin}) which is exponential to the memorize capacity.
@@ -1283,25 +1305,26 @@ The marginal LP and particularly push-relabel always scale very well.
 %they also show that once $m_\text{max}$ reaches a particular size, thes
 %In this benchmark, we fix the other three parameters and change the other one. The results are
 %shown in Figure~\ref{fig:individual_n}, \ref{fig:individual_L}, \ref{fig:individual_m}.
-\begin{figure}
-	\caption{Runtime for increasing $n$
-with 
-$L = 150$ and $m_{\text{max}} = 6$.}\label{fig:individual_n}
-	\includegraphics[trim=0 20mm 0 0, clip, width=\linewidth]{individual_n}
-\end{figure}
 
-\begin{figure}
-	\caption{Runtime for increasing $L$ with 
-$n = 150$ and $m_{\text{max}} = 6$.}\label{fig:individual_L}
-	\includegraphics[trim=0 20mm 0 0, clip, width=\linewidth]{individual_L}
-\end{figure}
-
-\begin{figure}
-	\caption{Runtime for increasing $m_{max}$ with 
-$n = 150$ and $L = 150$.}\label{fig:individual_m}
-	\includegraphics[trim=0 20mm 0 0, clip, width=\linewidth]{individual_m}
-\end{figure}
-%vc: put captions below figures
+%\begin{figure}
+%	\caption{Runtime for increasing $n$
+%with 
+%$L = 150$ and $m_{\text{max}} = 6$.}\label{fig:individual_n}
+%	\includegraphics[trim=0 20mm 0 0, clip, width=\linewidth]{individual_n}
+%\end{figure}
+%
+%\begin{figure}
+%	\caption{Runtime for increasing $L$ with 
+%$n = 150$ and $m_{\text{max}} = 6$.}\label{fig:individual_L}
+%	\includegraphics[trim=0 20mm 0 0, clip, width=\linewidth]{individual_L}
+%\end{figure}
+%
+%\begin{figure}
+%	\caption{Runtime for increasing $m_{max}$ with 
+%$n = 150$ and $L = 150$.}\label{fig:individual_m}
+%	\includegraphics[trim=0 20mm 0 0, clip, width=\linewidth]{individual_m}
+%\end{figure}
+%vcDONE: put captions below figures
 
 
 In fact, these experiments indicate increasing a single parameter by itself
@@ -1317,12 +1340,12 @@ the logarithmic scales).  Push-relabel again performs best.
 
 %\subsection{Test with Correlated Parameters}
 
-\begin{figure}
-	\caption{Runtime for increasing $n$ with  $L = n$ and 
-	$m_{\text{max}} = \lfloor \sqrt{n} \rfloor$.}
-	\label{fig:benchmark}
-	\includegraphics[trim=0 20mm 0 0, clip, width=\linewidth]{combined}
-\end{figure}
+%\begin{figure}
+%	\caption{Runtime for increasing $n$ with  $L = n$ and 
+%	$m_{\text{max}} = \lfloor \sqrt{n} \rfloor$.}
+%	\label{fig:benchmark}
+%	\includegraphics[trim=0 20mm 0 0, clip, width=\linewidth]{combined}
+%\end{figure}
 
 %In this benchmark, we increase $n$ and set the remaining three parameters $L,
 %m_{max}, b_{max}$ as following: $L = n, m_{max} = \lfloor \sqrt{n} \rfloor$ and
@@ -1440,7 +1463,7 @@ the $25.25$ from the strategy in the regular version.
 
 %% The file named.bst is a bibliography style file for BibTeX 0.99c
 \bibliographystyle{named}
-\bibliography{/usr/project/conitzer/vccollab/references.bib}
+\bibliography{references.bib}
 
 \end{document}
 
