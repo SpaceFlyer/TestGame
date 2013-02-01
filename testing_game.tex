@@ -538,27 +538,27 @@ Let $Q=V$.
 Construct $|E|+|V|+2$ test taker types, as follows:
 \begin{itemize}
 \item For each edge $e = (i, j) \in E$, add one test taker type $\theta_e$ with
-$v_{\theta_e} = |\Theta|$, $H_{\theta_e} = \{i, j\}$, and $m_{\theta_e} = 0$.
+$v_{\theta_e} = L$ ($|\Theta| = L$), $H_{\theta_e} = \{i, j\}$, and $m_{\theta_e} = 0$.
 
 \item For each vertex $i$, add one test taker type  $\theta_i$ with $v_{\theta_i} =
-|\Theta| (d_{\text{max}}-d(i)), H_{\theta_i} = \{i\}$, and $m_{\theta_i} = 0$. Here
+L (d_{\text{max}}-d(i)), H_{\theta_i} = \{i\}$, and $m_{\theta_i} = 0$. Here
 $d(i)$ is the degree of vertex $i$ and $d_{\text{max}} = 1 + \max_i d(i)$.
 
 \item Add a single test taker type 
 $\theta^*$ with $v_{\theta^*} =
-|\Theta| \alpha \varepsilon, m_{\theta^*} = 2$ and $H_{\theta^*} = V$, where $\alpha =
+L \alpha \varepsilon, m_{\theta^*} = 2$ and $H_{\theta^*} = V$, where $\alpha =
 \binom{|V|}{2} - |E|-\binom{k}{2}$ and $\varepsilon < 1$.
 %(specifically,  $\varepsilon =$?????? is small enough).
 
 \item Finally, add a single test taker type $\theta^{**}$ with $v_{\theta^{**}} =
-|\Theta|  \varepsilon, H_{\theta^{**}} = V$, and $m_{\theta^{**}} = k$.
+L  \varepsilon, H_{\theta^{**}} = V$, and $m_{\theta^{**}} = k$.
 \end{itemize}
-Let the test taker types occur with uniform probability $p=1/|\Theta|$, let
+Let the test taker types occur with uniform probability $p=1/L$, let
 $t=2$, and
 let 
 $$u= (2-|V|)d_{\text{max}} + |E| - \frac{{V  \choose 2}-|E|-1}{{V \choose 2}-|E|}\varepsilon$$
 
-%$$u =  \frac{2 d_{\text{max}} +\alpha \varepsilon +\varepsilon -\frac{{V  \choose 2}-|E|-1}{{V \choose 2}-|E|}\varepsilon}{|\Theta|}$$
+%$$u =  \frac{2 d_{\text{max}} +\alpha \varepsilon +\varepsilon -\frac{{V  \choose 2}-|E|-1}{{V \choose 2}-|E|}\varepsilon}{L}$$
 
 
 %Then we
@@ -574,7 +574,7 @@ First, suppose there exists an independent set of size $k$.  We will
 construct a strategy for the test taker, that is, a feasible solution to
 LP~(\ref{eqn:dual-original}), that results in a utility of at most 
 $(2-|V|)d_{\text{max}} + |E| - \varepsilon < u$
-%$\frac{2  d_{\text{max}} +\alpha \varepsilon}{|\Theta|} < u$
+%$\frac{2  d_{\text{max}} +\alpha \varepsilon}{L} < u$
 for the tester.  Let type $\theta^{**}$ choose (memorize the answers to)
 the questions in the independent set (with probability $1$).  Let type
 $\theta^*$ choose a pair of questions that do not have an edge between
@@ -818,7 +818,7 @@ memorizes $q$, i.e., $U^0_a =
 %us later on.)
 
 Solving LP~(\ref{eqn:one-problem}) 
-%vc: add parentheses elsewhere too
+%vcDONE: add parentheses elsewhere too
 gives us an equilibrium test taker strategy.\footnote{To be precise, we have to
 find a test taker strategy that has these marginal probabilities.
 This is quite straightforward in this context: for example, one can, for
@@ -864,7 +864,7 @@ U_q^0-U)$.
 \end{definition}
 
 
-%vc:UPDATE FIGURE, NO CAPACITY ZERO MIDDLE EDGES
+%vcDONE:UPDATE FIGURE, NO CAPACITY ZERO MIDDLE EDGES
 \begin{figure}
 \caption{The network that is used to solve LP~(\ref{eqn:one-problem}).}
 \label{fig:network}
@@ -913,7 +913,7 @@ H_\theta$ edges
 p(\theta) v_\theta \sum_{q \in
       H_\theta} z_{\theta,q}  \leq p(\theta) v_\theta m_\theta =
     c_{(s,\theta)}$ by the second constraint of the LP. 
-%vc: check whether parentheses are in the subscripts of the capacities
+%vcDONE: check whether parentheses are in the subscripts of the capacities
   Finally, for any $q \in Q$, there are two cases: (1) if $U_q^0 \leq U$,
   then we have $f_{q,t} = \sum_{\theta: q \in H_\theta} f_{\theta,q} = 0$;
   (2) if $U_q^0 > U$, we have $f_{q,t} = \sum_{\theta: q \in H_\theta}
@@ -1068,20 +1068,20 @@ $\sum_{\theta \in
 Then, let $z'_{\theta,q} \leftarrow z'_{\theta,q} + \epsilon$ and, for
 every $\theta' \in \Theta$ such that $q \in H_{\theta'}$ and $z'_{\theta',q}
 >0$, let  $z'_{\theta',q} \leftarrow  z'_{\theta',q} - \min(z'_{\theta',q},
-\frac{\epsilon}{2 L} \frac{p(\theta)v_\theta}{p(\theta')v_{\theta'}})$,
-thereby maintaining the property.  
+\frac{\epsilon}{2 |\Theta|} \frac{p(\theta)v_\theta}{p(\theta')v_{\theta'}})$,
+thereby maintaining the property. 
 As a result, $\sum_{\theta'' \in
   \Theta: q \in H_{\theta''}}p(\theta'')v_{\theta''} z'_{\theta'',q}$ will have
 increased by at least  $\epsilon p(\theta)v_{\theta} - \sum_{\theta' \in
-\Theta} p(\theta')v_{\theta'} \frac{\epsilon}{2 L}
+\Theta} p(\theta')v_{\theta'} \frac{\epsilon}{2 |\Theta|}
 \frac{p(\theta)v_\theta}{p(\theta')v_{\theta'}}  = 
-\epsilon p(\theta)v_{\theta} - L \frac{\epsilon}{2 L} p(\theta)v_\theta >0$.
+\epsilon p(\theta)v_{\theta} - |\Theta| \frac{\epsilon}{2 |\Theta|} p(\theta)v_\theta >0$.
 Hence, at the end, for each $q \in T_0$, we
 have 
 $\sum_{\theta \in
   \Theta: q \in H_\theta}p(\theta)v_\theta z'_{\theta,q} > \sum_{\theta \in
   \Theta: q \in H_\theta}p(\theta)v_\theta z_{\theta,q}$.
-%vc: be consistent about L vs |\Theta|
+%vcDONE: be consistent about L vs |\Theta|
 %Note that for every $\theta$ in $S$, it
 %has a potential to memorize more either because $\sum_{q \in H_\theta \cap T_0}
 %z_{l,a} < m_l$ (on line \ref{line:first-potential}) or because there is an
@@ -1268,7 +1268,7 @@ Intel(R) Core(TM) i7-2600 CPU @ 3.40GHz and 8GB memory.
 %summary, we have four varieties in our comparisons.
 
 For each experimental data point, we specify three parameters:
-the number of questions $n$, the number of types $L$, and the maximum
+the number of questions $n$, the number of types $L$ ($|\Theta| = L$), and the maximum
 memory size $m_{\text{max}}$.  We always set $b_\text{max}$, the maximum
 size of any $H_\theta$, to $2m_{\text{max}}$.
 % $n, L,
