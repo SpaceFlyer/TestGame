@@ -150,7 +150,7 @@ having to memorize the answer).
 
 \section{Definitions and Notation}
 
-%vc: change \mathbb B to \Theta 
+%vcDONE: change \mathbb B to \Theta 
 
 A \emph{test game} $G = (Q, \Theta, p, t, u_1, u_2)$ is a 2-player
 Bayesian game
@@ -572,7 +572,7 @@ $$u= (2-|V|)d_{\text{max}} + |E| - \frac{{V  \choose 2}-|E|-1}{{V \choose 2}-|E|
 
 First, suppose there exists an independent set of size $k$.  We will
 construct a strategy for the test taker, that is, a feasible solution to
-LP~\ref{eqn:dual-original}, that results in a utility of at most 
+LP~(\ref{eqn:dual-original}), that results in a utility of at most 
 $(2-|V|)d_{\text{max}} + |E| - \varepsilon < u$
 %$\frac{2  d_{\text{max}} +\alpha \varepsilon}{|\Theta|} < u$
 for the tester.  Let type $\theta^{**}$ choose (memorize the answers to)
@@ -775,7 +775,7 @@ violated constraints and that give more insight into the structure of the soluti
 \subsection{Linear Program}
 
 We first present a  linear program that can be thought of as a
-polynomial-size version of LP~\ref{eqn:dual-original}.  Instead of 
+polynomial-size version of LP~(\ref{eqn:dual-original}).  Instead of 
 variables $y_{\theta,M_\theta}$, this linear program has a variable
 $z_{\theta,q}$ for every individual $q \in H_\theta$.  These variables
 correspond to the {\em marginal} probability that $\theta$ memorizes $q$
