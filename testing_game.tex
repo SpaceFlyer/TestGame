@@ -196,7 +196,7 @@ test taker.
 In general, the utility functions could be very rich, depending in a
 complicated way on the true type and the number (or even precise set) of
 questions answered correctly.  To avoid getting too deeply into the
-modeling aspects of this, we study only a special case that should be a
+modeling aspects of this, we study only a case that should be a
 special case of most reasonable models.  This strengthens the hardness
 results that we obtain later in the paper (since these hardness results
 automatically also apply to the richer models of which our model is a
@@ -347,7 +347,7 @@ The dual of the above LP is:
     \subseteq H_\theta : |M_\theta| = m_\theta} u_1(\theta, T, M_\theta) y_{\theta, M_\theta};\nonumber\\
   &(\forall \theta) \sum_{M_\theta \subseteq H_\theta : |M_\theta| =
     m_\theta} y_{\theta, M_\theta} = p(\theta);\nonumber\\
-  &(\forall \theta, M_\theta \subseteq H_\theta : |M_\theta| = m_\theta) y_{\theta, M_\theta} \geq 0; \nonumber
+  &(\forall \theta, M_\theta \subseteq H_\theta : |M_\theta| = m_\theta)~~ y_{\theta, M_\theta} \geq 0; \nonumber
 \end{align}
 
 %which is equivalent to 
@@ -868,7 +868,7 @@ U_q^0-U)$.
 \begin{figure}
 \caption{The network that is used to solve LP~(\ref{eqn:one-problem}).}
 \label{fig:network}
-\includegraphics[width=\linewidth]{network}
+\includegraphics[trim=0 40mm 0 10mm, clip, width=\linewidth]{network}
 \end{figure}
 
 \begin{proposition}
@@ -1024,7 +1024,7 @@ fewer types).
 		\includegraphics[trim=0 10mm 15mm 10mm, clip, height=1.3in]{small_L}
 		\label{fig:individual_L}
 	}
-	\subfigure[Increasing $m_{max}$ with \newline $n = L = 150$.]{
+	\subfigure[Increasing $m_\text{max}$ with \newline $n = L = 150$.]{
 		\includegraphics[trim=0 10mm 15mm 10mm, clip, height=1.3in]{small_m}
 		\label{fig:individual_m}
 	}
@@ -1033,7 +1033,7 @@ fewer types).
 		\includegraphics[trim=0 10mm 20mm 10mm, clip, height=1.3in]{small_combined}
 		\label{fig:benchmark}
 	}
-	\caption{Runtime for solving optimal one-question tests.}
+	\caption{Runtime for solving an optimal tester strategy in one-question tests.}
 \end{figure*}
 
 To  prove the correctness of Algorithm~\ref{alg:one-problem}, we first
@@ -1225,7 +1225,7 @@ are best-responding.
 In this section, we describe  experiments
 that we performed 
  to see how different algorithms scale.
-We restrict our attention to one-question test games.
+We restrict our attention to one-question test games so that we can evaluate all algorithms at once.
 %while LP~(\ref{eqn:maximin}) (and its dual LP~{\ref{eqn:dual-original})
 %also work for tests with more questions, as we will see, one-question test
 %games are already challenging for these formulations.
@@ -1336,7 +1336,7 @@ $m_\text{max}$, eventually it becomes optimal to randomize uniformly over
 all questions.
 Thus, to identify more challenging instances, multiple parameters need to
 increase simultaneously, as we do in Figure~\ref{fig:benchmark} (note again
-the logarithmic scales).  Push-relabel again performs best.
+the logarithmic scales).  Push-relabel performs best.
 
 
 
@@ -1408,14 +1408,21 @@ the logarithmic scales).  Push-relabel again performs best.
 \section{Conclusion}
 
 \begin{table}
-\begin{tabular}{r | c | c | c }
-	& $t = 1$ & $2 \leq t \leq K$ & $t > K$\\
-\hline
-$m_{\max} \leq K$ & P & P & NP-C\\
-$m_{\max} > K$ & P & coNP-C & NP-H and coNP-H
+%\begin{tabular}{r | c | c | c }
+%	& $t = 0, 1$ & $2 \leq t \leq $const. & $t > $const.\\
+%\hline
+%$0 \leq m_\text{max} \leq $const. & P & P & NP-c\\
+%$m_\text{max} > $const. & P & coNP-c & NP-h \& coNP-h
+%\end{tabular}
+\begin{tabular}{r | c | c }
+	& $0 \leq m_\text{max} \leq $ const. & $m_\text{max} > $ const. \\
+	\hline
+$t=0,1$ & P & P \\
+$2 \leq t \leq$ const. & P & coNP-c\\
+$t > $ const. & NP-c & coNP-h and NP-h
 \end{tabular}
 \caption{\textsc{Optimal Test
-Strategy} problem's complexity given a constant $K$ ($t, m_{\max}$: test size, max memory size)}
+Strategy}'s complexity ($t, m_{\max}$ are the test size and max memory size respectively)}
 \label{tab:results}
 \end{table}
 
@@ -1424,7 +1431,10 @@ Our work is only a small first step in the design of algorithms for
 game-theoretically optimal design of tests.  Future research could
 focus on identifying other tractable cases.  For example, in practice,
 one would expect the $H_\theta$ sets to exhibit structure that may be
-exploited algorithmically.  From a practical perspective, it is also
+exploited algorithmically.  
+Another direction is to generalize beyond tests whose only outcomes
+are pass and fail.
+From a practical perspective, it is also
 important to develop methodology to obtain the statistical information
 about test taker types that is needed as input to our algorithms.
 Perhaps even better than a two-phase approach, in which we first

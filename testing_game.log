@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=latex 2012.12.16)  31 JAN 2013 22:09
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=latex 2012.12.16)  31 JAN 2013 23:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -284,6 +284,11 @@ File: small_m.eps Graphic file (type eps)
 File: small_combined.eps Graphic file (type eps)
  <small_combined.eps> [5]
 (./testing_game.bbl [6]
+Underfull \hbox (badness 1694) in paragraph at lines 30--34
+[]\OT1/ptm/m/n/10 Lloyd Dul-mage and Is-rael
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 43--46
 []\OT1/ptm/m/n/10 Andrew V. Gold-berg and
  []
@@ -316,10 +321,10 @@ Por-tu-gal,
 Here is how much of TeX's memory you used:
  2281 strings out of 495060
  29314 string characters out of 3182052
- 96344 words of memory out of 3000000
+ 95344 words of memory out of 3000000
  5433 multiletter control sequences out of 15000+200000
  19403 words of font info for 61 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 27i,10n,24p,276b,293s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,11n,24p,276b,293s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on testing_game.dvi (7 pages, 60828 bytes).
+Output written on testing_game.dvi (7 pages, 61064 bytes).
