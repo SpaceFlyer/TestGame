@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=latex 2012.12.16)  31 JAN 2013 20:47
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=latex 2012.12.16)  31 JAN 2013 22:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -274,12 +274,6 @@ Underfull \hbox (badness 1466) in paragraph at lines 881--896
 0 f[] \OMS/cmsy/m/n/10 ^^T
  []
 
-
-Underfull \hbox (badness 1142) in paragraph at lines 897--924
-\OT1/ptm/m/n/10 we have $\OML/cmm/m/it/10 f[] \OT1/cmr/m/n/10 = [][] \OML/cmm/m
-/it/10 f[] \OMS/cmsy/m/n/10 ^^T [][] \OML/cmm/m/it/10 z[]c[] \OT1/cmr/m/n/10 =
- []
-
 [4]
 File: small_n.eps Graphic file (type eps)
  <small_n.eps>
@@ -289,54 +283,43 @@ File: small_m.eps Graphic file (type eps)
  <small_m.eps>
 File: small_combined.eps Graphic file (type eps)
  <small_combined.eps> [5]
-
-LaTeX Warning: Reference `fig:benchmark' on page 6 undefined on input line 1336
-.
-
-
-LaTeX Warning: Reference `ta:results' on page 6 undefined on input line 1407.
-
 (./testing_game.bbl [6]
-Underfull \hbox (badness 10000) in paragraph at lines 44--47
+Underfull \hbox (badness 10000) in paragraph at lines 43--46
 []\OT1/ptm/m/n/10 Andrew V. Gold-berg and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 75--82
+Underfull \hbox (badness 10000) in paragraph at lines 74--81
 []\OT1/ptm/m/n/10 Praveen Paruchuri, Jonathan P.
  []
 
 
-Underfull \hbox (badness 5924) in paragraph at lines 75--82
+Underfull \hbox (badness 5924) in paragraph at lines 74--81
 \OT1/ptm/m/n/10 Pearce, Janusz Marecki, Milind Tambe, Fer-nando
  []
 
 
-Underfull \hbox (badness 1005) in paragraph at lines 75--82
+Underfull \hbox (badness 1005) in paragraph at lines 74--81
 \OT1/ptm/m/n/10 games.  In \OT1/ptm/m/it/10 Pro-ceed-ings of the Sev-enth In-te
 r-na-tional
  []
 
 
-Underfull \hbox (badness 1762) in paragraph at lines 75--82
+Underfull \hbox (badness 1762) in paragraph at lines 74--81
 \OT1/ptm/m/it/10 Sys-tems (AA-MAS)\OT1/ptm/m/n/10 , pages 895--902, Es-to-ril, 
 Por-tu-gal,
  []
 
 ) [7
 
-] (./testing_game.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+] (./testing_game.aux) ) 
 Here is how much of TeX's memory you used:
- 2279 strings out of 495060
- 29310 string characters out of 3182052
+ 2281 strings out of 495060
+ 29314 string characters out of 3182052
  96344 words of memory out of 3000000
- 5431 multiletter control sequences out of 15000+200000
+ 5433 multiletter control sequences out of 15000+200000
  19403 words of font info for 61 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  27i,10n,24p,276b,293s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on testing_game.dvi (7 pages, 60420 bytes).
+Output written on testing_game.dvi (7 pages, 60828 bytes).

@@ -87,7 +87,7 @@ an issue for Massive Open Online Courses (MOOCs).
 
 In this paper, we take the loss of confidentiality as a fact.  Even
 so, not all hope is lost as the test taker can memorize only a limited
-set of questions, and the tester can randomize which questions appear on
+set of questions' answers, and the tester can randomize which questions appear on
 the test.  We model this as a Stackelberg game, where the tester
 commits to a mixed strategy and the follower responds.  We provide an
 exponential-size linear program formulation, prove several NP-hardness
@@ -852,8 +852,8 @@ Figure~\ref{fig:network}).
 Given an instance of the  test game and a value $U$, construct a network as follows.
 Let $V = \{s\} \cup \Theta \cup Q \cup \{t\}$
 and 
-$E = \{s\} \times \Theta \cup \bigcup_{\theta \in \Theta} \{\theta\} \times
-H_\theta \cup Q \times \{t\}$.
+$E = (\{s\} \times \Theta) \cup (\bigcup_{\theta \in \Theta} \{\theta\} \times
+H_\theta) \cup (Q \times \{t\})$.
 For each edge $(s, \theta)$, let its capacity be $c_{(s,
 \theta)} = p(\theta) v_\theta m_\theta$. For each edge $(\theta, q)$ (with
 $q \in H_\theta$), let its
@@ -890,34 +890,34 @@ solution with value $U$.
   $\theta \in \Theta$, because of the capacity constraint on edge $(s,
   \theta)$, we have $\sum_{q \in H_\theta} z_{\theta,q} = (1/(p(\theta)
   v_\theta)) \sum_{q \in H_\theta} f_{(\theta, q)} \leq (1/(p(\theta)
-  v_\theta)) f_{s,\theta} \leq (1/(p(\theta) v_\theta)) p(\theta) v_\theta
+  v_\theta)) f_{(s,\theta)} \leq (1/(p(\theta) v_\theta)) p(\theta) v_\theta
   m_\theta = m_\theta$.  Hence, we have a feasible solution to
   LP~(\ref{eqn:one-problem}) with objective value $U$.
 
   Conversely, if we have a feasible solution to LP~(\ref{eqn:one-problem})
-  with objective value $U$, then set: (1) $f_{\theta,q} = 0$ if $U_q^0 \leq
-  U$; (2) otherwise, set $f_{\theta,q} = \frac{U_q^0-U}{\sum_{\theta:q \in
+  with objective value $U$, then set: (1) $f_{(\theta,q)} = 0$ if $U_q^0 \leq
+  U$; (2) otherwise, set $f_{(\theta,q)} = \frac{U_q^0-U}{\sum_{\theta:q \in
       H_\theta} p(\theta)v_\theta z_{\theta,q}} z_{\theta,q} c_{(\theta,
-    q)}$.  To satisfy the flow constraints, this implies $f_{s,\theta} =
-  \sum_{q \in H_\theta} f_{\theta,q}$ and $f_{q,t} = \sum_{\theta: q \in
-    H_\theta} f_{\theta,q}$.  We now check that the capacity constraints
+    q)}$.  To satisfy the flow constraints, this implies $f_{(s,\theta)} =
+  \sum_{q \in H_\theta} f_{(\theta,q)}$ and $f_{(q,t)} = \sum_{\theta: q \in
+    H_\theta} f_{(\theta,q)}$.  We now check that the capacity constraints
   hold. By the first constraint in the LP, we have
   $\frac{U_q^0-U}{\sum_{\theta:q \in H_\theta} p(\theta)v_\theta z_{\theta,q}}
-\leq 1$ so $f_{\theta,q}
+\leq 1$ so $f_{(\theta,q)}
     \leq z_{\theta,q} c_{(\theta, q)}$, and because $z_{\theta,q} \leq 1$
     we have that the capacity constraints on the  $\bigcup_{\theta \in \Theta} \{\theta\} \times
 H_\theta$ edges
- are satisfied.  Then, we have $f_{s,\theta} = \sum_{q \in
-      H_\theta} f_{\theta,q} \leq \sum_{q \in
+ are satisfied.  Then, we have $f_{(s,\theta)} = \sum_{q \in
+      H_\theta} f_{(\theta,q)} \leq \sum_{q \in
       H_\theta} z_{\theta,q} c_{(\theta, q)} = 
 p(\theta) v_\theta \sum_{q \in
       H_\theta} z_{\theta,q}  \leq p(\theta) v_\theta m_\theta =
     c_{(s,\theta)}$ by the second constraint of the LP. 
 %vcDONE: check whether parentheses are in the subscripts of the capacities
   Finally, for any $q \in Q$, there are two cases: (1) if $U_q^0 \leq U$,
-  then we have $f_{q,t} = \sum_{\theta: q \in H_\theta} f_{\theta,q} = 0$;
-  (2) if $U_q^0 > U$, we have $f_{q,t} = \sum_{\theta: q \in H_\theta}
-  f_{\theta,q} = \frac{U_q^0-U}{\sum_{\theta:q \in H_\theta}
+  then we have $f_{(q,t)} = \sum_{\theta: q \in H_\theta} f_{(\theta,q)} = 0$;
+  (2) if $U_q^0 > U$, we have $f_{(q,t)} = \sum_{\theta: q \in H_\theta}
+  f_{(\theta,q)} = \frac{U_q^0-U}{\sum_{\theta:q \in H_\theta}
     p(\theta)v_\theta z_{\theta,q}} \sum_{\theta: q \in H_\theta}
   z_{\theta,q} c_{(\theta, q)} = U_q^0-U$.  So the $Q \times \{t\}$ edges
   are exactly saturated.
@@ -940,7 +940,7 @@ precision.\footnote{If an exact solution is desired, we can use a similar constr
   remaining capacities, and again adjust the capacities $c_{(q, t)}$ from
   $0$ to $U_{q_{i+1}}^0-U_{q_i}^0$ whenever $U_q^0 \geq U_{q_i}^0$;
   finally, we can call a minimax network flow solver on this network with
-  $E' = Q \times \{t\}$.  However, since we are not aware of any such
+  $E' = Q \times \{t\}$.  However, as we are not aware of any such
   solvers, in our experiments we focus on the approach based on binary search.}
 %we can either do binary search for a
 %finite precision, or use minimax network algorithm (see e.g.,
@@ -1031,6 +1031,7 @@ fewer types).
 	\subfigure[Increasing $n$ with $L = n$ \newline and
 			$m_{\text{max}} = \lfloor \sqrt{n} \rfloor$.]{
 		\includegraphics[trim=0 10mm 20mm 10mm, clip, height=1.3in]{small_combined}
+		\label{fig:benchmark}
 	}
 	\caption{Runtime for solving optimal one-question tests.}
 \end{figure*}
@@ -1052,7 +1053,7 @@ alternative solution $(z'_{\theta,q})$ such that for each $q \in T_0$, we
 have 
 $\sum_{\theta \in
   \Theta: q \in H_\theta}p(\theta)v_\theta z'_{\theta,q} > \sum_{\theta \in
-  \Theta: q \in H_\theta}p(\theta)v_\theta z_{\theta,q}$.  This would then allow u
+  \Theta: q \in H_\theta}p(\theta)v_\theta z_{\theta,q}$.  This would then allow us
   to reduce $U$, contradicting its optimality.
 
   We initialize $z'_{\theta,q} = z_{\theta, q}$ for all $\theta, q \in T_0
@@ -1232,8 +1233,8 @@ We consider four different algorithms.  We use CPLEX (out-of-the-box)
 to solve (1) the general LP~(\ref{eqn:maximin}) and (2) the one-question
 marginal-probabilities LP~(\ref{eqn:one-problem}).  Also, we use the
 network-flow approach from Definition~\ref{def:network} with binary search
-on $U$ to a precision of $10^{-8}$ using (3) Edmonds-Karp \cite{Edmonds:1972:TIA:321694.321699} and (4)
-Push-Relabel \cite{Goldberg:1988:NAM:48014.61051}, in each case combined with using
+on $U$ to a precision of $10^{-8}$ using (3) Edmonds-Karp \cite{Edmonds:1972} and (4)
+Push-Relabel \cite{Goldberg:1988:NAM:48014.61051}, in each case combined with 
 Algorithm~\ref{alg:one-problem} to compute the tester's optimal strategy.
 % The first approach is using CPLEX to solve our
 %general LP~(\ref{eqn:maximin}) which is exponential to the memorize capacity.
@@ -1244,12 +1245,13 @@ Algorithm~\ref{alg:one-problem} to compute the tester's optimal strategy.
 %Algorithm~\ref{alg:one-problem} to compute the tester's optimal strategy.
 
 In particular, we use CPLEX 10.010 and the boost 1.46.1 C++ library
-for Edmonds-Karp and Push-Relabel.\footnote{We increased the tolerance 
-on its is\_flow function
-to address floating number issues.} 
+for Edmonds-Karp and Push-Relabel.
+%\footnote{We increased the tolerance 
+%on its is\_flow function
+%to address floating number issues.} 
 %max flow implementation. 
 Our machine has an
-Intel(R) Core(TM) i7-2600 CPU @ 3.40GHz and 8GB memory.
+Intel i7-2600 3.40GHz CPU and 8GB memory.
 %flow algorithm respectively
 %to solve LP~(\ref{eqn:one-problem} and then use
 %????Algorithm~\ref{alg:max-flow} to solve LP~(\ref{eqn:one-problem}). They are
@@ -1404,8 +1406,20 @@ the logarithmic scales).  Push-relabel again performs best.
 
 
 \section{Conclusion}
-Table~\ref{ta:results} summarizes our complexity results.
-????INSERT TABLE???????
+
+\begin{table}
+\begin{tabular}{r | c | c | c }
+	& $t = 1$ & $2 \leq t \leq K$ & $t > K$\\
+\hline
+$m_{\max} \leq K$ & P & P & NP-C\\
+$m_{\max} > K$ & P & coNP-C & NP-H and coNP-H
+\end{tabular}
+\caption{\textsc{Optimal Test
+Strategy} problem's complexity given a constant $K$ ($t, m_{\max}$: test size, max memory size)}
+\label{tab:results}
+\end{table}
+
+Table~\ref{tab:results} summarizes our complexity results.
 Our work is only a small first step in the design of algorithms for
 game-theoretically optimal design of tests.  Future research could
 focus on identifying other tractable cases.  For example, in practice,
@@ -1423,7 +1437,7 @@ additional test takers take our tests.
 
 \appendix
 
-\section{Counterexample to Zero-Sum Equivalence When the Test Taker Is the
+\section{Counterexample to Zero-Sum Equivalence when the Test Taker is
   Stackelberg Leader}
 \label{se:counterexample}
 

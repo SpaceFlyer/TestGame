@@ -32,8 +32,7 @@ L.~Dulmage and I.~Halperin.
   hide and seek.
 \newblock {\em Trans. Roy. Soc. Canada III}, 49:23--29, 1955.
 
-\bibitem[\protect\citeauthoryear{Edmonds and
-  Karp}{1972}]{Edmonds:1972:TIA:321694.321699}
+\bibitem[\protect\citeauthoryear{Edmonds and Karp}{1972}]{Edmonds:1972}
 Jack Edmonds and Richard~M. Karp.
 \newblock Theoretical improvements in algorithmic efficiency for network flow
   problems.
