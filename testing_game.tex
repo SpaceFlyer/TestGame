@@ -65,12 +65,14 @@ Proof.}}{\EndProof\FullSpace \vspace{-0.15in}}
 % page charge instructions.
 % Put where the files are available in the appropriate places.
 
-\title{Game-Theoretic Question Selection for Tests}
+\title{Game-Theoretic Question Selection for Tests\\DRAFT}
 %\author{Francesca Rossi \\
 %University of Padova\\
 %Italy \\
 %pcchair13@ijcai.org}
-\author{Paper \#1789}
+\author{Yuqian Li, Vincent Conitzer\\
+Duke University\\
+\{yuqian, conitzer\}@cs.duke.edu}
 
 
 \begin{document}
@@ -428,7 +430,7 @@ a utility of at least $u$ (when the test taker best-responds).
 \end{proof}
 
 We now prove that the problem is in fact NP-hard, even when the test taker
-cannot memorize any problems!
+cannot memorize any questions!
 
 \begin{theorem}\label{thm:test-hardness}
 Even if the test taker cannot memorize any questions ($m_\theta = 0$) and $|H_\theta| = 2$ for all
@@ -741,7 +743,7 @@ variables, but an exponential number of constraints.  A quick proof of the
 polynomial-time solvability of this case is given by establishing that
 there is a polynomial-time separation oracle for finding a violated constraint.
 This separation oracle is straightforward: simply select, for every type
-$\theta$, the $m_\theta$ problems in $H_\theta$ that get the highest
+$\theta$, the $m_\theta$ questions in $H_\theta$ that get the highest
 probability $x_q$ in the current solution (breaking ties arbitrarily), and
 see whether the corresponding constraint is violated.  However, in this
 section, we develop more direct approaches that do not require generating
@@ -1048,7 +1050,7 @@ $T$ is non-empty initially, because otherwise $U$ would clearly be suboptimal.
 %before we delete problems from $T$ on line~\ref{line:delete-a}
 %of Algorithm~\ref{alg:one-problem}.  
 Let $T_0$ denote that initial $T$.  Suppose that at some point, all
-problems in $T_0$ are deleted.  We will show how to construct an
+questions in $T_0$ are deleted.  We will show how to construct an
 alternative solution $(z'_{\theta,q})$ such that for each $q \in T_0$, we
 have 
 $\sum_{\theta \in
