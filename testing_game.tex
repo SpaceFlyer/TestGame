@@ -1150,7 +1150,7 @@ all types of test taker are best-responding.
 Let $(z_{\theta,q})$ be the solution to LP~(\ref{eqn:one-problem}) and
 $(x_q)$ the uniform distribution over the set 
  $T$ returned by Algorithm~\ref{alg:one-problem}.  Then
- $((x_q),(z_{\theta,q})$ constitute an equilibrium.\footnote{By
+ $((x_q),(z_{\theta,q}))$ constitute an equilibrium.\footnote{By
    complementary slackness, this also means they constitute optimal primal
    and dual solutions to our LPs.}
 \end{theorem}
@@ -1417,11 +1417,14 @@ the logarithmic scales).  Push-relabel performs best.
 %$m_\text{max} > $const. & P & coNP-c & NP-h \& coNP-h
 %\end{tabular}
 \begin{tabular}{r | c | c }
-	& $0 \leq m_\text{max} \leq $ const. & $m_\text{max} > $ const. \\
+	%& $0 \leq m_\text{max} \leq $ const. & $m_\text{max} > $ const. \\
+	& bounded $m_\text{max}$ & unbounded $m_\text{max}$ \\
 	\hline
 $t=0,1$ & P & P \\
-$2 \leq t \leq$ const. & P & coNP-c\\
-$t > $ const. & NP-c & coNP-h and NP-h
+%$2 \leq t \leq$ const.
+bounded $t \geq 2$ & P & coNP-c\\
+%$t > $ const.
+unbounded $t$ & NP-c & coNP-h and NP-h
 \end{tabular}
 \caption{\textsc{Optimal Test
 Strategy}'s complexity ($t, m_{\max}$ are the test size and max memory size respectively)}
