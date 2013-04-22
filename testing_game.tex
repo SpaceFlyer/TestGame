@@ -23,7 +23,7 @@
 \usepackage{algorithm}
 \usepackage{graphicx}
 \usepackage{verbatim}
-\usepackage{subfigure}
+\usepackage{subfigure, float}
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}{Definition}
@@ -1481,7 +1481,7 @@ Stackelberg games and the other is our minimax LP which exploits the zero-sum
 modification of our test games. The machine we use and the way we generate test
 game instances, remain the same as those in our previous subsection.
 
-\begin{figure*}
+\begin{figure*}[H]
 	\includegraphics[width=.23\linewidth]{multi/DOBSS_n}
 	\includegraphics[width=.23\linewidth]{multi/DOBSS_L}
 	\includegraphics[width=.23\linewidth]{multi/DOBSS_m}
@@ -1510,7 +1510,7 @@ We compare the utility of our optimal test strategies with the simple test
 strategies that draw tests from all possible question subsets of size $t$
 uniform at random. All the test instances are generated as before.
 
-\begin{figure*}
+\begin{figure*}[H]
 	\includegraphics[width=.23\linewidth]{utility/utility_n}
 	\includegraphics[width=.23\linewidth]{utility/utility_L}
 	\includegraphics[width=.23\linewidth]{utility/utility_m}
