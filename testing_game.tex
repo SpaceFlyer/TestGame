@@ -70,7 +70,8 @@ Proof.}}{\EndProof\FullSpace \vspace{-0.15in}}
 %University of Padova\\
 %Italy \\
 %pcchair13@ijcai.org}
-\author{Yuqian Li, Vincent Conitzer\\
+\author{Yuqian Li \and Vincent Conitzer\\
+Department of Computer Science\\
 Duke University\\
 \{yuqian, conitzer\}@cs.duke.edu}
 
@@ -150,8 +151,7 @@ many of the sites may not have any illicit activity in the first place
 (corresponding to questions that the test taker can handle without
 having to memorize the answer).
 
-\section{Related Work}
-
+{\bf Related Work.}
 The computation of Stackelberg mixed strategies has recently been
 applied to a number of real security
 domains~\cite{Pita08:Using,Tsai09:IRIS,Shieh12:PROTECT,Yin12:TRUSTS}.
@@ -214,7 +214,7 @@ them); on the other
 hand, the tester is the natural Stackelberg leader and in that sense
 resembles the defender in security games.
 In the appendix, we show that if we do make the test taker the
-Stackelberg leader, the zero-sum equivalence that we demonstrate
+Stackelberg leader, the zero-sum equivalence that we demonstrate and rely on
 no longer holds.
 
 \section{Definitions and Notation}
@@ -227,7 +227,7 @@ between the tester (player 1) and the test taker (player 2).
 The tester has a set of potential test
 questions $Q = \{q_1, q_2, \ldots, q_n\}$.\footnote{In common parlance,
   ``problem'' may be a better word, but this runs the risk of confusion
-  with the computational problems studied in the paper.}
+  with our {\em computational} problems.}
   The test taker has a type
 $\theta \in \Theta$ ($|\Theta| = L$) that characterizes which questions
 are hard for the test taker
@@ -352,8 +352,13 @@ to the set of maximin strategies for the leader.
 
 Similarly, the sets of Nash equilibrium strategies for the
 tester in $G$ and $G'$ are the same.  This again follows from the fact that every
-test taker type simply acts to maximize his probability of passing, whether
-the utility function is $u_2$ or $u_2'$.  Finally, it is well known that in
+test taker type simply acts to maximize his probability of passing, for
+either utility function.
+% whether
+%the utility function is $u_2$ or $u_2'$.  
+Finally, 
+%it is well known that 
+in
 a 2-player zero-sum game, the set of Nash equilibrium strategies is equal
 to the set of maximin strategies for the leader (by the minimax theorem~\cite{Neumann28:Zur}).
 \end{proof}
@@ -1102,7 +1107,7 @@ fewer types).
 		\includegraphics[trim=0 10mm 20mm 10mm, clip, height=1.3in]{small_combined}
 		\label{fig:benchmark}
 	}
-	\caption{Runtime for solving an optimal tester strategy in one-question tests.}
+	\caption{Runtime for solving for an optimal tester strategy in one-question tests.}
 \end{figure*}
 
 To  prove the correctness of Algorithm~\ref{alg:one-problem}, we first
@@ -1291,13 +1296,17 @@ are best-responding.
 
 \section{Experiments}
 
-In this section, we describe  experiments that we performed to see how
-different algorithms scale. We also showed how the optimal test strategy
-outperforms simple test strategies (e.g. draw a test uniform at random) in
-terms of tester's utility.
+In this section, we describe experiments that we performed to see how
+different algorithms scale. We also show how the optimal test strategy
+outperforms simple test strategies, such as drawing questions uniformly at
+random.
+% (e.g. draw a test uniform at random) in
+%terms of tester's utility.
 
-\subsection{One-question Test's Scalability}
-We frstly restrict our attention to one-question test games so that we can evaluate all algorithms at once.
+\subsection{Tests of Size 1: Scalability}
+
+We first restrict our attention to single-question test games, in which we
+can evaluate all our algorithms at once.
 %while LP~(\ref{eqn:maximin}) (and its dual LP~{\ref{eqn:dual-original})
 %also work for tests with more questions, as we will see, one-question test
 %games are already challenging for these formulations.
@@ -1474,12 +1483,17 @@ the logarithmic scales).  Push-relabel performs best.
 %	\end{center}
 %\end{table}
 
-\subsection{Multi-question Test's Scalability}
+\subsection{Tests with Multiple Questions: Scalability}
 
-We consider two algorithms, one is the DOBSS MIP for general Bayesian
-Stackelberg games and the other is our minimax LP which exploits the zero-sum
-modification of our test games. The machine we use and the way we generate test
-game instances, remain the same as those in our previous subsection.
+When the test can contain more than one question, the only algorithm that
+we have provided is our general LP~(\ref{eqn:maximin}).  We compare this with the standard
+solver for Bayesian Stackelberg games, DOBSS~\cite{Paruchuri08:Playing}
+(using the same version of CPLEX).
+%We consider two algorithms, one is the DOBSS MIP for general Bayesian
+%Stackelberg games and the other is our minimax LP which exploits the zero-sum
+%modification of our test games. 
+The machine we use and the way we generate test
+game instances (other than the number of questions) remain the same as in the previous subsection.
 
 \begin{figure*}[H]
 	\includegraphics[width=.23\linewidth]{multi/DOBSS_n}
@@ -1490,50 +1504,82 @@ game instances, remain the same as those in our previous subsection.
 	\includegraphics[width=.23\linewidth]{multi/minimax_L}
 	\includegraphics[width=.23\linewidth]{multi/minimax_m}
 	\includegraphics[width=.23\linewidth]{multi/minimax_t}\\
-	\caption{Running time for solving an optimal tester strategy in
-	multi-question tests.  The parameter $m_{\text{max}}$ is denoted as $m$
-	for short in the main title of each graph.}
+\vspace{-.2in}
+	\caption{Running time for solving for an optimal tester strategy in
+	multi-question tests.  For brevity, the parameter $m_{\text{max}}$ is denoted as $m$
+	 in the title of each graph.}
 	\label{fig:multi}
 \end{figure*}
 
-Figure~\ref{fig:multi} shows that DOBSS scales very poorly (exponentially) on
-all parameters, especially on $m_{\text{max}}, t$. Since solving an integer
-program involves heuristic branch-and-bound search, its running time differs a
-lot even if the sizes of MIP are the same.  Hence there are a lot of outliers
-in the box plot. For the minimax LP, it scales much better on $n, L$. But it
-still strugles with $m_{\text{max}}$ and $t$. That's expected as the size of
-LP grows exponentially on those parameters.
+Figure~\ref{fig:multi} shows that DOBSS scales quite poorly 
+%(exponentially)
+ in
+all parameters, especially in $m_{\text{max}}$ and $t$. 
+As might be expected when solving MIPs, the runtime varies dramatically even for
+instances of the same size, as indicated by the many outliers in the plots.
+%Since solving an integer
+%program involves heuristic branch-and-bound search, its running time differs a
+%lot even if the sizes of MIP are the same.  Hence there are a lot of outliers
+%in the box plot. 
+Our general LP~(\ref{eqn:maximin}), on the other hand, scales much better
+in $n, L$.  It does still struggle when scaling $m_{\text{max}}$ and $t$
+(though it outperforms DOBSS).  This is expected because the size of the LP
+grows exponentially in those parameters.
 
-\subsection{Utility}
+\subsection{Tester Utility}
 
-We compare the utility of our optimal test strategies with the simple test
-strategies that draw tests from all possible question subsets of size $t$
-uniform at random. All the test instances are generated as before.
+One may wonder whether computing a game-theoretically optimal strategy is
+worth the effort; maybe a simple heuristic performs almost as well.
+To assess this, we have compared our optimal test strategies to (1) the
+optimal 
+strategy under the assumption that test takers do not memorize anything, and (2)
+choosing $t$ questions uniformly at random from all questions.
+%We compare the tester's utility of our optimal test strategies with the simple test
+%strategies that draw tests from all possible question subsets of size $t$
+%uniform at random. 
+We generated all the test game instances as before.
+(1) performed exceedingly poorly, many factors worse than the optimal
+strategy.
+(2) performed decently and so we only present results comparing to (2).
 
 \begin{figure*}[H]
 	\includegraphics[width=.23\linewidth]{utility/utility_n}
 	\includegraphics[width=.23\linewidth]{utility/utility_L}
 	\includegraphics[width=.23\linewidth]{utility/utility_m}
 	\includegraphics[width=.23\linewidth]{utility/utility_t}
-	\caption{Utility increase of optimal test strategies compared
-	to the uniform test strategies. Let the optimal utility be
-	$u^*$ and the uniform test's utility be $u_0$, the increase
-	is $u^*/u_0-1$. The parameter $m_{\text{max}}$ is denoted as $m$
-	for short in the main title of each graph.}
+	\caption{The increase in tester utility that the optimal test
+          strategy gives as compared to the uniform test strategy. Letting
+          the optimal utility be $u^*$ and the uniform test's utility be
+          $u_0$, the number we show for the performance increase is
+          $u^*/u_0-1$. For brevity, the parameter $m_{\text{max}}$ is
+          denoted as $m$  in the title of each graph.}
 	\label{fig:utility}
 \end{figure*}
 
-As Figure~\ref{fig:utility} indicates, the increase drops when $L$ and $m$
-increase. And it increases when $n$ and $t$ increase.  This is due to the way
-we generate the test game instances. Large $L, m$ make each subset of questions
-more likely to be equivalent to the tester while large $n, t$ make them more
-different.
+As Figure~\ref{fig:utility} indicates, the performance increase drops when
+$L$ and $m$ increase, and it increases when $n$ and $t$ increase.  This is
+a natural consequence of the way we generate the test game instances. The
+larger $L$ and $m$ are, the more equivalent subsets of questions are likely
+to be as the hardness sets start to cover the questions more uniformly; on
+the other hand, the opposite is true for $n$ (for example, with large $n$,
+some questions may not be hard for any type and so a waste to test) and $t$
+(presumably because as $t$ grows it becomes more important to pick
+questions that expose weaknesses of different types).
+%Large $L$ and $m$ make each subset of questions
+%more likely to be equivalent to the tester while large $n, t$ make them more
+%different.
 
-Note that the way we construct the test game instances, which assumes that each
+All in all, the performance of the uniform strategy is quite decent.
+We suspect, though, that the way we construct the test game instances, which assumes that each
 question has the same probability to be hard for a test taker, favors the
-uniform strategies. In realily, it's more likely to have some very hard
-questions that are more likely to be hard for most test takers. Therefore
-a larger increase is expected when such factors are considered.
+uniform strategy. In reality, we expect there to be some correlation---that
+is, a question that is hard for one type is more likely to be hard for
+another type as well---and presumably the uniform strategy is less
+effective in this context.  Preliminary experiments on highly structured instances 
+with this property confirm this intuition.
+%it's more likely to have some very hard
+%questions that are more likely to be hard for most test takers. Therefore
+%a larger increase is expected when such factors are considered.
 
 \section{Conclusion}
 
