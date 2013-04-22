@@ -65,7 +65,7 @@ Proof.}}{\EndProof\FullSpace \vspace{-0.15in}}
 % page charge instructions.
 % Put where the files are available in the appropriate places.
 
-\title{Game-Theoretic Question Selection for Tests\\DRAFT}
+\title{Game-Theoretic Question Selection for Tests}
 %\author{Francesca Rossi \\
 %University of Padova\\
 %Italy \\
@@ -149,6 +149,73 @@ able to cover up illicit activity at a limited number of sites
 many of the sites may not have any illicit activity in the first place
 (corresponding to questions that the test taker can handle without
 having to memorize the answer).
+
+\section{Related Work}
+
+The computation of Stackelberg mixed strategies has recently been
+applied to a number of real security
+domains~\cite{Pita08:Using,Tsai09:IRIS,Shieh12:PROTECT,Yin12:TRUSTS}.
+The main reason
+for using a Stackelberg formulation in these domains is that in many
+of them, an attacker could observe the defender's actions over time
+and thereby learn the defender's strategy before acting; the same can
+be argued for the domain that we are studying here.  The Stackelberg
+model also largely avoids the possible equilibrium selection problems
+of a simultaneous-move model.  Another advantage is that a Stackelberg
+strategy of a two-player normal-form game can be computed in
+polynomial time~\cite{Conitzer06:Computing,Stengel10:Leadership},
+whereas computing one Nash equilibrium is
+PPAD-complete~\cite{Daskalakis09:Complexity,Chen09:Settling} and
+computing an (even approximately) optimal
+Nash equilibrium is NP-hard~\cite{Gilboa89:Nash,Conitzer03:Nash}.
+However, for Bayesian games
+(which we study here), computing an optimal (or even approximately
+optimal) Stackelberg strategy is
+NP-hard~\cite{Conitzer06:Computing,Letchford09:Learning}.  Mixed integer program
+and heuristic branch-and-bound approaches have been used to tackle
+this problem and have turned out to be reasonably
+scalable~\cite{Paruchuri08:Bayesian,Jain11:Quality}. Our approach is
+very
+different. We modify the Bayesian Stackelberg game into a Bayesian
+zero-sum game by exploiting our problem's structure, allowing us to
+use a much more efficient minimax LP.
+
+Of course, problem structure has also been exploited in previous work
+on security games.
+Kiekintveld et al.~proposed a quite general (though not
+all-encompassing) model of security games~\cite{Kiekintveld09:Computing}.
+In it, the defender assigns resources to targets (or sets of targets),
+and the attacker chooses a single target to attack.  The size of the
+normal form of these games is exponential in the natural
+representation size, but a more compact MIP/LP formulation can be
+given whose size is polynomial~\cite{Kiekintveld09:Computing}.
+However, this formulation is
+correct only under certain conditions (for example, each resource can
+be assigned only to a single target), and when these do not hold
+NP-hardness is usually
+encountered~\cite{Korzhyk10:Complexity,Letchford13:Solving}.
+Similarly, in this paper,
+we give a polynomial-size LP for the case where only a single question
+is tested, but show NP-hardness results for more general settings.  (Our
+general minimax LP has exponential size in the natural representation
+of the problem.)
+
+It has also been shown that under mild conditions, in security games,
+Stackelberg strategies are guaranteed to also be Nash and minimax
+strategies~\cite{Korzhyk11:Stackelberg}, though this is not true in
+Bayesian versions of
+security games.
+In general, while there are some high-level similarities between our results and
+previous results on security games, we do not know how to draw a formal
+connection.  In some ways, the role of the tester seems analogous to
+that of the attacker
+(with the test-taker ``defending'' certain questions by studying
+them); on the other
+hand, the tester is the natural Stackelberg leader and in that sense
+resembles the defender in security games.
+In the appendix, we show that if we do make the test taker the
+Stackelberg leader, the zero-sum equivalence that we demonstrate
+no longer holds.
 
 \section{Definitions and Notation}
 
@@ -1224,10 +1291,13 @@ are best-responding.
 
 \section{Experiments}
 
-In this section, we describe  experiments
-that we performed 
- to see how different algorithms scale.
-We restrict our attention to one-question test games so that we can evaluate all algorithms at once.
+In this section, we describe  experiments that we performed to see how
+different algorithms scale. We also showed how the optimal test strategy
+outperforms simple test strategies (e.g. draw a test uniform at random) in
+terms of tester's utility.
+
+\subsection{One-question Test's Scalability}
+We frstly restrict our attention to one-question test games so that we can evaluate all algorithms at once.
 %while LP~(\ref{eqn:maximin}) (and its dual LP~{\ref{eqn:dual-original})
 %also work for tests with more questions, as we will see, one-question test
 %games are already challenging for these formulations.
@@ -1404,8 +1474,66 @@ the logarithmic scales).  Push-relabel performs best.
 %	\end{center}
 %\end{table}
 
+\subsection{Multi-question Test's Scalability}
 
+We consider two algorithms, one is the DOBSS MIP for general Bayesian
+Stackelberg games and the other is our minimax LP which exploits the zero-sum
+modification of our test games. The machine we use and the way we generate test
+game instances, remain the same as those in our previous subsection.
 
+\begin{figure*}
+	\includegraphics[width=.23\linewidth]{multi/DOBSS_n}
+	\includegraphics[width=.23\linewidth]{multi/DOBSS_L}
+	\includegraphics[width=.23\linewidth]{multi/DOBSS_m}
+	\includegraphics[width=.23\linewidth]{multi/DOBSS_t}\\
+	\includegraphics[width=.23\linewidth]{multi/minimax_n}
+	\includegraphics[width=.23\linewidth]{multi/minimax_L}
+	\includegraphics[width=.23\linewidth]{multi/minimax_m}
+	\includegraphics[width=.23\linewidth]{multi/minimax_t}\\
+	\caption{Running time for solving an optimal tester strategy in
+	multi-question tests.  The parameter $m_{\text{max}}$ is denoted as $m$
+	for short in the main title of each graph.}
+	\label{fig:multi}
+\end{figure*}
+
+Figure~\ref{fig:multi} shows that DOBSS scales very poorly (exponentially) on
+all parameters, especially on $m_{\text{max}}, t$. Since solving an integer
+program involves heuristic branch-and-bound search, its running time differs a
+lot even if the sizes of MIP are the same.  Hence there are a lot of outliers
+in the box plot. For the minimax LP, it scales much better on $n, L$. But it
+still strugles with $m_{\text{max}}$ and $t$. That's expected as the size of
+LP grows exponentially on those parameters.
+
+\subsection{Utility}
+
+We compare the utility of our optimal test strategies with the simple test
+strategies that draw tests from all possible question subsets of size $t$
+uniform at random. All the test instances are generated as before.
+
+\begin{figure*}
+	\includegraphics[width=.23\linewidth]{utility/utility_n}
+	\includegraphics[width=.23\linewidth]{utility/utility_L}
+	\includegraphics[width=.23\linewidth]{utility/utility_m}
+	\includegraphics[width=.23\linewidth]{utility/utility_t}
+	\caption{Utility increase of optimal test strategies compared
+	to the uniform test strategies. Let the optimal utility be
+	$u^*$ and the uniform test's utility be $u_0$, the increase
+	is $u^*/u_0-1$. The parameter $m_{\text{max}}$ is denoted as $m$
+	for short in the main title of each graph.}
+	\label{fig:utility}
+\end{figure*}
+
+As Figure~\ref{fig:utility} indicates, the increase drops when $L$ and $m$
+increase. And it increases when $n$ and $t$ increase.  This is due to the way
+we generate the test game instances. Large $L, m$ make each subset of questions
+more likely to be equivalent to the tester while large $n, t$ make them more
+different.
+
+Note that the way we construct the test game instances, which assumes that each
+question has the same probability to be hard for a test taker, favors the
+uniform strategies. In realily, it's more likely to have some very hard
+questions that are more likely to be hard for most test takers. Therefore
+a larger increase is expected when such factors are considered.
 
 \section{Conclusion}
 
@@ -1447,7 +1575,9 @@ estimate this information and then run our algorithm, would be a true
 online-learning approach, where we update our testing strategy as
 additional test takers take our tests.
 
-%\section*{Acknowledgments}
+\section*{Acknowledgments}
+We thank ARO and NSF for support under grants W911NF-12-1-0550,
+W911NF-11-1-0332, IIS-0953756, and CCF-1101659.
 
 
 \appendix

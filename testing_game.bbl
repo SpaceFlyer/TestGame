@@ -12,6 +12,12 @@ Cheng-Shang Chang, Wen-Jyh Chen, and Hsiang-Yi Huang.
 \newblock {\em IEEE Transactions on Communications}, 49(7):1145--1147, July
   2001.
 
+\bibitem[\protect\citeauthoryear{Chen \bgroup \em et al.\egroup
+  }{2009}]{Chen09:Settling}
+Xi~Chen, Xiaotie Deng, and Shang-Hua Teng.
+\newblock Settling the complexity of computing two-player {N}ash equilibria.
+\newblock {\em Journal of the ACM}, 56(3), 2009.
+
 \bibitem[\protect\citeauthoryear{Conitzer and
   Sandholm}{2006}]{Conitzer06:Computing}
 Vincent Conitzer and Tuomas Sandholm.
@@ -19,11 +25,22 @@ Vincent Conitzer and Tuomas Sandholm.
 \newblock In {\em Proceedings of the ACM Conference on Electronic Commerce
   (EC)}, pages 82--90, Ann Arbor, MI, USA, 2006.
 
+\bibitem[\protect\citeauthoryear{Conitzer and Sandholm}{2008}]{Conitzer03:Nash}
+Vincent Conitzer and Tuomas Sandholm.
+\newblock New complexity results about {N}ash equilibria.
+\newblock {\em Games and Economic Behavior}, 63(2):621--641, 2008.
+
 \bibitem[\protect\citeauthoryear{Cooper and
   Sahami}{2013}]{Cooper13:Reflections}
 Steve Cooper and Mehran Sahami.
 \newblock Reflections on {S}tanford's {MOOC}s.
 \newblock {\em Communications of the ACM}, 56(2):28--30, February 2013.
+
+\bibitem[\protect\citeauthoryear{Daskalakis \bgroup \em et al.\egroup
+  }{2009}]{Daskalakis09:Complexity}
+Constantinos Daskalakis, Paul Goldberg, and Christos~H. Papadimitriou.
+\newblock The complexity of computing a {N}ash equilibrium.
+\newblock {\em SIAM Journal on Computing}, 39(1):195--259, 2009.
 
 \bibitem[\protect\citeauthoryear{Dulmage and
   Halperin}{1955}]{Dulmage55:Frobenius}
@@ -38,6 +55,11 @@ Jack Edmonds and Richard~M. Karp.
   problems.
 \newblock {\em J. ACM}, 19(2):248--264, April 1972.
 
+\bibitem[\protect\citeauthoryear{Gilboa and Zemel}{1989}]{Gilboa89:Nash}
+Itzhak Gilboa and Eitan Zemel.
+\newblock Nash and correlated equilibria: Some complexity considerations.
+\newblock {\em Games and Economic Behavior}, 1:80--93, 1989.
+
 \bibitem[\protect\citeauthoryear{Goldberg and
   Tarjan}{1988}]{Goldberg:1988:NAM:48014.61051}
 Andrew~V. Goldberg and Robert~E. Tarjan.
@@ -49,10 +71,37 @@ C.-C. Han.
 \newblock A fast algorithm for the minimax flow problem with 01 weights.
 \newblock {\em Applied Mathematics Letters}, 10(1):11 -- 16, 1997.
 
+\bibitem[\protect\citeauthoryear{Jain \bgroup \em et al.\egroup
+  }{2008}]{Paruchuri08:Bayesian}
+Manish Jain, James Pita, Milind Tambe, Fernando Ord\'{o}{\~n}ez, Praveen
+  Paruchuri, and Sarit Kraus.
+\newblock Bayesian {S}tackelberg games and their application for security at
+  {L}os {A}ngeles {I}nternational {A}irport.
+\newblock {\em SIGecom Exch.}, 7(2):1--3, 2008.
+
+\bibitem[\protect\citeauthoryear{Jain \bgroup \em et al.\egroup
+  }{2011}]{Jain11:Quality}
+Manish Jain, Christopher Kiekintveld, and Milind Tambe.
+\newblock Quality-bounded solutions for finite {B}ayesian {S}tackelberg games:
+  Scaling up.
+\newblock In {\em Proceedings of the Tenth International Joint Conference on
+  Autonomous Agents and Multi-Agent Systems (AAMAS)}, pages 997--1004, Taipei,
+  Taiwan, 2011.
+
 \bibitem[\protect\citeauthoryear{Khachiyan}{1979}]{Khachiyan79}
 Leonid Khachiyan.
 \newblock A polynomial algorithm in linear programming.
 \newblock {\em Soviet Math. Doklady}, 20:191--194, 1979.
+
+\bibitem[\protect\citeauthoryear{Kiekintveld \bgroup \em et al.\egroup
+  }{2009}]{Kiekintveld09:Computing}
+Christopher Kiekintveld, Manish Jain, Jason Tsai, James Pita, Fernando
+  Ord{\'o}{\~n}ez, and Milind Tambe.
+\newblock Computing optimal randomized resource allocations for massive
+  security games.
+\newblock In {\em Proceedings of the Eighth International Joint Conference on
+  Autonomous Agents and Multi-Agent Systems (AAMAS)}, pages 689--696, Budapest,
+  Hungary, 2009.
 
 \bibitem[\protect\citeauthoryear{Korzhyk \bgroup \em et al.\egroup
   }{2010}]{Korzhyk10:Complexity}
@@ -61,6 +110,15 @@ Dmytro Korzhyk, Vincent Conitzer, and Ronald Parr.
   resource allocation games.
 \newblock In {\em Proceedings of the National Conference on Artificial
   Intelligence (AAAI)}, pages 805--810, Atlanta, GA, USA, 2010.
+
+\bibitem[\protect\citeauthoryear{Korzhyk \bgroup \em et al.\egroup
+  }{2011}]{Korzhyk11:Stackelberg}
+Dmytro Korzhyk, Zhengyu Yin, Christopher Kiekintveld, Vincent Conitzer, and
+  Milind Tambe.
+\newblock {S}tackelberg vs.~{N}ash in security games: {A}n extended
+  investigation of interchangeability, equivalence, and uniqueness.
+\newblock {\em Journal of Artificial Intelligence Research}, 41(2):297--327,
+  2011.
 
 \bibitem[\protect\citeauthoryear{Letchford \bgroup \em et al.\egroup
   }{2009}]{Letchford09:Learning}
@@ -79,9 +137,41 @@ Praveen Paruchuri, Jonathan~P. Pearce, Janusz Marecki, Milind Tambe, Fernando
   Autonomous Agents and Multi-Agent Systems (AAMAS)}, pages 895--902, Estoril,
   Portugal, 2008.
 
+\bibitem[\protect\citeauthoryear{Pita \bgroup \em et al.\egroup
+  }{2009}]{Pita08:Using}
+James Pita, Manish Jain, Fernando Ord{\'o}{\~n}ez, Christopher Portway, Milind
+  Tambe, and Craig Western.
+\newblock Using game theory for {L}os {A}ngeles airport security.
+\newblock {\em AI Magazine}, 30(1):43--57, 2009.
+
+\bibitem[\protect\citeauthoryear{Shieh \bgroup \em et al.\egroup
+  }{2012}]{Shieh12:PROTECT}
+Eric Shieh, Bo~An, Rong Yang, Milind Tambe, Craig Baldwin, Joseph DiRenzo, Ben
+  Maule, and Garrett Meyer.
+\newblock {PROTECT}: A deployed game theoretic system to protect the ports of
+  the {U}nited {S}tates.
+\newblock In {\em Proceedings of the Eleventh International Joint Conference on
+  Autonomous Agents and Multi-Agent Systems (AAMAS)}, Valencia, Spain, 2012.
+
+\bibitem[\protect\citeauthoryear{Tsai \bgroup \em et al.\egroup
+  }{2009}]{Tsai09:IRIS}
+Jason Tsai, Shyamsunder Rathi, Christopher Kiekintveld, Fernando Ordonez, and
+  Milind Tambe.
+\newblock {I}{R}{I}{S} - a tool for strategic security allocation in
+  transportation networks.
+\newblock In {\em Proceedings of the Eighth International Joint Conference on
+  Autonomous Agents and Multi-Agent Systems (AAMAS)}, pages 37--44, Budapest,
+  Hungary, 2009.
+
 \bibitem[\protect\citeauthoryear{{von Neumann}}{1928}]{Neumann28:Zur}
 John {von Neumann}.
 \newblock Zur {T}heorie der {G}esellschaftsspiele.
 \newblock {\em Mathematische Annalen}, 100:295--320, 1928.
+
+\bibitem[\protect\citeauthoryear{{von Stengel} and
+  Zamir}{2010}]{Stengel10:Leadership}
+Bernhard {von Stengel} and Shmuel Zamir.
+\newblock Leadership games with convex strategy sets.
+\newblock {\em Games and Economic Behavior}, 69:446--457, 2010.
 
 \end{thebibliography}

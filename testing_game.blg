@@ -1,45 +1,49 @@
-This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2012/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: testing_game.aux
 The style file: named.bst
 Database file #1: references.bib.bib
-You've used 13 entries,
+Warning--I didn't find a database entry for "Yin12:TRUSTS"
+Warning--I didn't find a database entry for "Letchford13:Solving"
+You've used 25 entries,
             2439 wiz_defined-function locations,
-            1167 strings with 19153 characters,
-and the built_in function-call counts, 5646 in all, are:
-= -- 613
-> -- 180
-< -- 5
-+ -- 61
-- -- 58
-* -- 448
-:= -- 868
-add.period$ -- 39
-call.type$ -- 13
-change.case$ -- 81
-chr.to.int$ -- 13
-cite$ -- 13
-duplicate$ -- 237
-empty$ -- 436
-format.name$ -- 76
-if$ -- 1200
+            1237 strings with 21487 characters,
+and the built_in function-call counts, 11255 in all, are:
+= -- 1190
+> -- 471
+< -- 8
++ -- 164
+- -- 160
+* -- 934
+:= -- 1775
+add.period$ -- 75
+call.type$ -- 25
+change.case$ -- 180
+chr.to.int$ -- 25
+cite$ -- 25
+duplicate$ -- 441
+empty$ -- 810
+format.name$ -- 193
+if$ -- 2348
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 13
-newline$ -- 68
-num.names$ -- 39
-pop$ -- 64
+missing$ -- 25
+newline$ -- 128
+num.names$ -- 75
+pop$ -- 148
 preamble$ -- 1
-purify$ -- 94
+purify$ -- 205
 quote$ -- 0
-skip$ -- 201
+skip$ -- 362
 stack$ -- 0
-substring$ -- 402
-swap$ -- 69
-text.length$ -- 5
+substring$ -- 697
+swap$ -- 118
+text.length$ -- 8
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 104
+type$ -- 200
 warning$ -- 0
-while$ -- 54
-width$ -- 15
-write$ -- 175
+while$ -- 99
+width$ -- 30
+write$ -- 334
+(There were 2 warnings)
