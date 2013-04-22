@@ -1,16 +1,21 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=latex 2012.12.16)  22 APR 2013 12:36
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.10.22)  22 APR 2013 14:31
 entering extended mode
- restricted \write18 enabled.
  %&-line parsing enabled.
 **testing_game
 (./testing_game.tex
-LaTeX2e <2011/06/27>
-Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, lo
-aded.
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, farsi, arabic, croatian, bulgarian, ukrainian, russian, czech, slov
+ak, danish, dutch, finnish, french, basque, ngerman, german, german-x-2009-06-1
+9, ngerman-x-2009-06-19, ibycus, monogreek, greek, ancientgreek, hungarian, san
+skrit, italian, latin, latvian, lithuanian, mongolian2a, mongolian, bokmal, nyn
+orsk, romanian, irish, coptic, serbian, turkish, welsh, esperanto, uppersorbian
+, estonian, indonesian, interlingua, icelandic, kurmanji, slovenian, polish, po
+rtuguese, spanish, galician, catalan, swedish, ukenglish, pinyin, loaded.
 IJCAI-13 Instructions for Authors
-(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
-(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
+(/usr/share/texmf-texlive/tex/latex/base/size10.clo
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -28,11 +33,11 @@ File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 Conference Style, version of 6 September 1995 (revised Nov 2010)
 \titlebox=\skip43
 Named Citation Style, version of 30 November 1994
-) (/usr/share/texlive/texmf-dist/tex/latex/psnfss/times.sty
+) (/usr/share/texmf-texlive/tex/latex/psnfss/times.sty
 Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
 )
-(/usr/share/texlive/texmf-dist/tex/latex/amscls/amsthm.sty
-Package: amsthm 2009/07/02 v2.20.1
+(/usr/share/texmf-texlive/tex/latex/amscls/amsthm.sty
+Package: amsthm 2004/08/06 v2.20
 \thm@style=\toks14
 \thm@bodyfont=\toks15
 \thm@headfont=\toks16
@@ -43,24 +48,24 @@ Package: amsthm 2009/07/02 v2.20.1
 \thm@headsep=\skip46
 \dth@everypar=\toks19
 )
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip47
 
 For additional information on amsmath, use the `?' option.
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks20
 \ex@=\dimen103
 ))
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen104
 )
-(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count87
@@ -101,20 +106,20 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 LaTeX Info: Redefining \[ on input line 2666.
 LaTeX Info: Redefining \] on input line 2667.
 )
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
 )
-(/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+(/usr/share/texmf-texlive/tex/latex/algorithmicx/algpseudocode.sty
 Package: algpseudocode 
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+(/usr/share/texmf-texlive/tex/latex/base/ifthen.sty
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+(/usr/share/texmf-texlive/tex/latex/algorithmicx/algorithmicx.sty
 Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
 Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
@@ -130,11 +135,11 @@ Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
 \ALG@tmplength=\skip52
 )
 Document Style - pseudocode environments for use with the `algorithmicx' style
-) (/usr/share/texlive/texmf-dist/tex/latex/algorithms/algorithm.sty
+) (/usr/share/texmf-texlive/tex/latex/algorithms/algorithm.sty
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
 nment
 
-(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+(/usr/share/texmf-texlive/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count106
 \float@exts=\toks25
@@ -145,37 +150,37 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@every@algorithm=\toks27
 \c@algorithm=\count107
 )
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks28
 )
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
-File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
 )
 Package graphics Info: Driver file: dvips.def on input line 91.
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/dvips.def
+(/usr/share/texmf-texlive/tex/latex/graphics/dvips.def
 File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 ))
 \Gin@req@height=\dimen112
 \Gin@req@width=\dimen113
 )
-(/usr/share/texlive/texmf-dist/tex/latex/tools/verbatim.sty
+(/usr/share/texmf-texlive/tex/latex/tools/verbatim.sty
 Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
 \every@verbatim=\toks29
 \verbatim@line=\toks30
 \verbatim@in@stream=\read1
 )
-(/usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.sty
+(/usr/share/texmf-texlive/tex/latex/subfigure/subfigure.sty
 Package: subfigure 2002/03/15 v2.1.5 subfigure package
 \subfigtopskip=\skip53
 \subfigcapskip=\skip54
@@ -191,7 +196,7 @@ Package: subfigure 2002/03/15 v2.1.5 subfigure package
 ****************************************
 * Local config file subfigure.cfg used *
 ****************************************
-(/usr/share/texlive/texmf-dist/tex/latex/subfigure/subfigure.cfg)
+(/usr/share/texmf-texlive/tex/latex/subfigure/subfigure.cfg)
 \subfig@top=\skip57
 \subfig@bottom=\skip58
 )
@@ -204,49 +209,50 @@ Package: subfigure 2002/03/15 v2.1.5 subfigure package
 (./testing_game.aux)
 \openout1 = `testing_game.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 78.
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 79.
+LaTeX Font Info:    ... okay on input line 79.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 79.
+ (/usr/share/texmf-texlive/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 80.
-LaTeX Font Info:    Try loading font information for U+msa on input line 80.
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 81.
+LaTeX Font Info:    Try loading font information for U+msa on input line 81.
+
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 80.
+LaTeX Font Info:    Try loading font information for U+msb on input line 81.
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 80.
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 80.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 81.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 81.
 
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
+(/usr/share/texmf-texlive/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 80.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 81.
 
-Underfull \hbox (badness 1371) in paragraph at lines 100--115
+Underfull \hbox (badness 1371) in paragraph at lines 101--116
 \OT1/ptm/m/n/10 Massive Open On-line Courses (MOOCs) have emerged
  []
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 157.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 154.
 
 LaTeX Warning: Citation `Yin12:TRUSTS' on page 1 undefined on input line 157.
 
@@ -265,27 +271,24 @@ Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                 on input line 240.
 
 [2]
-Underfull \vbox (badness 2662) has occurred while \output is active []
-
-
-Underfull \hbox (badness 1194) in paragraph at lines 471--475
+Underfull \hbox (badness 1194) in paragraph at lines 476--480
 \OT1/ptm/m/n/10 In this sec-tion, we study the case where mem-ory size
  []
 
 [3]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 844.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 849.
  [4]
 File: network.eps Graphic file (type eps)
  <network.eps>
-Underfull \hbox (badness 2334) in paragraph at lines 950--965
+Underfull \hbox (badness 2334) in paragraph at lines 955--970
 \OT1/cmr/m/n/10 ^^B$\OT1/ptm/m/n/10 , be-cause of the ca-pac-ity con-straint on
  edge $\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 s; ^^R\OT1/cmr/m/n/10 )$\OT1/ptm/m/n/1
 0 ,
  []
 
 
-Underfull \hbox (badness 1466) in paragraph at lines 950--965
+Underfull \hbox (badness 1466) in paragraph at lines 955--970
 \OT1/ptm/m/n/10 we have $[][] \OML/cmm/m/it/10 z[] \OT1/cmr/m/n/10 = (1\OML/cmm
 /m/it/10 =\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 
 ^^R\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 v[]\OT1/cmr/m/n/10 )) [][] \OML/cmm/m/it/1
@@ -319,19 +322,16 @@ File: multi/minimax_m.eps Graphic file (type eps)
 <multi/minimax_m.eps>
 File: multi/minimax_t.eps Graphic file (type eps)
  <multi/minimax_t.eps>
-Underfull \hbox (badness 10000) in paragraph at lines 1485--1495
-
- []
-
 File: utility/utility_n.eps Graphic file (type eps)
-<utility/utility_n.eps>
+ <utility/utility_n.eps>
 File: utility/utility_L.eps Graphic file (type eps)
- <utility/utility_L.eps>
+
+<utility/utility_L.eps>
 File: utility/utility_m.eps Graphic file (type eps)
  <utility/utility_m.eps>
 File: utility/utility_t.eps Graphic file (type eps)
-
-<utility/utility_t.eps> (./testing_game.bbl [7] [8]
+ <utility/utility_t.eps>
+(./testing_game.bbl [7] [8]
 Underfull \hbox (badness 10000) in paragraph at lines 41--44
 []\OT1/ptm/m/n/10 Constantinos Daskalakis, Paul
  []
@@ -400,14 +400,16 @@ Underfull \hbox (badness 2150) in paragraph at lines 173--176
 []\OT1/ptm/m/n/10 Bernhard von Sten-gel and
  []
 
-) [9] (./testing_game.aux) ) 
-Here is how much of TeX's memory you used:
- 2341 strings out of 495060
- 30302 string characters out of 3182052
- 95433 words of memory out of 3000000
- 5476 multiletter control sequences out of 15000+200000
- 19403 words of font info for 61 fonts, out of 3000000 for 9000
- 14 hyphenation exceptions out of 8191
- 27i,11n,27p,394b,293s stack positions out of 5000i,500n,10000p,200000b,50000s
+[9]) [10
 
-Output written on testing_game.dvi (9 pages, 75256 bytes).
+] (./testing_game.aux) ) 
+Here is how much of TeX's memory you used:
+ 2342 strings out of 493849
+ 29962 string characters out of 1152845
+ 95014 words of memory out of 3000000
+ 5569 multiletter control sequences out of 15000+50000
+ 19403 words of font info for 61 fonts, out of 3000000 for 9000
+ 714 hyphenation exceptions out of 8191
+ 27i,11n,24p,456b,293s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on testing_game.dvi (10 pages, 76796 bytes).

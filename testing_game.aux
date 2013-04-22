@@ -15,42 +15,47 @@
 \citation{Paruchuri08:Bayesian}
 \citation{Jain11:Quality}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{1}}
 \citation{Kiekintveld09:Computing}
 \citation{Kiekintveld09:Computing}
 \citation{Korzhyk10:Complexity}
 \citation{Letchford13:Solving}
 \citation{Korzhyk11:Stackelberg}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Definitions and Notation}{2}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Equivalence to a Zero-Sum Game}{2}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Definitions and Notation}{2}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Equivalence to a Zero-Sum Game}{2}}
+\newlabel{prop:equivalence}{{1}{2}}
 \citation{Neumann28:Zur}
 \citation{Conitzer06:Computing}
 \citation{Letchford09:Learning}
 \citation{Paruchuri08:Playing}
 \citation{Khachiyan79}
-\newlabel{prop:equivalence}{{1}{3}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}General Linear Program (LP) Formulation}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}General Linear Program (LP) Formulation}{3}}
 \newlabel{eqn:maximin}{{1}{3}}
 \newlabel{eqn:dual-original}{{2}{3}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Constant Memory Size}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Constant Memory Size}{3}}
 \newlabel{prop:inNP}{{2}{3}}
+\newlabel{thm:test-hardness}{{1}{3}}
 \citation{Dulmage55:Frobenius}
 \citation{Chang01:Birkhoff}
 \citation{Birkhoff46:Tres}
 \citation{Korzhyk10:Complexity}
-\newlabel{thm:test-hardness}{{1}{4}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Constant Test Size}{4}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Constant Test Size}{4}}
 \newlabel{thm:memorize-hardness}{{2}{4}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Tests of Size One}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Linear Program}{4}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Tests of Size One}{4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Linear Program}{4}}
 \newlabel{eqn:one-problem}{{3}{4}}
 \citation{Han199711}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The network that is used to solve LP\nobreakspace  {}(3\hbox {}).}}{5}}
 \newlabel{fig:network}{{1}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}A Network Flow Approach}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}A Network Flow Approach}{5}}
 \newlabel{def:network}{{2}{5}}
 \newlabel{prop:network}{{4}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}A Direct Algorithm for Identifying the Tester's Strategy}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}A Direct Algorithm for Identifying the Tester's Strategy}{5}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Input: A test game with $t = 1$ and an optimal primal solution $(U, (z_{\theta ,q}))$ to LP\nobreakspace  {}(3\hbox {}).}}{5}}
+\newlabel{alg:one-problem}{{1}{5}}
+\newlabel{line:first-potential}{{2}{5}}
+\newlabel{line:delete-a}{{7}{5}}
+\newlabel{line:second-potential}{{7}{5}}
+\newlabel{line:second-push}{{7}{5}}
 \newlabel{lemma:non-empty}{{1}{5}}
 \citation{Edmonds:1972}
 \citation{Goldberg:1988:NAM:48014.61051}
@@ -62,35 +67,30 @@
 \newlabel{sub@fig:individual_m}{{(c)}{6}}
 \newlabel{fig:benchmark}{{2(d)}{6}}
 \newlabel{sub@fig:benchmark}{{(d)}{6}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Runtime for solving an optimal tester strategy in one-question tests.}}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Runtime for solving for an optimal tester strategy in one-question tests.}}{6}}
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Increasing $n$ with \newline $L = 150$ and $m_{\text {max}} = 6$.}}}{6}}
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Increasing $L$ with \newline $n = 150$ and $m_{\text {max}} = 6$.}}}{6}}
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {Increasing $m_\text {max}$ with \newline $n = L = 150$.}}}{6}}
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(d)}{\ignorespaces {Increasing $n$ with $L = n$ \newline and $m_{\text {max}} = \delimiter "4262304 \sqrt {n} \delimiter "5263305 $.}}}{6}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Input: A test game with $t = 1$ and an optimal primal solution $(U, (z_{\theta ,q}))$ to LP\nobreakspace  {}(3\hbox {}).}}{6}}
-\newlabel{alg:one-problem}{{1}{6}}
-\newlabel{line:first-potential}{{2}{6}}
-\newlabel{line:delete-a}{{7}{6}}
-\newlabel{line:second-potential}{{7}{6}}
-\newlabel{line:second-push}{{7}{6}}
 \newlabel{lemma:best-response}{{2}{6}}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Experiments}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}One-question Test's Scalability}{6}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Experiments}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Tests of Size 1: Scalability}{6}}
+\citation{Paruchuri08:Playing}
 \bibstyle{named}
 \bibdata{references.bib}
 \bibcite{Birkhoff46:Tres}{\citeauthoryear {Birkhoff}{1946}}
-\bibcite{Chang01:Birkhoff}{\citeauthoryear {Chang \bgroup \em  et al.\egroup }{2001}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Multi-question Test's Scalability}{7}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Utility}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Tests with Multiple Questions: Scalability}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Tester Utility}{7}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \textsc  {Optimal Test Strategy}'s complexity ($t, m_{\qopname  \relax m{max}}$ are the test size and max memory size respectively)}}{7}}
 \newlabel{tab:results}{{1}{7}}
-\@writefile{toc}{\contentsline {section}{\numberline {10}Conclusion}{7}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{7}}
 \@writefile{toc}{\contentsline {section}{\numberline {A}Counterexample to Zero-Sum Equivalence when the Test Taker is Stackelberg Leader}{7}}
 \newlabel{se:counterexample}{{A}{7}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Running time for solving an optimal tester strategy in multi-question tests. The parameter $m_{\text  {max}}$ is denoted as $m$ for short in the main title of each graph.}}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Running time for solving for an optimal tester strategy in multi-question tests. For brevity, the parameter $m_{\text  {max}}$ is denoted as $m$ in the title of each graph.}}{8}}
 \newlabel{fig:multi}{{3}{8}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Utility increase of optimal test strategies compared to the uniform test strategies. Let the optimal utility be $u^*$ and the uniform test's utility be $u_0$, the increase is $u^*/u_0-1$. The parameter $m_{\text  {max}}$ is denoted as $m$ for short in the main title of each graph.}}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces The increase in tester utility that the optimal test strategy gives as compared to the uniform test strategy. Letting the optimal utility be $u^*$ and the uniform test's utility be $u_0$, the number we show for the performance increase is $u^*/u_0-1$. For brevity, the parameter $m_{\text  {max}}$ is denoted as $m$ in the title of each graph.}}{8}}
 \newlabel{fig:utility}{{4}{8}}
+\bibcite{Chang01:Birkhoff}{\citeauthoryear {Chang \bgroup \em  et al.\egroup }{2001}}
 \bibcite{Chen09:Settling}{\citeauthoryear {Chen \bgroup \em  et al.\egroup }{2009}}
 \bibcite{Conitzer06:Computing}{\citeauthoryear {Conitzer and Sandholm}{2006}}
 \bibcite{Conitzer03:Nash}{\citeauthoryear {Conitzer and Sandholm}{2008}}
