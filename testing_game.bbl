@@ -22,8 +22,7 @@ Xi~Chen, Xiaotie Deng, and Shang-Hua Teng.
   Sandholm}{2006}]{Conitzer06:Computing}
 Vincent Conitzer and Tuomas Sandholm.
 \newblock Computing the optimal strategy to commit to.
-\newblock In {\em Proceedings of the ACM Conference on Electronic Commerce
-  (EC)}, pages 82--90, Ann Arbor, MI, USA, 2006.
+\newblock In {\em ACM EC}, pages 82--90, Ann Arbor, MI, USA, 2006.
 
 \bibitem[\protect\citeauthoryear{Conitzer and Sandholm}{2008}]{Conitzer03:Nash}
 Vincent Conitzer and Tuomas Sandholm.
@@ -53,7 +52,7 @@ Lloyd Dulmage and Israel Halperin.
 Jack Edmonds and Richard~M. Karp.
 \newblock Theoretical improvements in algorithmic efficiency for network flow
   problems.
-\newblock {\em J. ACM}, 19(2):248--264, April 1972.
+\newblock {\em Journal of the ACM}, 19(2):248--264, 1972.
 
 \bibitem[\protect\citeauthoryear{Gilboa and Zemel}{1989}]{Gilboa89:Nash}
 Itzhak Gilboa and Eitan Zemel.
@@ -64,7 +63,7 @@ Itzhak Gilboa and Eitan Zemel.
   Tarjan}{1988}]{Goldberg:1988:NAM:48014.61051}
 Andrew~V. Goldberg and Robert~E. Tarjan.
 \newblock A new approach to the maximum-flow problem.
-\newblock {\em J. ACM}, 35(4):921--940, October 1988.
+\newblock {\em Journal of the ACM}, 35(4):921--940, 1988.
 
 \bibitem[\protect\citeauthoryear{Han}{1997}]{Han199711}
 C.-C. Han.
@@ -84,9 +83,7 @@ Manish Jain, James Pita, Milind Tambe, Fernando Ord\'{o}{\~n}ez, Praveen
 Manish Jain, Christopher Kiekintveld, and Milind Tambe.
 \newblock Quality-bounded solutions for finite {B}ayesian {S}tackelberg games:
   Scaling up.
-\newblock In {\em Proceedings of the Tenth International Joint Conference on
-  Autonomous Agents and Multi-Agent Systems (AAMAS)}, pages 997--1004, Taipei,
-  Taiwan, 2011.
+\newblock In {\em AAMAS}, pages 997--1004, Taipei, Taiwan, 2011.
 
 \bibitem[\protect\citeauthoryear{Khachiyan}{1979}]{Khachiyan79}
 Leonid Khachiyan.
@@ -99,17 +96,14 @@ Christopher Kiekintveld, Manish Jain, Jason Tsai, James Pita, Fernando
   Ord{\'o}{\~n}ez, and Milind Tambe.
 \newblock Computing optimal randomized resource allocations for massive
   security games.
-\newblock In {\em Proceedings of the Eighth International Joint Conference on
-  Autonomous Agents and Multi-Agent Systems (AAMAS)}, pages 689--696, Budapest,
-  Hungary, 2009.
+\newblock In {\em AAMAS}, pages 689--696, Budapest, Hungary, 2009.
 
 \bibitem[\protect\citeauthoryear{Korzhyk \bgroup \em et al.\egroup
   }{2010}]{Korzhyk10:Complexity}
 Dmytro Korzhyk, Vincent Conitzer, and Ronald Parr.
 \newblock Complexity of computing optimal {S}tackelberg strategies in security
   resource allocation games.
-\newblock In {\em Proceedings of the National Conference on Artificial
-  Intelligence (AAAI)}, pages 805--810, Atlanta, GA, USA, 2010.
+\newblock In {\em AAAI}, pages 805--810, Atlanta, GA, USA, 2010.
 
 \bibitem[\protect\citeauthoryear{Korzhyk \bgroup \em et al.\egroup
   }{2011}]{Korzhyk11:Stackelberg}
@@ -119,6 +113,12 @@ Dmytro Korzhyk, Zhengyu Yin, Christopher Kiekintveld, Vincent Conitzer, and
   investigation of interchangeability, equivalence, and uniqueness.
 \newblock {\em Journal of Artificial Intelligence Research}, 41(2):297--327,
   2011.
+
+\bibitem[\protect\citeauthoryear{Letchford and
+  Conitzer}{2013}]{Letchford13:Solving}
+Joshua Letchford and Vincent Conitzer.
+\newblock Solving security games on graphs via marginal probabilities.
+\newblock 2013.
 
 \bibitem[\protect\citeauthoryear{Letchford \bgroup \em et al.\egroup
   }{2009}]{Letchford09:Learning}
@@ -133,9 +133,7 @@ Praveen Paruchuri, Jonathan~P. Pearce, Janusz Marecki, Milind Tambe, Fernando
   Ord{\'o}{\~n}ez, and Sarit Kraus.
 \newblock Playing games for security: {A}n efficient exact algorithm for
   solving {B}ayesian {S}tackelberg games.
-\newblock In {\em Proceedings of the Seventh International Joint Conference on
-  Autonomous Agents and Multi-Agent Systems (AAMAS)}, pages 895--902, Estoril,
-  Portugal, 2008.
+\newblock In {\em AAMAS}, pages 895--902, Estoril, Portugal, 2008.
 
 \bibitem[\protect\citeauthoryear{Pita \bgroup \em et al.\egroup
   }{2009}]{Pita08:Using}
@@ -150,8 +148,7 @@ Eric Shieh, Bo~An, Rong Yang, Milind Tambe, Craig Baldwin, Joseph DiRenzo, Ben
   Maule, and Garrett Meyer.
 \newblock {PROTECT}: A deployed game theoretic system to protect the ports of
   the {U}nited {S}tates.
-\newblock In {\em Proceedings of the Eleventh International Joint Conference on
-  Autonomous Agents and Multi-Agent Systems (AAMAS)}, Valencia, Spain, 2012.
+\newblock In {\em AAMAS}, Valencia, Spain, 2012.
 
 \bibitem[\protect\citeauthoryear{Tsai \bgroup \em et al.\egroup
   }{2009}]{Tsai09:IRIS}
@@ -159,9 +156,7 @@ Jason Tsai, Shyamsunder Rathi, Christopher Kiekintveld, Fernando Ordonez, and
   Milind Tambe.
 \newblock {I}{R}{I}{S} - a tool for strategic security allocation in
   transportation networks.
-\newblock In {\em Proceedings of the Eighth International Joint Conference on
-  Autonomous Agents and Multi-Agent Systems (AAMAS)}, pages 37--44, Budapest,
-  Hungary, 2009.
+\newblock In {\em AAMAS}, pages 37--44, Budapest, Hungary, 2009.
 
 \bibitem[\protect\citeauthoryear{{von Neumann}}{1928}]{Neumann28:Zur}
 John {von Neumann}.
@@ -173,5 +168,14 @@ John {von Neumann}.
 Bernhard {von Stengel} and Shmuel Zamir.
 \newblock Leadership games with convex strategy sets.
 \newblock {\em Games and Economic Behavior}, 69:446--457, 2010.
+
+\bibitem[\protect\citeauthoryear{Yin \bgroup \em et al.\egroup
+  }{2012}]{Yin12:TRUSTS}
+Zhengyu Yin, A~Jiang, M~Johnson, Milind Tambe, Christopher Kiekintveld, Kevin
+  Leyton-Brown, Tuomas Sandholm, and John Sullivan.
+\newblock Trusts: Scheduling randomized patrols for fare inspection in transit
+  systems.
+\newblock In {\em Proc. of the 24th Conference on Innovative Applications of
+  Artificial Intelligence, IAAI}, 2012.
 
 \end{thebibliography}
